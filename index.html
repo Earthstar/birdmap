@@ -40,12 +40,31 @@
             <button class="btn btn-default col-md-1" type="submit">Filter</button>
         </form>
       </div>
-      <div id="select-time" class="col-md-4">Time dropdown</div>
-      <div id="add-bird" class="col-md-3">Add bird</div>
+      <div class="col-md-2">View birds: </div>
+      <div id="select-time" class="col-md-2">
+        <select name="" id="time-select" class="form-control">
+          <option value="today">Today</option>
+          <option value="week">This week</option>
+          <option value="month">This month</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+      <button id="add-bird" type="button" class="btn btn-default col-md-3">Add bird</button>
 
     </div>
     <div id="map-pane" class="row">
-      <div class="col-md-3" style="background-color: blue;">Search results</div>
+      <div class="col-md-3">
+        <div class="filters">
+        <!-- This should contain a list of birds. Populate using handlebars? -->
+        <!-- How bootstrap checkbox? -->
+          <div class="input-group">
+            <span class="input-group-addon">
+              <input id="northern-cardinal" type="checkbox">
+            </span>
+            <label for="northern-cardinal">Northern Cardinal</label>
+          </div><!-- /input-group -->
+        </div>
+      </div>
       <div class="col-md-9" >
         <div id="map-canvas" style="height: 85vh;"></div>
       </div>
