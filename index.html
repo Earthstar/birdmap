@@ -33,34 +33,15 @@
     </div>
   </div>
   <div class="container">
-    <div id="header" class="row">
-      <div class="col-md-5">
+    <div class="row">
+      <div id="searchbar" class="col-md-4">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Filter by species, name, or location">
           <span class="input-group-btn">
             <button class="btn btn-default " type="button">Filter</button>
           </span>
         </div><!-- /input-group -->
-      </div>
-
-      <div class="col-md-2">View birds: </div>
-      <div id="select-time" class="col-md-2">
-        <select name="" id="time-select" class="form-control">
-          <option value="today">Today</option>
-          <option value="week">This week</option>
-          <option value="month">This month</option>
-          <option value="all">All</option>
-        </select>
-      </div>
-      <button id="add-bird" type="button" class="btn btn-default col-md-3">Add bird</button>
-
-    </div>
-    <div id="map-pane" class="row">
-      <div class="col-md-3">
-        <div class="filters">
-        <!-- This should contain a list of birds. Populate using handlebars? -->
-        <!-- How bootstrap checkbox? -->
-          <div class="input-group">
+        <div class="input-group">
             <span class="input-group-addon">
               <input id="northern-cardinal" type="checkbox">
             </span>
@@ -72,13 +53,27 @@
             </span>
             <input type="text" class="form-control">
           </div><!-- /input-group -->
-        </div>
       </div>
-      <div class="col-md-9" >
+      <div class="col-md-8">
+        <!-- Nest some columns -->
+        <div class="row">
+          <div class="col-md-4">View birds:</div>
+          <div class="col-md-4">
+            <select name="" id="time-select" class="form-control">
+              <option value="today">Today</option>
+              <option value="week">This week</option>
+              <option value="month">This month</option>
+              <option value="all">All</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button id="add-bird" type="button" class="btn btn-default">Add bird</button>
+          </div>
+        </div>
         <div id="map-canvas" style="height: 85vh;"></div>
       </div>
-
     </div>
   </div>
+
 </body>
 </html>
