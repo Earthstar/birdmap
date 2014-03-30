@@ -12,13 +12,28 @@
   <script type="text/javascript">
   $(function() {
     function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(42.3736, -71.1106),
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-      }
+      // Create a map
+      var center = new google.maps.LatLng(42.3736, -71.1106);
+      var mapOptions = {
+        center: center,
+        zoom: 8
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+          mapOptions);
+      // Create a content box
+      var contentString = "Hello bird!";
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+      })
+      var marker = new google.maps.Marker({
+        position: center,
+        map: map,
+        title: "Hello World"
+      })
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
     google.maps.event.addDomListener(window, 'load', initialize);
   })
   </script>
@@ -32,7 +47,7 @@
       <div class="col-md-11" style="text-align: right">Username logout</div>
     </div>
   </div>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <div id="searchbar" class="col-md-4">
         <div class="input-group">
