@@ -13,7 +13,7 @@
   $(function() {
     function initialize() {
         var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
+          center: new google.maps.LatLng(42.3736, -71.1106),
           zoom: 8
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -29,20 +29,27 @@
   <div class="container-fluid">
     <div id="header" class="row">
       <div class="col-md-1">birdOcular</div>
-      <div class="col-md-11">Username logout</div>
+      <div class="col-md-11" style="text-align: right">Username logout</div>
     </div>
   </div>
   <div class="container">
     <div id="header" class="row">
+      <div id="search" >
+        <form role="form">
+            <input type="text" class="form-control col-md-3" id="search" placeholder="Filter by species, name, or location" style="width: 25vw;">
+            <button class="btn btn-default col-md-1" type="submit">Filter</button>
+        </form>
+      </div>
+      <div id="select-time" class="col-md-4">Time dropdown</div>
       <div id="add-bird" class="col-md-3">Add bird</div>
-      <div id="select-time" class="col-md-3">Time dropdown</div>
-      <div id="search" class="col-md-6">Search bar</div>
+
     </div>
     <div id="map-pane" class="row">
-      <div class="col-md-8" >
-        <div id="map-canvas" style="height: 90vh;"></div>
+      <div class="col-md-3" style="background-color: blue;">Search results</div>
+      <div class="col-md-9" >
+        <div id="map-canvas" style="height: 85vh;"></div>
       </div>
-      <div class="col-md-4">Search results</div>
+
     </div>
   </div>
 </body>
