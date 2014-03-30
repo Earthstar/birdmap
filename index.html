@@ -34,12 +34,15 @@
   </div>
   <div class="container">
     <div id="header" class="row">
-      <div id="search" >
-        <form role="form">
-            <input type="text" class="form-control col-md-3" id="search" placeholder="Filter by species, name, or location" style="width: 25vw;">
-            <button class="btn btn-default col-md-1" type="submit">Filter</button>
-        </form>
+      <div class="col-md-5">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Filter by species, name, or location">
+          <span class="input-group-btn">
+            <button class="btn btn-default " type="button">Filter</button>
+          </span>
+        </div><!-- /input-group -->
       </div>
+
       <div class="col-md-2">View birds: </div>
       <div id="select-time" class="col-md-2">
         <select name="" id="time-select" class="form-control">
@@ -62,6 +65,12 @@
               <input id="northern-cardinal" type="checkbox">
             </span>
             <label for="northern-cardinal">Northern Cardinal</label>
+          </div><!-- /input-group -->
+          <div class="input-group">
+            <span class="input-group-addon">
+              <input type="checkbox">
+            </span>
+            <input type="text" class="form-control">
           </div><!-- /input-group -->
         </div>
       </div>
