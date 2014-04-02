@@ -1,26 +1,24 @@
-{
-  "birds": [
-    {
-      "commonName": "Northern Cardinal",
-      "speciesName": "Cardinalis cardinalis",
-      "userSpotted": "cool_bird01",
-      "position": {
-        "latitude": 42.360447,
-        "longitude": -71.086986
-      },
-      "date": "Sun Mar 30 2014 16:18:08 GMT-0400 (EDT)",
-      "comment": "What a cool bird!"
+[
+  {
+    "commonName": "Northern Cardinal",
+    "speciesName": "Cardinalis cardinalis",
+    "userSpotted": "cool_bird01",
+    "position": {
+      "latitude": 42.360447,
+      "longitude": -71.086986
     },
-    {
-      "commonName": "House Sparrow",
-      "speciesName": "Passer domesticus",
-      "userSpotted": "cool_bird01",
-      "position": {
-        "latitude": 42.360448,
-        "longitude": -71.086987
-      },
-      "date": "Sun Mar 30 2014 16:21:45 GMT-0400 (EDT)",
-      "comment": "Little brown bird"
-    }
-  ]
-}
+    "date": "Sun Mar 30 2014 16:18:08 GMT-0400 (EDT)",
+    "comment": "What a cool bird!"
+  },
+  {
+    "commonName": "House Sparrow",
+    "speciesName": "Passer domesticus",
+    "userSpotted": "cool_bird01",
+    "position": {
+      "latitude": 42.360448,
+      "longitude": -71.086987
+    },
+    "date": "Sun Mar 30 2014 16:21:45 GMT-0400 (EDT)",
+    "comment": "Little brown bird"
+  }
+]
