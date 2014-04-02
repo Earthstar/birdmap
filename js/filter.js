@@ -31,7 +31,14 @@ var Filter = {
 
   // user - string of user name. Case-sensitive
   byUser: function(sightings, user) {
-
+    var matches = [];
+    for (var i = sightings.length - 1; i >= 0; i--) {
+      var sightingUser = sightings[i].userSpotted;
+      if (sightingUser === user) {
+        matches.push(sightings[i])
+      }
+    };
+    return matches;
   },
 
   // bounds - a google.maps.LatLngBounds object representing area
