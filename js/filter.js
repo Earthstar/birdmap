@@ -43,6 +43,13 @@ var Filter = {
 
   // bounds - a google.maps.LatLngBounds object representing area
   byLocation: function(sightings, bounds) {
-
+    var matches = [];
+    for (var i = sightings.length - 1; i >= 0; i--) {
+      var sightingPosition = sightings[i].position;
+      if (bounds.contains(sightingPosition)) {
+        matches.push(sightings[i]);
+      }
+    };
+    return matches;
   },
 }
