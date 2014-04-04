@@ -7,7 +7,9 @@
   userSpotted: string,
   position: google.maps.LatLng,
   date: Date,
-  comment: string
+  comment: string,
+  image: string of location of file,
+  attribution: string of source, photographer
 }
 */
 // Json is already parsed
