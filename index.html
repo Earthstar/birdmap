@@ -16,6 +16,8 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
+  // Global variable map to access anywhere
+  var map;
   $(function() {
     function initialize() {
       // Create a map
@@ -24,7 +26,7 @@
         center: center,
         zoom: 8
       };
-      var map = new google.maps.Map(document.getElementById('map-canvas'),
+      map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
       // Create a content box
       var contentString = 'Hello bird!';
@@ -59,6 +61,15 @@
     $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
 
   })
+  </script>
+  <script id="bird-info-popup-template" type="text/x-handlebars-template">
+  <div>
+    <img src="{{image}}" alt="image of {{commonName}}"><br>
+    <span>Common Name: {{commonName}}</span><br>
+    <span>Species Name: {{speciesName}}</span><br>
+    <span>Date: {{date}}</span><br>
+    <span>Comment: {{comment}}</span><br>
+  </div>
   </script>
 
 </head>
