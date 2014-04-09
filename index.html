@@ -8,10 +8,9 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false">
     </script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-  <script type="text/javascript" src="birdnames.json"></script>
-  <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
+  <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
+  <script type="text/javascript" src="birdnames.json"></script>
   <script type="text/javascript" src="js/filter.js"></script>
   <script type="text/javascript" src="js/loadBirds.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -48,7 +47,7 @@
     //var keys = Object.keys(current_dict);
     //var tags = keys;
     var tags = ["Northern Cardinal","Cardinalis cardinalis","cool_bird01","House Sparrow","Passer domesticus"];
-   
+
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
