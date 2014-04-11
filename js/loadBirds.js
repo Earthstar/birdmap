@@ -13,8 +13,9 @@
 }
 */
 // Json is already parsed
-$(function() {
+// google-chrome --allow-file-access-from-files
 
+$(function() {
   function processBirds(json) {
     var sightings = [];
     for (var i = json.length - 1; i >= 0; i--) {
@@ -29,29 +30,6 @@ $(function() {
     return sightings
   }
 
-  // Given a sighting object, displays on map
-  function displayBird(sighting) {
-    console.log("in display bird")
-    var source = $("#bird-info-popup-template").html();
-    var popupTemplate = Handlebars.compile(source);
-    var html = popupTemplate(sighting)
-    console.log(html)
-    var infoWindow = new google.maps.InfoWindow({
-      content: html
-    })
-    var position = sighting.position;
-    console.log(position)
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: sighting.commonName
-    })
-    google.maps.event.addListener(marker, "click", function() {
-      infoWindow.open(map, marker)
-    })
-    console.log("after display bird")
-  }
-
   var birdSightings;
 
   $.getJSON('birds.json', function(json) {
@@ -59,6 +37,7 @@ $(function() {
     console.log(birdSightings);
     // Find all birds that are on the screen
     // display sightings
-    displayBird(birdSightings[0])
+    Display.init()
+    Display.birdSightings(birdSightings)
   })
 })
