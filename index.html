@@ -73,30 +73,10 @@
   </div>
   <div class="container-fluid">
     <div class="row">
-      <div id="searchbar" class="col-md-4">
-        <div class="input-group">
-          <input id="input_bar" type="text" class="form-control" placeholder="Filter by species, name, or location">
-          <span class="input-group-btn">
-            <button class="btn btn-default " type="button">Filter</button>
-          </span>
-        </div><!-- /input-group -->
-        <div class="input-group">
-            <span class="input-group-addon">
-              <input id="northern-cardinal" type="checkbox">
-            </span>
-            <label for="northern-cardinal">Northern Cardinal</label>
-          </div><!-- /input-group -->
-          <div class="input-group">
-            <span class="input-group-addon">
-              <input type="checkbox">
-            </span>
-            <input type="text" class="form-control">
-          </div><!-- /input-group -->
-      </div>
-      <div class="col-md-8">
-        <!-- Nest some columns -->
-        <div class="row">
-          <div class="col-md-4">View birds:</div>
+      <div id="searchbar" class="row">
+          <div class="col-md-4">
+            <button id="add-bird" type="button" class="btn btn-default">Add bird</button>
+          </div>
           <div class="col-md-4">
             <select name="" id="time-select" class="form-control">
               <option value="today">Today</option>
@@ -106,10 +86,38 @@
             </select>
           </div>
           <div class="col-md-4">
-            <button id="add-bird" type="button" class="btn btn-default">Add bird</button>
+            <div class="input-group">
+              <input id="input_bar" type="text" class="form-control" placeholder="Filter by species, name, or location">
+              <span class="input-group-btn">
+                <button class="btn btn-default " type="button">Filter</button>
+              </span>
+            </div><!-- /input-group -->
+            
           </div>
         </div>
-        <div id="map-canvas" style="height: 85vh;"></div>
+      </div>
+      <div class="row" style="position:absolute; z-index:1;">
+          <div class="col-md-4"></div>
+          <div class="col-md-4"></div>
+          <div class="col-md-4" style="background-color:rgba(255,255,255,.6);">
+              <div class="input-group">
+                    <span class="input-group-addon">
+                      <input id="northern-cardinal" type="checkbox">
+                    </span>
+                    <label for="northern-cardinal">Northern Cardinal</label>
+                  </div><!-- /input-group -->
+
+                  <div class="input-group">
+                    <span class="input-group-addon">
+                      <input type="checkbox">
+                    </span>
+                    <input type="text" class="form-control">
+                  </div><!-- /input-group -->
+        </div>
+      </div>
+      <div class="row" style="z-index:0;">
+        <!-- Nest some columns -->
+        <div id="map-canvas" style="height: 94vh;"></div>
       </div>
     </div>
   </div>
