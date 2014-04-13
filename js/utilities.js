@@ -1,16 +1,29 @@
 // Things I don't know where else to put.
 var Birdmap = {
-  // Returns a list of strings of all bird species in sightings
+  // Returns a list of objects of all bird species in sightings
+  // Not in any particular order
+  // format:
+  /*
+  {
+  commonName: string,
+  speciesName: string
+  }
+  */
   getBirdSpecies: function(sightings) {
-    var speciesList = [];
+    var alreadyFound = [];
+    var toReturn = [];
     for (var i = sightings.length - 1; i >= 0; i--) {
-      name = sightings[i].commonName;
+      name = sightings[i].speciesName;
       // if species not in list, add it to list
-      if (speciesList.indexOf(name) < 0) {
-        speciesList.push(name);
+      if (alreadyFound.indexOf(name) < 0) {
+        toReturn.push({
+          speciesName: name,
+          commonName: sightings[i].commonName
+        });
+        alreadyFound.push(name);
       }
     };
-    return speciesList;
+    return toReturn;
   },
 
 // Format of bird object
