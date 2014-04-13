@@ -22,19 +22,23 @@ $(function() {
       var sighting = json[i];
       var position = new google.maps.LatLng(sighting.position.latitude,
         sighting.position.longitude);
-      var date = new Date(sighting.date);
       sighting.position = position;
-      sighting.date = date;
-      sightings.push(sighting)
+      // If sighting has a time element, concatenate
+      if (sighting.time) {
+        var datestring = sighting.date + "T" + sighting.time + '-05:00';
+      } else {
+        var datestring = sighting.date;
+      }
+      sighting.date = new Date(Date.parse(datestring));
+      sightings.push(sighting);
     };
     return sightings
   }
 
   var birdSightings;
 
-  $.getJSON('birds.json', function(json) {
+  $.getJSON('smallbirds.json', function(json) {
     birdSightings = processBirds(json);
-    console.log(birdSightings);
     // Find all birds that are on the screen
     // display sightings
     Display.init()
