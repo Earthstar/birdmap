@@ -8,17 +8,21 @@
       "longitude": -71.086986
     },
     "date": "Sun Mar 30 2014 16:18:08 GMT-0400 (EDT)",
-    "comment": "What a cool bird!"
+    "comment": "What a cool bird!",
+    "image": "images/northern_cardinal_stephen_a_wolfe.jpg",
+    "attribution": "Creative Commons Attribution license @ Flickr Stephen A. Wolfe"
   },
   {
     "commonName": "House Sparrow",
     "speciesName": "Passer domesticus",
     "userSpotted": "santa",
     "position": {
-      "latitude": 42.360448,
-      "longitude": -71.086987
+      "latitude": 42.360550,
+      "longitude": -71.086990
     },
     "date": "Sun Mar 30 2014 16:21:45 GMT-0400 (EDT)",
-    "comment": "Little brown bird"
+    "comment": "Little brown bird",
+    "image": "",
+    "attribution": ""
   }
 ]
