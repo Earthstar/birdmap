@@ -37,11 +37,6 @@
       var infoWindow = new google.maps.InfoWindow({
         content: contentString
       })
-      var marker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Hello World'
-      })
       google.maps.event.addListener(marker, 'click', function() {
         infoWindow.open(map, marker);
       });
@@ -67,13 +62,20 @@
   })
   </script>
   <script id="bird-info-popup-template" type="text/x-handlebars-template">
-  <div>
-    <img src="{{image}}" alt="image of {{commonName}}"><br>
-    <span>Common Name: {{commonName}}</span><br>
-    <span>Species Name: {{speciesName}}</span><br>
-    <span>Date: {{date}}</span><br>
-    <span>User: {{userSpotted}}</span><br>
-    <span>Comment: {{comment}}</span><br>
+  <div class="bird-popup">
+      <div class="row">
+          <div class="col-md-2">
+                <img src="{{image}}" alt="image of {{commonName}}"><br></div>
+          <div class="col-md-10"> 
+              <dl class="dl-horizontal">
+                  <dt>Common Name:</dt> <dd>{{commonName}}</dd>
+                  <dt>Species Name:</dt> <dd>{{speciesName}}</dd>
+                  <dt>Date:</dt> <dd>{{date}}</dd>
+                  <dt>User:</dt> <dd>{{userSpotted}}</dd>
+                  <dt>Comment:</dt> <dd>{{comment}}</dd>
+              </dl>
+          </div>
+      </div>
   </div>
   </script>
 
