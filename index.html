@@ -140,37 +140,40 @@
   <!-- Separate container for add bird overlay -->
   <div id="add-bird-overlay" class="overlay">
     <div class="container" >
-      <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
-        <div class="form-group">
-          <label for="common-name">Common name</label>
-          <input type="text" placeholder="Common name" class="form-control" id="common-name">
-        </div>
-        <div class="form-group">
-          <label for="species-name">Species name</label>
-          <input type="text" placeholder="Species name" class="form-control" id="species-name">
-        </div>
-        <div class="form-group">
-          <label for="sighting-date">Date</label>
-          <input type="date" class="form-control" id="sighting-date">
-        </div>
-        <div class="form-group">
-          <label for="sighting-time">Time</label>
-          <input type="time" id="sighting-time" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="sighting-location">Location</label>
-          <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
-        </div>
-        <div class="form-group">
-          <label for="bird-pic">Insert picture</label>
-          <input type="file" id="bird-pic" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="sighting-comments">Comments</label>
-          <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
-        </div>
-        <button type="submit" class="btn btn-default">Add bird</button>
-      </form>
+      <div id="add-bird-form-bg">
+        <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
+          <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+          <div class="form-group">
+            <label for="common-name">Common name</label>
+            <input type="text" placeholder="Common name" class="form-control" id="common-name">
+          </div>
+          <div class="form-group">
+            <label for="species-name">Species name</label>
+            <input type="text" placeholder="Species name" class="form-control" id="species-name">
+          </div>
+          <div class="form-group">
+            <label for="sighting-date">Date</label>
+            <input type="date" class="form-control" id="sighting-date">
+          </div>
+          <div class="form-group">
+            <label for="sighting-time">Time</label>
+            <input type="time" id="sighting-time" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="sighting-location">Location</label>
+            <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
+          </div>
+          <div class="form-group">
+            <label for="bird-pic">Insert picture</label>
+            <input type="file" id="bird-pic" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="sighting-comments">Comments</label>
+            <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Add bird</button>
+        </form>
+      </div>
     </div>
   </div>
   <script>
@@ -178,6 +181,7 @@
     // I can make the overlay appear, but I can't make the mask work
     $("#add-bird").overlay({
       top: 0,
+      close: "#close-add-bird",
     });
   })
   </script>
