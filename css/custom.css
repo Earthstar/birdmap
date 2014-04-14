@@ -16,7 +16,13 @@ body{
 }
 
 #filter-list{
-    background-color:rgba(255,255,255,.6);
+    padding:0;
+    padding-right:3%;
+}
+
+#filter-list div{
+    background-color:rgba(255,255,255,.75);
+    margin:1%;
 }
 
 #add-bird{
