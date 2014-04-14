@@ -1,0 +1,50 @@
+body{
+    font-family: verdana;
+}
+
+#header{ //not currently used
+    background-color:#aaa;
+    color:#fff;
+    padding:1%;
+    vertical-align: middle;
+}
+
+#filter-options{
+    background-color:#aaa;
+    color:#fff;
+    padding:1%;
+}
+
+#filter-list{
+    background-color:rgba(255,255,255,.6);
+}
+
+#add-bird{
+    width:100%;
+}
+
+.overlay {
+  top:0;
+  display:none;
+  z-index:1000;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4)
+}
+
+#add-bird-form {
+  /*Reset opacity for form*/
+  background: white;
+}
+
+.simple_overlay .close {
+  background-color: #FFFFFF;
+  /*position:absolute;
+  right:-15px;
+  top:-15px;
+  cursor:pointer;
+  height:35px;
+  width:35px;*/
+  height: 35px;
+  width:35px;
+}
