@@ -141,6 +141,7 @@
   <div id="add-bird-overlay" class="overlay">
     <div class="container" >
       <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
+        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
         <div class="form-group">
           <label for="common-name">Common name</label>
           <input type="text" placeholder="Common name" class="form-control" id="common-name">
@@ -178,6 +179,7 @@
     // I can make the overlay appear, but I can't make the mask work
     $("#add-bird").overlay({
       top: 0,
+      close: "#close-add-bird",
     });
   })
   </script>
