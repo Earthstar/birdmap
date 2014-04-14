@@ -23,6 +23,5 @@ $(function() {
     // display sightings
     Display.init()
     Display.birdSightings(birdSightings)
-    console.log(Birdmap.getBirdSpecies(birdSightings))
   })
 })
