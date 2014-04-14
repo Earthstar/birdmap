@@ -39,6 +39,11 @@ body{
 #add-bird-form {
   /*Reset opacity for form*/
   background: white;
+  border-radius: 5px;
+}
+
+#add-bird-form .form-group{
+  padding: 0 5%;
 }
 
 .simple_overlay .close {
