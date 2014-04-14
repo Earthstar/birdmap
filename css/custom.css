@@ -2,20 +2,23 @@ body{
     font-family: verdana;
 }
 
-#header{
+#header{ //not currently used
     background-color:#aaa;
     color:#fff;
     padding:1%;
-    padding-bottom:0;
+    vertical-align: middle;
 }
 
 #filter-options{
     background-color:#aaa;
     color:#fff;
     padding:1%;
-    padding-top:0;
 }
 
 #filter-list{
     background-color:rgba(255,255,255,.6);
+}
+
+#add-bird{
+    width:100%;
 }
