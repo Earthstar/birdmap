@@ -14,6 +14,7 @@
   <script type="text/javascript" src="js/utilities.js"></script>
   <script type="text/javascript" src="js/loadBirds.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
   // Global variable map to access anywhere
@@ -75,20 +76,51 @@
 
 </head>
  <!-- Col should add up to 12 -->
-<body>
+<body></body>
   <div class="container-fluid">
+      
+    <!-- header -->
     <div id="header" class="row">
-      <div class="col-md-1">birdOcular</div>
-      <div class="col-md-11" style="text-align: right">Username logout</div>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div id="searchbar" class="row">
+          <div class="col-md-2">
+            <button id="add-bird" type="button" class="btn btn-default">Add bird</button></div>
           <div class="col-md-4">
+              <big><big>birdOcular</big></big>
+            </div>
+          <div class="col-md-6">
+            <div class="row" style="text-align:right;"><small>Username &nbsp; - &nbsp; logout</small></div>
+            <div class="row">
+              <div class="col-md-4">
+                  <select name="" id="time-select" class="form-control">
+                      <option value="today">Today</option>
+                      <option value="week">This week</option>
+                      <option value="month">This month</option>
+                      <option value="all">All</option>
+                  </select>
+                </div>
+              <div class="col-md-8">
+                    <div class="input-group">
+                      <input id="input_bar" type="text" class="form-control" placeholder="Filter by species, name, or location">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default " type="button">Filter</button>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        
+        
+        <!--
+          <div class="col-md-9">
+            birdOcular</div>
+          <div class="col-md-3" style="text-align:right;">
+            Username &nbsp; - &nbsp; logout</div>
+    </div>
+    <div class="row" id="filter-options">
+          <div class="col-md-2">
             <button id="add-bird" type="button" class="btn btn-default">Add bird</button>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4"></div>
+          <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
               <option value="today">Today</option>
               <option value="week">This week</option>
@@ -102,15 +134,16 @@
               <span class="input-group-btn">
                 <button class="btn btn-default " type="button">Filter</button>
               </span>
-            </div><!-- /input-group -->
-            
+            </div>
           </div>
-        </div>
+        -->
       </div>
+      
+      <!--list of filters, overlayed on map (for now) -->
       <div class="row" style="position:absolute; z-index:1;">
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
-          <div class="col-md-4" style="background-color:rgba(255,255,255,.6);">
+          <div class="col-md-4" id="filter-list">
               <div class="input-group">
                     <span class="input-group-addon">
                       <input id="northern-cardinal" type="checkbox">
@@ -126,7 +159,9 @@
                   </div><!-- /input-group -->
         </div>
       </div>
-      <div class="row" style="z-index:0;">
+      
+      <!--map-->
+      <div class="row" style="z-index:0;" id="map">
         <!-- Nest some columns -->
         <div id="map-canvas" style="height: 94vh;"></div>
       </div>

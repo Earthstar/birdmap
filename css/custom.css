@@ -1,0 +1,21 @@
+body{
+    font-family: verdana;
+}
+
+#header{
+    background-color:#aaa;
+    color:#fff;
+    padding:1%;
+    padding-bottom:0;
+}
+
+#filter-options{
+    background-color:#aaa;
+    color:#fff;
+    padding:1%;
+    padding-top:0;
+}
+
+#filter-list{
+    background-color:rgba(255,255,255,.6);
+}
