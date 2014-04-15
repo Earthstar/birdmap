@@ -7,27 +7,21 @@
   userSpotted: string,
   position: google.maps.LatLng,
   date: Date,
-  comment: string
+  comment: string,
+  image: string of location of file,
+  attribution: string of source, photographer
 }
 */
 // Json is already parsed
-function processBirds(json) {
-  var sightings = [];
-  for (var i = json.length - 1; i >= 0; i--) {
-    var sighting = json[i];
-    var position = new google.maps.LatLng(sighting.position.latitude,
-      sighting.position.longitude);
-    var date = new Date(sighting.date);
-    sighting.position = position;
-    sighting.date = date;
-    sightings.push(sighting)
-  };
-  return sightings
-}
+// google-chrome --allow-file-access-from-files
 
-var birdSightings;
-
-$.getJSON('birds.json', function(json) {
-  birdSightings = processBirds(json);
-  console.log(birdSightings);
+$(function() {
+  var birdSightings;
+  $.getJSON('smallbirds.json', function(json) {
+    birdSightings = Birdmap.processBirds(json);
+    // Find all birds that are on the screen
+    // display sightings
+    Display.init()
+    Display.birdSightings(birdSightings)
+  })
 })

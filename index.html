@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 
 <html>
-<!-- TEAM MANGO FTW -->
+<!-- TEAM MANGO -->
 <head>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <!-- Adds deprecated functions so we can use overlay -->
+  <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
   <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false">
     </script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-  <script type="text/javascript" src="birdnames.json"></script>
-  <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
-  <script type="text/javascript" src="js/filter.js"></script>
+  <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+  <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
+  <script type="application/json" src="birdnames.json"></script>
+  <script type="text/javascript" src="js/utilities.js"></script>
   <script type="text/javascript" src="js/loadBirds.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
+  // Global variable map to access anywhere
+  var map;
   $(function() {
     function initialize() {
       // Create a map
@@ -26,7 +31,7 @@
         center: center,
         zoom: 8
       };
-      var map = new google.maps.Map(document.getElementById('map-canvas'),
+      map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
       // Create a content box
       var contentString = 'Hello bird!';
@@ -52,7 +57,7 @@
     //var keys = Object.keys(current_dict);
     //var tags = keys;
     var tags = ["Northern Cardinal","Cardinalis cardinalis","cool_bird01","House Sparrow","Passer domesticus"];
-   
+
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
@@ -79,10 +84,20 @@
 
   })
   </script>
+  <script id="bird-info-popup-template" type="text/x-handlebars-template">
+  <div>
+    <img src="{{image}}" alt="image of {{commonName}}"><br>
+    <span>Common Name: {{commonName}}</span><br>
+    <span>Species Name: {{speciesName}}</span><br>
+    <span>Date: {{date}}</span><br>
+    <span>User: {{userSpotted}}</span><br>
+    <span>Comment: {{comment}}</span><br>
+  </div>
+  </script>
 
 </head>
  <!-- Col should add up to 12 -->
-<body>
+<body></body>
   <div class="container-fluid">
     <div id="header" class="row">
       <div class="col-md-1">birdOcular</div>
@@ -115,7 +130,16 @@
         <!-- Nest some columns -->
         <div class="row">
           <div class="col-md-4">View birds:</div>
+
+    <!-- header -->
+    <div class="row" id="filter-options">
+          <div class="col-md-2">
+            <button id="add-bird" rel="#add-bird-overlay" type="button" class="btn btn-default">Add bird</button>
+          </div>
           <div class="col-md-4">
+              <big><big><big>birdOcular <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
+                &nbsp; Username - logout</div>
+          <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
               <option value="today">Today</option>
               <option value="week">This week</option>
@@ -124,13 +148,101 @@
             </select>
           </div>
           <div class="col-md-4">
-            <button id="add-bird" type="button" class="btn btn-default">Add bird</button>
+            <div class="input-group">
+              <input id="input_bar" type="text" class="form-control" placeholder="Filter by species, name, or location">
+              <span class="input-group-btn">
+                <button class="btn btn-default " type="button">Filter</button>
+              </span>
+            </div><!-- /input-group -->
           </div>
+      </div>
+
+      <!--list of filters, overlayed on map (for now) -->
+      <div class="row" style="position:absolute; z-index:1;">
+          <div class="col-md-4"></div>
+          <div class="col-md-4"></div>
+          <div class="col-md-4" id="filter-list">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input id="northern-cardinal" type="checkbox">
+                </span>
+                <span class="input-group-addon filter-list-species"> Northern Cardinal </span>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </span>
+              </div><!-- /input-group -->
+
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="checkbox">
+                </span>
+                <span class="input-group-addon filter-list-species"> Other bird </span>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </span>
+              </div><!-- /input-group -->
         </div>
-        <div id="map-canvas" style="height: 85vh;"></div>
+      </div>
+
+      <!--map-->
+      <div class="row" style="z-index:0;" id="map">
+        <!-- Nest some columns -->
+        <div id="map-canvas" style="height: 94vh;"></div>
       </div>
     </div>
   </div>
 
+  <!-- Separate container for add bird overlay -->
+  <div id="add-bird-overlay" class="overlay">
+    <div class="container" >
+      <div id="add-bird-form-bg">
+        <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
+          <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+          <div class="form-group">
+            <label for="common-name">Common name</label>
+            <input type="text" placeholder="Common name" class="form-control" id="common-name">
+          </div>
+          <div class="form-group">
+            <label for="species-name">Species name</label>
+            <input type="text" placeholder="Species name" class="form-control" id="species-name">
+          </div>
+          <div class="form-group">
+            <label for="sighting-date">Date</label>
+            <input type="date" class="form-control" id="sighting-date">
+          </div>
+          <div class="form-group">
+            <label for="sighting-time">Time</label>
+            <input type="time" id="sighting-time" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="sighting-location">Location</label>
+            <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
+          </div>
+          <div class="form-group">
+            <label for="bird-pic">Insert picture</label>
+            <input type="file" id="bird-pic" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="sighting-comments">Comments</label>
+            <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
+          </div>
+          <button type="submit" class="btn btn-default">Add bird</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+  $(function() {
+    // I can make the overlay appear, but I can't make the mask work
+    $("#add-bird").overlay({
+      top: 0,
+      close: "#close-add-bird",
+    });
+  })
+  </script>
 </body>
 </html>
