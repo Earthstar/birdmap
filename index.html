@@ -52,31 +52,27 @@
 
     //AUTOCOMPLETE
     
-    var listOfAllBirds = [];
     var combinedList = [];
     var tags = [];
-    var placesList = ["zzzzzzz","aaron","Atlantic fish","Atlantic marble","bebop","Black Jay","Boxius beer","Cardinalis cardinalis","cool_bird00","cool_bird01","diamond","Encephalitis","Encephalogram","Finnix","garr","garrrr","Haymarket","House Sparrow","instagram","Jay","Jungle Jay","lazy dog","mama","mary","Northern Cardinal","Northern Jay","oklahoma","Passer domesticus","rabbit","Southern Cardinal","taylor","tilly taylor","uber","vietnam","wisconsin","woohoo","x-ray","YYY Jay","Zebra"];
+    var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantis78","richard","peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
    
      
    
 
     $( "#input_bar" ).keyup(function(){ 
         //$(this).val();
-        combinedList = placesList.concat(listOfAllBirds);
+        $( ".autocomplete-removable" ).remove();
+        combinedList = userList.concat(birdsOnMap);
         tags = combinedList.sort(function (a, b) {
-            return b.toLowerCase().localeCompare(a.toLowerCase());
+            return a.toLowerCase().localeCompare(b.toLowerCase());
         });
-        $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='wow' type='checkbox'></span><span class='input-group-addon filter-list-species'>wow</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
     });
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-	    response( $.grep( placesList, function( item ){
+	    response( $.grep( combinedList, function( item ){
                 var matches = matcher.test( item );
-                if (item == "zzzzzzz") {
-                    $( ".autocomplete-removable" ).remove();
-                }
                 if (matches) {
                     addBirdsToFilterDisplay(item,'');
                 }
@@ -191,7 +187,7 @@
       // display sightings
       Display.init();
       Display.birdSightings(birdSightings);
-        listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
+        var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
         for(var i=0; i<listOfAllBirds.length; i++){
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
