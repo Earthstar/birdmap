@@ -2,6 +2,13 @@ body{
     font-family: verdana;
 }
 
+a{
+    color:white;
+}a:hover{
+    color:#666;
+    text-decoration:none;
+}
+
 #header{ //not currently used
     background-color:#aaa;
     color:#fff;
@@ -58,4 +65,20 @@ body{
   width:35px;*/
   height: 35px;
   width:35px;
+}
+
+.filter-list-check{
+    padding:0;
+    width:15%;
+}
+.filter-list-species{
+    text-align:left;
+    padding:0;
+    padding-left:3%;
+    width:80%;
+}
+
+#filter-list .row{
+    border-radius:3%;
+    padding:0%;
 }

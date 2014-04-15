@@ -38,11 +38,14 @@
       var infoWindow = new google.maps.InfoWindow({
         content: contentString
       })
+      var marker = new google.maps.Marker({
+        position: center,
+        map: map,
+        title: 'Hello World'
+      })
       google.maps.event.addListener(marker, 'click', function() {
         infoWindow.open(map, marker);
       });
-
-       $( "#searchbar" ).append("<div class='input-group'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>Southern Cardinal</label></div>");
 
     }
     google.maps.event.addDomListener(window, 'load', initialize);
@@ -65,14 +68,14 @@
                     $( ".autocomplete-removable" ).remove();
                 }
                 if (matches) {
-                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>"+item+"</label></div>");
+                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+item+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+item+"</span><span class='input-group-btn'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
                 }
 		return false;
 	    }) );
 	}
     });
     $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
-
+var availableTags=randomTags;
     $( "#input-bar" ).autocomplete({
         source: availableTags,
         messages: {
@@ -81,9 +84,23 @@
         }
     });
     
-   
+   //TIME FILTER
+      $('#time-select').on('change',function(e){
+          console.log($(e.currentTarget).val());
+          Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00"));
+      });
+      
+      $('.filter-list-check input').on('change',function(e){
+              console.log("click");
+          var currentBird=$(e.currentTarget).prop('id');
+          var isChecked=$(e.currentTarget).prop('checked');
+          if(isChecked){
+              Filter.bySpecies(birdSightings,currentBird);
+              console.log(currentBird);
+            }
+      });
 
-  })
+  });
   </script>
   <script id="bird-info-popup-template" type="text/x-handlebars-template">
   <div class="bird-popup">
@@ -114,7 +131,7 @@
             <button id="add-bird" rel="#add-bird-overlay" type="button" class="btn btn-default">Add bird</button>
           </div>
           <div class="col-md-4">
-              <big><big><big>birdOcular <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
+              <big><big><big><a href="index.html">birdOcular</a> <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
                 &nbsp; Username - logout</div>
           <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
@@ -139,15 +156,15 @@
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list">
-              <div class="row" id="filters">Filtered:<br></div>
-              <div class="row">
-                  All Birds:<br>
+              <div class="row" id="filters">&nbsp; Filtered:<br></div>
+              <div class="row" id="entire-list">
+                  &nbsp; All Birds:<br>
                   <div class="input-group">
-                <span class="input-group-addon">
+                <span class="input-group-addon filter-list-check">
                   <input id="northern-cardinal" type="checkbox">
                 </span>
                 <span class="input-group-addon filter-list-species"> Northern Cardinal </span>
-                <span class="input-group-btn">
+                <span class="input-group-btn filter-list-x">
                   <button class="btn btn-default" type="button">
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>
@@ -155,11 +172,11 @@
               </div><!-- /input-group -->
 
               <div class="input-group">
-                <span class="input-group-addon">
+                <span class="input-group-addon filter-list-check">
                   <input type="checkbox">
                 </span>
-                <span class="input-group-addon filter-list-species"> Other bird </span>
-                <span class="input-group-btn">
+                <span class="input-group-addon filter-list-species"> Bird 2 </span>
+                <span class="input-group-btn filter-list-x">
                   <button class="btn btn-default" type="button">
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>

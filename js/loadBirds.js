@@ -15,8 +15,8 @@
 // Json is already parsed
 // google-chrome --allow-file-access-from-files
 
-$(function() {
   var birdSightings;
+$(function() {
   $.getJSON('smallbirds.json', function(json) {
     birdSightings = Birdmap.processBirds(json);
     // Find all birds that are on the screen
