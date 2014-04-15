@@ -58,10 +58,29 @@ var Birdmap = {
       sightings.push(sighting);
     };
     return sightings;
-  }
+  },
+
+  // Returns True if one sighting is equal to another sighting
+  // false otherwise
+  isEqual: function(s1, s2) {
+    // pairwise comparison of fields
+    if ((s1.commonName === s2.commonName) &&
+      (s1.position.equals(s2.position)) &&
+      (s1.userSpotted === s2.userSpotted) &&
+      (s1.date.getTime() === s2.date.getTime()) &&
+      (s1.comment === s2.comment) &&
+      (s1.image === s2.image) &&
+      s1.attribution === s2.attribution) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
 }
 
 // All filtering of birds
+// Note that these are and-filters
 var Filter = {
 
   // sightings - list of objects representing birds
@@ -115,6 +134,26 @@ var Filter = {
     };
     return matches;
   },
+
+  // Merges a list of filters
+  // How to make an or-filter
+  // Filter.or(Filter.byLocation, Filter.byUser)
+  or: function(sightings1, sightings2) {
+    var toReturn = sightings1;
+    // For each entry in sightings2, if it is not in sightings1
+    // add it to the list.
+    // This is really slow.
+    for (var i = sightings2.length - 1; i >= 0; i--) {
+      for (var j = sightings1.length - 1; j >= 0; j--) {
+        // If the element is in the list, then keep going
+        if (Birdmap.isEqual(sightings2[i], sightings1[j])) {
+          break;
+        }
+      };
+      toReturn.push(sightings2[i]);
+    };
+    return toReturn;
+  },
 }
 
 var Display = {
@@ -142,7 +181,7 @@ var Display = {
     })
     markers.push(marker);
   },
-    
+
   // Given a list of sighting objects, displays them on map
   birdSightings: function(sightings) {
     for (var i = sightings.length - 1; i >= 0; i--) {
