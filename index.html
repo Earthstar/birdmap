@@ -15,6 +15,7 @@
   <script type="text/javascript" src="js/filter.js"></script>
   <script type="text/javascript" src="js/loadBirds.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
   $(function() {
@@ -40,6 +41,9 @@
       google.maps.event.addListener(marker, 'click', function() {
         infoWindow.open(map, marker);
       });
+
+       $( "#searchbar" ).append("<div class='input-group'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>Southern Cardinal</label></div>");
+
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -53,11 +57,25 @@
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
 	    response( $.grep( tags, function( item ){
-		return matcher.test( item );
+                var matches = matcher.test( item ); //TO DO: figure out the type of matches
+                for (var j = 0; j < matches.length; j++) {
+		    $( "#searchbar" ).append("<div class='input-group'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>Southern Cardinal</label></div>");
+		}
+		return matches;
 	    }) );
 	}
     });
     $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
+
+    $( "#input-bar" ).autocomplete({
+        source: availableTags,
+        messages: {
+            noResults: '',
+            results: function() {}
+        }
+    });
+    
+   
 
   })
   </script>
@@ -85,13 +103,13 @@
               <input id="northern-cardinal" type="checkbox">
             </span>
             <label for="northern-cardinal">Northern Cardinal</label>
-          </div><!-- /input-group -->
-          <div class="input-group">
+        </div><!-- /input-group -->
+        <div class="input-group">
             <span class="input-group-addon">
               <input type="checkbox">
             </span>
             <input type="text" class="form-control">
-          </div><!-- /input-group -->
+        </div><!-- /input-group -->
       </div>
       <div class="col-md-8">
         <!-- Nest some columns -->
