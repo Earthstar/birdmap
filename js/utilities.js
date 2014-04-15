@@ -84,7 +84,7 @@ var Filter = {
     var matches = [];
     var capSpecies = species.toUpperCase();
     for (var i = sightings.length - 1; i >= 0; i--) {
-      var sightingSpecies = sightings[i].speciesName;
+      var sightingSpecies = sightings[i].commonName;
       if (sightingSpecies.toUpperCase() === capSpecies) {
         matches.push(sightings[i])
       }
@@ -140,6 +140,7 @@ var Display = {
     google.maps.event.addListener(marker, "click", function() {
       infoWindow.open(map, marker)
     })
+    markers.push(marker);
   },
 
   // Given a list of sighting objects, displays them on map
