@@ -104,7 +104,7 @@
 
       //BIRD FILTER
       $('.filter-list-check input').on('change',filterBirdListener);
-      
+
       function filterBirdListener(e){
           var currentBird=$(e.currentTarget).prop('id');
           var isChecked=$(e.currentTarget).prop('checked');
@@ -114,14 +114,14 @@
               console.log(currentBird);
             }
       }
-      
+
       function clearMarkers(){
           for(var i=0;i<markers.length;i++){
               markers[i].setMap(null);
           }
         markers=[];
       }
-      
+
       function birdListTemplate(name){
           return "<div class='input-group'>"+
                 "    <span class='input-group-addon filter-list-check'>"+
@@ -175,7 +175,7 @@
     <!-- header -->
     <div class="row" id="filter-options">
           <div class="col-md-2">
-            <button id="add-bird" rel="#add-bird-overlay" type="button" class="btn btn-default">Add bird</button>
+            <button id="add-bird" rel="#add-bird-form" type="button" class="btn btn-default">Add bird</button>
           </div>
           <div class="col-md-4">
               <big><big><big><a href="index.html">birdOcular</a> <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
@@ -218,42 +218,40 @@
   </div>
 
   <!-- Separate container for add bird overlay -->
-  <div id="add-bird-overlay" class="overlay">
-    <div class="container" >
-      <div id="add-bird-form-bg">
-        <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
-          <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
-          <div class="form-group">
-            <label for="common-name">Common name</label>
-            <input type="text" placeholder="Common name" class="form-control" id="common-name">
-          </div>
-          <div class="form-group">
-            <label for="species-name">Species name</label>
-            <input type="text" placeholder="Species name" class="form-control" id="species-name">
-          </div>
-          <div class="form-group">
-            <label for="sighting-date">Date</label>
-            <input type="date" class="form-control" id="sighting-date">
-          </div>
-          <div class="form-group">
-            <label for="sighting-time">Time</label>
-            <input type="time" id="sighting-time" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="sighting-location">Location</label>
-            <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
-          </div>
-          <div class="form-group">
-            <label for="bird-pic">Insert picture</label>
-            <input type="file" id="bird-pic" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="sighting-comments">Comments</label>
-            <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
-          </div>
-          <button id="add-bird-submit" type="submit" class="btn btn-default close">Add bird</button>
-        </form>
-      </div>
+  <div class="container" >
+    <div id="add-bird-form-bg">
+      <form id="add-bird-form" class="form-horizontal col-md-6 col-md-offset-1" role="form" action="">
+        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+        <div class="form-group">
+          <label for="common-name">Common name</label>
+          <input type="text" placeholder="Common name" class="form-control" id="common-name">
+        </div>
+        <div class="form-group">
+          <label for="species-name">Species name</label>
+          <input type="text" placeholder="Species name" class="form-control" id="species-name">
+        </div>
+        <div class="form-group">
+          <label for="sighting-date">Date</label>
+          <input type="date" class="form-control" id="sighting-date">
+        </div>
+        <div class="form-group">
+          <label for="sighting-time">Time</label>
+          <input type="time" id="sighting-time" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="sighting-location">Location</label>
+          <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
+        </div>
+        <div class="form-group">
+          <label for="bird-pic">Insert picture</label>
+          <input type="file" id="bird-pic" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="sighting-comments">Comments</label>
+          <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
+        </div>
+        <button id="add-bird-submit" type="submit" class="btn btn-default close">Add bird</button>
+      </form>
     </div>
   </div>
   <script>
@@ -261,7 +259,12 @@
     // I can make the overlay appear, but I can't make the mask work
     $("#add-bird").overlay({
       top: 0,
-      // close: "#close-add-bird",
+      closeOnClick: true,
+      mask: {
+        color: '#ebecff',
+        loadSpeed: 200,
+        opacity: 0.9
+      },
     });
 
     // When you click the add bird button, put a canned pin on the map

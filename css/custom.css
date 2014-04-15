@@ -36,20 +36,11 @@ a{
     width:100%;
 }
 
-.overlay {
-  top:0;
-  left:0;
-  display:none;
-  z-index:1000;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-}
-
 #add-bird-form {
   /*Reset opacity for form*/
   background: white;
   border-radius: 5px;
+  display:none;
 }
 
 #add-bird-form .form-group{
