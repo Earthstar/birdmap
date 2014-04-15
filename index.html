@@ -112,6 +112,10 @@
               clearMarkers();
               Display.birdSightings(Filter.bySpecies(birdSightings,currentBird));
               console.log(currentBird);
+            }else{
+                console.log("hey");
+              clearMarkers();
+              Display.birdSightings(birdSightings);
             }
       }
       
@@ -145,7 +149,6 @@
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
         }
-        console.log(birdsOnMap);
     })
   });
   </script>
