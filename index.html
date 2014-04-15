@@ -68,9 +68,7 @@
                     $( ".autocomplete-removable" ).remove();
                 }
                 if (matches) {
-                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+item+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+item+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
-                    $('.filter-list-check input').on('change',filterBirdListener);
-                    $('.filter-list-x button').on('click',removeFilter);
+                    addBirdsToFilterDisplay(item,'');
                 }
 		return false;
 	    }) );
@@ -90,8 +88,11 @@
       
       //removes element when user presses the x
       function removeFilter(e){
-          console.log(e.currentTarget.parentElement.parentElement);
+          var currentID=$(e.currentTarget).attr('id');
+          console.log($('#'+currentID)[0]);
+          $('#entire-list #'+currentID).prop('checked',false);
           $(e.currentTarget.parentElement.parentElement).remove();
+          clearFilters();
       }
       
    //TIME FILTER
@@ -106,36 +107,73 @@
       $('.filter-list-check input').on('change',filterBirdListener);
 
       function filterBirdListener(e){
-          var currentBird=$(e.currentTarget).prop('id');
+          console.log("click");
+          var currentBird=$(e.currentTarget).data('name');
+          var currentID=$(e.currentTarget).attr('id');
           var isChecked=$(e.currentTarget).prop('checked');
           if(isChecked){
               clearMarkers();
               Display.birdSightings(Filter.bySpecies(birdSightings,currentBird));
-              console.log(currentBird);
+              //console.log(currentBird);
+              var list=$(e.currentTarget.parentElement.parentElement.parentElement);
+              if (list.attr('id')=='entire-list' && $('#filter-list #filters #'+currentID).length==0){
+                  addBirdsToFilterDisplay(currentBird);
+              }
+              console.log("checked all");
+              $('#'+currentID).prop('checked',true);
+              $('#entire-list #'+currentID).prop('checked',true);
             }else{
                 console.log("hey");
-              clearMarkers();
-              Display.birdSightings(birdSightings);
+                clearFilters();
+              $('#'+currentID).prop('checked',false);
+              $('#entire-list #'+currentID).prop('checked',false);
             }
       }
 
+      //used for google maps api, necessary to clear map pins
       function clearMarkers(){
           for(var i=0;i<markers.length;i++){
               markers[i].setMap(null);
           }
         markers=[];
       }
+      
+      //shows all birds on map again
+      function clearFilters(){
+          clearMarkers();
+          Display.birdSightings(birdSightings);
+      }
+      
+      //just adds html to filter list and adds listeners
+      function addBirdsToFilterDisplay(item){
+            $( "#filter-list #filters" ).append(filterListTemplate(item));
+            $('.filter-list-check input').on('change',filterBirdListener);
+            $('.filter-list-x button').on('click',removeFilter);
+      }
+      
+      //the html that shows up in the list of filters
+      function filterListTemplate(name){
+          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
+      }
+      
+      //returns a version of the name with '-' intsead of ' '.
+      //ex: Northern Cardinal --> Northern-Cardinal
+      function nameToID(name){
+          return name.replace(' ','-');
+      }
 
+      //html that shows up in list of birds
       function birdListTemplate(name){
-          return "<div class='input-group'>"+
+          var temp= "<div class='input-group'>"+
                 "    <span class='input-group-addon filter-list-check'>"+
-                "      <input id="+name+" type='checkbox'>"+
+                "      <input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'>"+
                 "    </span>"+
                 "    <span class='input-group-addon filter-list-species'>"+name+"</span>"+
                 "    <span class='input-group-addon filter-list-o'>"+
                 "        <span class='glyphicon glyphicon-remove'></span>"+
                 "    </span>"+
                 "  </div>";
+          return temp;
       }
 
     $.getJSON('smallbirds.json', function(json) {
@@ -149,6 +187,8 @@
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
         }
+        
+      $('.filter-list-check input').on('change',filterBirdListener);
     })
   });
   </script>
