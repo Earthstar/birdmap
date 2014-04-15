@@ -24,6 +24,17 @@
   var map;
   var birdSightings;
   var markers=[];
+  var newSighting = {
+    commonName: "Northern Cardinal",
+    speciesName: "Cardinalis cardinalis",
+    userSpotted: "cool_bird1337",
+    date: "2014-04-15",
+    time: "10:53:00",
+    comment: "This bird is really red",
+    position: new google.maps.LatLng(42.3600410, -71.0871950),
+      image: "",
+      attribution: ""
+    }
   $(function() {
     function initialize() {
       // Create a map
@@ -231,7 +242,7 @@ var availableTags=randomTags;
             <label for="sighting-comments">Comments</label>
             <textarea id="sighting-comments" class="form-control" rows="3" placeholder="Describe sighting"></textarea>
           </div>
-          <button type="submit" class="btn btn-default">Add bird</button>
+          <button id="add-bird-submit" type="submit" class="btn btn-default close">Add bird</button>
         </form>
       </div>
     </div>
@@ -241,8 +252,15 @@ var availableTags=randomTags;
     // I can make the overlay appear, but I can't make the mask work
     $("#add-bird").overlay({
       top: 0,
-      close: "#close-add-bird",
+      // close: "#close-add-bird",
     });
+
+    // When you click the add bird button, put a canned pin on the map
+    $("#add-bird-form").submit(function(e) {
+      e.preventDefault();
+      Display.birdSighting(newSighting);
+      return false;
+    })
   })
   </script>
 </body>
