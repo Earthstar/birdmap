@@ -15,14 +15,14 @@
   <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
   <script type="application/json" src="birdnames.json"></script>
   <script type="text/javascript" src="js/utilities.js"></script>
-  <script type="text/javascript" src="js/loadBirds.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="css/custom.css">
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
-  // Global variable map to access anywhere
+  // Global variables to access anywhere
   var map;
+  var birdSightings;
   $(function() {
     function initialize() {
       // Create a map
@@ -33,19 +33,7 @@
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
-      // Create a content box
-      var contentString = 'Hello bird!';
-      var infoWindow = new google.maps.InfoWindow({
-        content: contentString
-      })
-      var marker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Hello World'
-      })
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.open(map, marker);
-      });
+       $( "#searchbar" ).append("<div class='input-group'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>Southern Cardinal</label></div>");
 
     }
     google.maps.event.addDomListener(window, 'load', initialize);
@@ -77,19 +65,18 @@
     $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
 var availableTags=randomTags;
     $( "#input-bar" ).autocomplete({
-        source: availableTags,
+        source: randomTags,
         messages: {
             noResults: '',
             results: function() {}
         }
     });
-    
    //TIME FILTER
       $('#time-select').on('change',function(e){
           console.log($(e.currentTarget).val());
           Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00"));
       });
-      
+
       $('.filter-list-check input').on('change',function(e){
           var currentBird=$(e.currentTarget).prop('id');
           var isChecked=$(e.currentTarget).prop('checked');
@@ -99,6 +86,13 @@ var availableTags=randomTags;
             }
       });
 
+    $.getJSON('smallbirds.json', function(json) {
+      birdSightings = Birdmap.processBirds(json);
+      // Find all birds that are on the screen
+      // display sightings
+      Display.init()
+      Display.birdSightings(birdSightings)
+    })
   });
   </script>
   <script id="bird-info-popup-template" type="text/x-handlebars-template">
@@ -106,7 +100,7 @@ var availableTags=randomTags;
       <div class="row">
           <div class="col-md-2">
                 <img src="{{image}}" alt="image of {{commonName}}"><br></div>
-          <div class="col-md-10"> 
+          <div class="col-md-10">
               <dl class="dl-horizontal">
                   <dt>Common Name:</dt> <dd>{{commonName}}</dd>
                   <dt>Species Name:</dt> <dd>{{speciesName}}</dd>
