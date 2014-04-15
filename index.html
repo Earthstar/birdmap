@@ -65,7 +65,7 @@
                     $( ".autocomplete-removable" ).remove();
                 }
                 if (matches) {
-                    $( "#input_bar" ).after("<div class='input-group autocomplete-removable'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>"+item+"</label></div>");
+                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>"+item+"</label></div>");
                 }
 		return false;
 	    }) );
@@ -107,38 +107,7 @@
  <!-- Col should add up to 12 -->
 <body></body>
   <div class="container-fluid">
-    <div id="header" class="row">
-      <div class="col-md-1">birdOcular</div>
-      <div class="col-md-11" style="text-align: right">Username logout</div>
-    </div>
-  </div>
-  <div class="container-fluid">
     <div class="row">
-      <div id="searchbar" class="col-md-4">
-        <div class="input-group">
-          <input id="input_bar" type="text" class="form-control" placeholder="Filter by species, name, or location">
-          <span class="input-group-btn">
-            <button class="btn btn-default " type="button">Filter</button>
-          </span>
-        </div><!-- /input-group -->
-        <div class="input-group">
-            <span class="input-group-addon">
-              <input id="northern-cardinal" type="checkbox">
-            </span>
-            <label for="northern-cardinal">Northern Cardinal</label>
-        </div><!-- /input-group -->
-        <div class="input-group">
-            <span class="input-group-addon">
-              <input type="checkbox">
-            </span>
-            <input type="text" class="form-control">
-        </div><!-- /input-group -->
-      </div>
-      <div class="col-md-8">
-        <!-- Nest some columns -->
-        <div class="row">
-          <div class="col-md-4">View birds:</div>
-
     <!-- header -->
     <div class="row" id="filter-options">
           <div class="col-md-2">
@@ -170,7 +139,10 @@
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list">
-              <div class="input-group">
+              <div class="row" id="filters">Filtered:<br></div>
+              <div class="row">
+                  All Birds:<br>
+                  <div class="input-group">
                 <span class="input-group-addon">
                   <input id="northern-cardinal" type="checkbox">
                 </span>
@@ -192,7 +164,7 @@
                     <span class="glyphicon glyphicon-remove"></span>
                   </button>
                 </span>
-              </div><!-- /input-group -->
+              </div><!-- /input-group --></div>
         </div>
       </div>
 
@@ -201,7 +173,6 @@
         <!-- Nest some columns -->
         <div id="map-canvas" style="height: 94vh;"></div>
       </div>
-    </div>
   </div>
 
   <!-- Separate container for add bird overlay -->
