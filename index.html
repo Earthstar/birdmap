@@ -53,20 +53,26 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
     //AUTOCOMPLETE
-    //var current_dict = birdDict;
+    //var currentDict = birdDict;
     //var keys = Object.keys(current_dict);
     //var tags = keys;
-    var tags = ["aaron","Atlantic fish","Atlantic marble","bebop","Black Jay","Boxius beer","Cardinalis cardinalis","cool_bird00","cool_bird01","diamond","Encephalitis","Encephalogram","Finnix","garr","garrrr","Haymarket","House Sparrow","instagram","Jay","Jungle Jay","lazy dog","mama","mary","Northern Cardinal","Northern Jay","oklahoma","Passer domesticus","rabbit","Southern Cardinal","taylor","tilly taylor","uber","vietnam","wisconsin","woohoo","x-ray","YYY Jay","Zebra"];
+    var randomTags = ["zzzzzzz","aaron","Atlantic fish","Atlantic marble","bebop","Black Jay","Boxius beer","Cardinalis cardinalis","cool_bird00","cool_bird01","diamond","Encephalitis","Encephalogram","Finnix","garr","garrrr","Haymarket","House Sparrow","instagram","Jay","Jungle Jay","lazy dog","mama","mary","Northern Cardinal","Northern Jay","oklahoma","Passer domesticus","rabbit","Southern Cardinal","taylor","tilly taylor","uber","vietnam","wisconsin","woohoo","x-ray","YYY Jay","Zebra"];
+    var tags = randomTags.sort(function (a, b) {
+        return b.toLowerCase().localeCompare(a.toLowerCase());
+    });
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
 	    response( $.grep( tags, function( item ){
                 var matches = matcher.test( item );
-                if (matches) {
-                    $( "#searchbar" ).prepend("<div class='input-group'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>"+item+"</label></div>");
+                if (item == "zzzzzzz") {
+                    $( ".autocomplete-removable" ).remove();
                 }
-		return matches;
+                if (matches) {
+                    $( "#input_bar" ).after("<div class='input-group autocomplete-removable'><span class='input-group-addon'><input id='southern-cardinal' type='checkbox'></span><label for='southern-cardinal'>"+item+"</label></div>");
+                }
+		return false;
 	    }) );
 	}
     });
