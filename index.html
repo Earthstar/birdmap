@@ -24,6 +24,7 @@
   var map;
   var birdSightings;
   var markers=[];
+  var birdsOnMap=[];
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -69,20 +70,30 @@
                 if (matches) {
                     $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+item+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+item+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
                     $('.filter-list-check input').on('change',filterBirdListener);
+                    $('.filter-list-x button').on('click',removeFilter);
                 }
 		return false;
 	    }) );
 	}
     });
     $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
-var availableTags=randomTags;
+
     $( "#input-bar" ).autocomplete({
-        source: randomTags,
+        source: birdsOnMap,
         messages: {
             noResults: '',
             results: function() {}
         }
     });
+      
+      //MAINTAINING FILTER LIST
+      
+      //removes element when user presses the x
+      function removeFilter(e){
+          console.log(e.currentTarget.parentElement.parentElement);
+          $(e.currentTarget.parentElement.parentElement).remove();
+      }
+      
    //TIME FILTER
       $('#time-select').on('change',function(e){
           console.log($(e.currentTarget).val());
@@ -132,17 +143,19 @@ var availableTags=randomTags;
        var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
         for(var i=0; i<listOfAllBirds.length; i++){
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
+            birdsOnMap.push(listOfAllBirds[i].commonName);
         }
+        console.log(birdsOnMap);
     })
   });
   </script>
   <script id="bird-info-popup-template" type="text/x-handlebars-template">
   <div class="bird-popup">
       <div class="row">
-          <div class="col-md-2">
-                <img src="{{image}}" alt="image of {{commonName}}"><br></div>
-          <div class="col-md-10">
-              <dl class="dl-horizontal">
+          <div class="col-md-3">
+                <img src="images/northern_cardinal_stephen_a_wolfe.jpg" alt="image of {{commonName}}" class="bird-image"><br></div>
+          <div class="col-md-9">
+              <dl class="dl-horizontal bird-info">
                   <dt>Common Name:</dt> <dd>{{commonName}}</dd>
                   <dt>Species Name:</dt> <dd>{{speciesName}}</dd>
                   <dt>Date:</dt> <dd>{{date}}</dd>
@@ -186,10 +199,10 @@ var availableTags=randomTags;
       </div>
 
       <!--list of filters, overlayed on map (for now) -->
-      <div class="row" id="filter-list-row" style="position:absolute; z-index:1;">
+      <div class="row" id="filter-list-row" style="position:absolute;">
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
-          <div class="col-md-4" id="filter-list">
+          <div class="col-md-4" id="filter-list" style="z-index:1">
               <div class="row" id="filters">&nbsp; Filtered:<br></div>
               <div class="row" id="entire-list">
                   &nbsp; All Birds:<br>

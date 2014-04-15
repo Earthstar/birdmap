@@ -97,3 +97,19 @@ a{
     height:80vh;
     overflow-y:scroll;
 }
+
+.bird-image{
+    width:100px;
+}
+
+.bird-popup{
+    width:400px;
+}
+
+.bird-info dt{
+    width:100px;
+}
+.bird-info dd{
+    margin-left:105px;
+    width:200px;
+}
