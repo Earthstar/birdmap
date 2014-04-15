@@ -67,7 +67,7 @@
                     $( ".autocomplete-removable" ).remove();
                 }
                 if (matches) {
-                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+item+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+item+"</span><span class='input-group-btn'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
+                    $( "#filter-list #filters" ).append("<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+item+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+item+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>");
                     $('.filter-list-check input').on('change',filterBirdListener);
                 }
 		return false;
@@ -87,9 +87,11 @@ var availableTags=randomTags;
       $('#time-select').on('change',function(e){
           console.log($(e.currentTarget).val());
           //i put in some bogus dates but the code should be right
+              clearMarkers();
           Display.birdSightings(Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00")));
       });
 
+      //BIRD FILTER
       $('.filter-list-check input').on('change',filterBirdListener);
       
       function filterBirdListener(e){
@@ -108,13 +110,29 @@ var availableTags=randomTags;
           }
         markers=[];
       }
+      
+      function birdListTemplate(name){
+          return "<div class='input-group'>"+
+                "    <span class='input-group-addon filter-list-check'>"+
+                "      <input id="+name+" type='checkbox'>"+
+                "    </span>"+
+                "    <span class='input-group-addon filter-list-species'>"+name+"</span>"+
+                "    <span class='input-group-addon filter-list-o'>"+
+                "        <span class='glyphicon glyphicon-remove'></span>"+
+                "    </span>"+
+                "  </div>";
+      }
 
     $.getJSON('smallbirds.json', function(json) {
       birdSightings = Birdmap.processBirds(json);
       // Find all birds that are on the screen
       // display sightings
-      Display.init()
-      Display.birdSightings(birdSightings)
+      Display.init();
+      Display.birdSightings(birdSightings);
+       var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
+        for(var i=0; i<listOfAllBirds.length; i++){
+            $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
+        }
     })
   });
   </script>
@@ -175,29 +193,7 @@ var availableTags=randomTags;
               <div class="row" id="filters">&nbsp; Filtered:<br></div>
               <div class="row" id="entire-list">
                   &nbsp; All Birds:<br>
-                  <div class="input-group">
-                <span class="input-group-addon filter-list-check">
-                  <input id="northern-cardinal" type="checkbox">
-                </span>
-                <span class="input-group-addon filter-list-species"> Northern Cardinal </span>
-                <span class="input-group-btn filter-list-x">
-                  <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </button>
-                </span>
-              </div><!-- /input-group -->
-
-              <div class="input-group">
-                <span class="input-group-addon filter-list-check">
-                  <input type="checkbox">
-                </span>
-                <span class="input-group-addon filter-list-species"> Bird 2 </span>
-                <span class="input-group-btn filter-list-x">
-                  <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </button>
-                </span>
-              </div><!-- /input-group --></div>
+              </div>
         </div>
       </div>
 

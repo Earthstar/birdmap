@@ -77,9 +77,23 @@ a{
     padding:0;
     padding-left:3%;
     width:80%;
+    border-right:0;
+}
+
+.filter-list-o span{
+    opacity:0;
+}
+
+.filter-list-o {
+    background-color:#eee;
 }
 
 #filter-list .row{
     border-radius:3%;
     padding:0%;
+}
+
+#entire-list{
+    height:80vh;
+    overflow-y:scroll;
 }
