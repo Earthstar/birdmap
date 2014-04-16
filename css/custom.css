@@ -73,22 +73,31 @@ a{
 }
 
 #filter-list .row{
-    border-radius:1%;
+    border-radius:5px;
     padding:.5%;
 }
 
+#autocomplete-answers{
+  border-radius:5px;
+}
+
+#filter-list-row{
+  max-height:80vh;
+
+}
+
 #filter-list #filters{
-    height:10vh;
+    max-height:30vh;
     overflow-y:scroll;
 }
 
 #entire-list{
-    height:50vh;
+    height:30vh;
     overflow-y:scroll;
 }
 
 #autocomplete-answers{
-    height:20vh;
+    max-height:20vh;
     overflow-y:scroll;
 }
 
