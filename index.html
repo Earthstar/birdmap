@@ -29,8 +29,7 @@
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
     userSpotted: "cool_bird1337",
-    date: "2014-04-15",
-    time: "10:53:00",
+    date: new Date(Date.parse("2014-04-15T10:53:00")),
     comment: "This bird is really red",
     position: new google.maps.LatLng(42.3600410, -71.0871950),
       image: "",
@@ -51,22 +50,28 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
     //AUTOCOMPLETE
-    //var currentDict = birdDict;
-    //var keys = Object.keys(current_dict);
-    //var tags = keys;
-    var randomTags = ["zzzzzzz","aaron","Atlantic fish","Atlantic marble","bebop","Black Jay","Boxius beer","Cardinalis cardinalis","cool_bird00","cool_bird01","diamond","Encephalitis","Encephalogram","Finnix","garr","garrrr","Haymarket","House Sparrow","instagram","Jay","Jungle Jay","lazy dog","mama","mary","Northern Cardinal","Northern Jay","oklahoma","Passer domesticus","rabbit","Southern Cardinal","taylor","tilly taylor","uber","vietnam","wisconsin","woohoo","x-ray","YYY Jay","Zebra"];
-    var tags = randomTags.sort(function (a, b) {
-        return b.toLowerCase().localeCompare(a.toLowerCase());
+
+    var combinedList = [];
+    var tags = [];
+    var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantis78","richard","peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
+
+
+
+
+    $( "#input_bar" ).keyup(function(){
+        //$(this).val();
+        $( ".autocomplete-removable" ).remove();
+        combinedList = userList.concat(birdsOnMap);
+        tags = combinedList.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
     });
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-	    response( $.grep( tags, function( item ){
+	    response( $.grep( combinedList, function( item ){
                 var matches = matcher.test( item );
-                if (item == "zzzzzzz") {
-                    $( ".autocomplete-removable" ).remove();
-                }
                 if (matches) {
                     addBirdsToFilterDisplay(item,'');
                 }
@@ -74,18 +79,17 @@
 	    }) );
 	}
     });
-    $( "#input_bar" ).autocomplete( "option", "minLength", 1 );
-
+    /*$( "#input_bar" ).autocomplete( "option", "minLength", 1 );
     $( "#input-bar" ).autocomplete({
         source: birdsOnMap,
         messages: {
             noResults: '',
             results: function() {}
         }
-    });
-      
+    });*/
+
       //MAINTAINING FILTER LIST
-      
+
       //removes element when user presses the x
       function removeFilter(e){
           var currentID=$(e.currentTarget).attr('id');
@@ -94,7 +98,7 @@
           $(e.currentTarget.parentElement.parentElement).remove();
           clearFilters();
       }
-      
+
    //TIME FILTER
       $('#time-select').on('change',function(e){
           console.log($(e.currentTarget).val());
@@ -137,25 +141,25 @@
           }
         markers=[];
       }
-      
+
       //shows all birds on map again
       function clearFilters(){
           clearMarkers();
           Display.birdSightings(birdSightings);
       }
-      
+
       //just adds html to filter list and adds listeners
       function addBirdsToFilterDisplay(item){
             $( "#filter-list #filters" ).append(filterListTemplate(item));
             $('.filter-list-check input').on('change',filterBirdListener);
             $('.filter-list-x button').on('click',removeFilter);
       }
-      
+
       //the html that shows up in the list of filters
       function filterListTemplate(name){
           return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
-      
+
       //returns a version of the name with '-' intsead of ' '.
       //ex: Northern Cardinal --> Northern-Cardinal
       function nameToID(name){
@@ -182,12 +186,12 @@
       // display sightings
       Display.init();
       Display.birdSightings(birdSightings);
-       var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
+        var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
         for(var i=0; i<listOfAllBirds.length; i++){
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
         }
-        
+
       $('.filter-list-check input').on('change',filterBirdListener);
     })
   });
@@ -301,12 +305,12 @@
   $(function() {
     // I can make the overlay appear, but I can't make the mask work
     $("#add-bird").overlay({
-      top: 0,
+      top: "1%",
       closeOnClick: true,
       mask: {
-        color: '#ebecff',
-        loadSpeed: 200,
-        opacity: 0.9
+        color: '#ffffff',
+        loadSpeed: 100,
+        opacity: 0.5
       },
     });
 
