@@ -43,9 +43,42 @@ a{
   display:none;
 }
 
-#add-bird-form .form-group{
-  padding: 0 5%;
+.close {
+  padding:1%;
 }
+
+#add-bird-submit {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid black;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: button;
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+  margin-bottom: 2%;
+}
+
+/*#add-bird-form >  {
+  margin: 3% 0;
+}*/
+
+/*#add-bird-form .form-group{
+  padding: 0 5%;
+}*/
 
 .filter-list-check{
     padding:0;
