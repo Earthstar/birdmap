@@ -87,11 +87,14 @@ a{
 }
 
 #filter-list #filters{
+
     max-height:30vh;
+
     overflow-y:scroll;
 }
 
 #entire-list{
+
     height:30vh;
     overflow-y:scroll;
 }
