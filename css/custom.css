@@ -78,12 +78,12 @@ a{
 }
 
 #filter-list #filters{
-    height:10vh;
+    height:20vh;
     overflow-y:scroll;
 }
 
 #entire-list{
-    height:50vh;
+    height:40vh;
     overflow-y:scroll;
 }
 

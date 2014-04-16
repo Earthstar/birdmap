@@ -23,7 +23,8 @@
   // Global variables to access anywhere
   var map;
   var birdSightings;
-  var currentBirdSightings=[]; //current filter
+  var currentBirdSightings=[]; //all current birds
+  var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var markers=[];
   var birdsOnMap=[];
   var newSighting = {
@@ -89,8 +90,22 @@
         }
     });*/
 
-      //MAINTAINING FILTER LIST
-
+      function refreshPins(){
+          if (currentFilters.length<1){
+              clearFilters();
+              return;
+          }
+          currentBirdSightings=[];
+          for(var i=0;i<currentFilters.length; i++){
+              console.log(Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
+              currentBirdSightings=Filter.or(currentBirdSightings,
+                                             Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
+          }
+          console.log(currentBirdSightings);
+          clearMarkers();
+          Display.birdSightings(currentBirdSightings);
+      }
+      
       //removes element when user presses the x
       function removeFilter(e){
           var currentID=$(e.currentTarget).attr('id');
@@ -98,7 +113,9 @@
           $('#entire-list #'+currentID).prop('checked',false);
           $('#autocomplete-answers #'+currentID).prop('checked',false);
           $(e.currentTarget.parentElement.parentElement).remove();
-          clearFilters();
+          var index=currentFilters.indexOf(currentID);
+          currentFilters.splice(index,1);
+          refreshPins();
       }
 
    //TIME FILTER
@@ -120,6 +137,7 @@
           var currentID=$(e.currentTarget).attr('id');
           var isChecked=$(e.currentTarget).prop('checked');
           if(isChecked){
+              if (currentFilters.indexOf(currentID)==-1) {currentFilters.push(currentID);}
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentBird));
@@ -133,8 +151,9 @@
               $('#autocomplete-answers #'+currentID).prop('checked',true);
               $('#filters #'+currentID).prop('checked',true);
             }else{
-                console.log("hey");
-                clearFilters();
+                var index=currentFilters.indexOf(currentID);
+                if (index!=-1){      currentFilters.splice(index,1); }
+              refreshPins();
               $('#'+currentID).prop('checked',false);
               $('#entire-list #'+currentID).prop('checked',false);
               $('#autocomplete-answers #'+currentID).prop('checked',false);
@@ -164,17 +183,20 @@
             $('.filter-list-x button').on('click',removeFilter);
       }
       
+      //puts birds onto the autocomplete list and adds listeners
       function fillAutoComplete(item){
           $('#autocomplete-answers').append(autocompListTemplate(item));
             $('.filter-list-check input').on('change',filterBirdListener);
       }
 
       //the html that shows up in the list of filters
+      //has the x to close the filter
       function filterListTemplate(name){
           return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
       
       //hi everyone...SORRY THIS CODE IS SO UGLY...
+      //has the class 'autocomplete-removable' on first div
       function autocompListTemplate(name){
           return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
       }
@@ -186,6 +208,7 @@
       }
 
       //html that shows up in list of birds
+      //no x to close the filter, doesn't respond to any autocomplete stuff
       function birdListTemplate(name){
           var temp= "<div class='input-group'>"+
                 "    <span class='input-group-addon filter-list-check'>"+
@@ -210,7 +233,6 @@
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
         }
-
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
@@ -357,10 +379,5 @@
       </form>
     </div>
   </div>
-  <script>
-  $(function() {
-
-  })
-  </script>
 </body>
 </html>
