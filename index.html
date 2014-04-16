@@ -38,7 +38,7 @@
   $(function() {
     function initialize() {
       // Create a map
-      var center = new google.maps.LatLng(42.3736, -71.1106);
+      var center = new google.maps.LatLng(42.0, -70.5);
       var mapOptions = {
         center: center,
         zoom: 8
@@ -270,9 +270,9 @@
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list" style="z-index:1">
-              <div class="row" id="filters">&nbsp; Filtered:<br></div>
-              <div class="row" id="entire-list">
-                  &nbsp; All Birds:<br>
+              <div class="row">&nbsp; Filtered:<div id="filters"></div></div>
+              
+              <div class="row">&nbsp; All Birds:<div id="entire-list"></div>
               </div>
         </div>
       </div>

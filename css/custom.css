@@ -9,13 +9,6 @@ a{
     text-decoration:none;
 }
 
-#header{ //not currently used
-    background-color:#aaa;
-    color:#fff;
-    padding:1%;
-    vertical-align: middle;
-}
-
 #filter-options{
     background-color:#aaa;
     color:#fff;
@@ -80,6 +73,18 @@ a{
   padding: 0 5%;
 }*/
 
+.simple_overlay .close {
+  background-color: #FFFFFF;
+  /*position:absolute;
+  right:-15px;
+  top:-15px;
+  cursor:pointer;
+  height:35px;
+  width:35px;*/
+  height: 35px;
+  width:35px;
+}
+
 .filter-list-check{
     padding:0;
     width:15%;
@@ -101,12 +106,17 @@ a{
 }
 
 #filter-list .row{
-    border-radius:3%;
-    padding:0%;
+    border-radius:1%;
+    padding:.5%;
+}
+
+#filter-list #filters{
+    height:25vh;
+    overflow-y:scroll;
 }
 
 #entire-list{
-    height:80vh;
+    height:60vh;
     overflow-y:scroll;
 }
 
