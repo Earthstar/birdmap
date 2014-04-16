@@ -197,10 +197,10 @@
 
     // Make overlay
     $("#add-bird").overlay({
-      top: "1%",
+      top: "10%",
       closeOnClick: true,
       mask: {
-        color: '#ffffff',
+        color: '#555555',
         loadSpeed: 100,
         opacity: 0.5
       },
@@ -287,7 +287,7 @@
   <!-- Separate container for add bird overlay -->
   <div class="container" >
     <div id="add-bird-form-bg">
-      <form id="add-bird-form" class="form-horizontal col-md-9" role="form" action="">
+      <form id="add-bird-form" class="form-horizontal col-md-offset-1 col-md-9" role="form" action="">
       <div class="row">
         <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
       </div>
