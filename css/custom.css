@@ -80,8 +80,8 @@ a{
 }
 
 #filter-list .row{
-    border-radius:3%;
-    padding:0%;
+    border-radius:1%;
+    padding:.5%;
 }
 
 #entire-list{
