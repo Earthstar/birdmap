@@ -317,7 +317,9 @@
     // When you click the add bird button, put a canned pin on the map
     $("#add-bird-form").submit(function(e) {
       e.preventDefault();
-      Display.birdSighting(newSighting);
+      setTimeout(function() {
+        Display.birdSighting(newSighting, {animation: google.maps.Animation.DROP});
+      }, 500);
       return false;
     })
   })

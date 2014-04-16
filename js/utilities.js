@@ -165,17 +165,20 @@ var Display = {
   },
 
   // Given a sighting object, displays on map
-  birdSighting: function(sighting) {
+  // options - object of options to pass into marker
+  birdSighting: function(sighting, options) {
     var html = this.popupTemplate(sighting)
     var infoWindow = new google.maps.InfoWindow({
       content: html
     })
     var position = sighting.position;
-    var marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      title: sighting.commonName
-    })
+    if (!options) {
+      options = {}
+    }
+    options.position = position;
+    options.map = map;
+    options.title = sighting.commonName;
+    var marker = new google.maps.Marker(options)
     google.maps.event.addListener(marker, "click", function() {
       infoWindow.open(map, marker)
     })
