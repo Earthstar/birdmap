@@ -74,7 +74,7 @@
 	    response( $.grep( combinedList, function( item ){
                 var matches = matcher.test( item );
                 if (matches) {
-                    addBirdsToFilterDisplay(item,'');
+                    fillAutoComplete(item);
                 }
 		return false;
 	    }) );
@@ -96,6 +96,7 @@
           var currentID=$(e.currentTarget).attr('id');
           console.log($('#'+currentID)[0]);
           $('#entire-list #'+currentID).prop('checked',false);
+          $('#autocomplete-answers #'+currentID).prop('checked',false);
           $(e.currentTarget.parentElement.parentElement).remove();
           clearFilters();
       }
@@ -124,17 +125,20 @@
                                              Filter.bySpecies(birdSightings,currentBird));
               Display.birdSightings(currentBirdSightings);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
-              if (list.attr('id')=='entire-list' && $('#filter-list #filters #'+currentID).length==0){
+              if (list.attr('id')!='filters' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
               }
-              console.log("checked all");
               $('#'+currentID).prop('checked',true);
               $('#entire-list #'+currentID).prop('checked',true);
+              $('#autocomplete-answers #'+currentID).prop('checked',true);
+              $('#filters #'+currentID).prop('checked',true);
             }else{
                 console.log("hey");
                 clearFilters();
               $('#'+currentID).prop('checked',false);
               $('#entire-list #'+currentID).prop('checked',false);
+              $('#autocomplete-answers #'+currentID).prop('checked',false);
+              $('#filters #'+currentID).prop('checked',false);
             }
       }
 
@@ -159,10 +163,20 @@
             $('.filter-list-check input').on('change',filterBirdListener);
             $('.filter-list-x button').on('click',removeFilter);
       }
+      
+      function fillAutoComplete(item){
+          $('#autocomplete-answers').append(autocompListTemplate(item));
+            $('.filter-list-check input').on('change',filterBirdListener);
+      }
 
       //the html that shows up in the list of filters
       function filterListTemplate(name){
-          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
+          return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
+      }
+      
+      //hi everyone...SORRY THIS CODE IS SO UGLY...
+      function autocompListTemplate(name){
+          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
       }
 
       //returns a version of the name with '-' intsead of ' '.
@@ -275,6 +289,7 @@
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list" style="z-index:1">
+              <div class="row">&nbsp; Autocomplete:<div id="autocomplete-answers"></div></div>
               <div class="row">&nbsp; Filtered:<div id="filters"></div></div>
               
               <div class="row">&nbsp; All Birds:<div id="entire-list"></div>
