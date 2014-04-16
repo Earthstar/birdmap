@@ -23,6 +23,7 @@
   // Global variables to access anywhere
   var map;
   var birdSightings;
+  var currentBirdSightings=[]; //current filter
   var markers=[];
   var birdsOnMap=[];
   var newSighting = {
@@ -104,7 +105,9 @@
           console.log($(e.currentTarget).val());
           //i put in some bogus dates but the code should be right
               clearMarkers();
-          Display.birdSightings(Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00")));
+              currentBirdSightings=Filter.or(currentBirdSightings,
+                                             Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00")));
+          Display.birdSightings(currentBirdSightings);
       });
 
       //BIRD FILTER
@@ -117,8 +120,9 @@
           var isChecked=$(e.currentTarget).prop('checked');
           if(isChecked){
               clearMarkers();
-              Display.birdSightings(Filter.bySpecies(birdSightings,currentBird));
-              //console.log(currentBird);
+              currentBirdSightings=Filter.or(currentBirdSightings,
+                                             Filter.bySpecies(birdSightings,currentBird));
+              Display.birdSightings(currentBirdSightings);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
               if (list.attr('id')=='entire-list' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
@@ -145,6 +149,7 @@
       //shows all birds on map again
       function clearFilters(){
           clearMarkers();
+          currentBirdSightings=[];
           Display.birdSightings(birdSightings);
       }
 
