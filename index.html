@@ -92,12 +92,12 @@
 
       function refreshPins(){
           if (currentFilters.length<1){
+              //no filters, show all birds
               clearFilters();
               return;
           }
           currentBirdSightings=[];
-          for(var i=0;i<currentFilters.length; i++){
-              console.log(Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
+          for(var i=0;i<currentFilters.length; i++){ //add up all the filters
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
           }
@@ -113,8 +113,8 @@
           $('#entire-list #'+currentID).prop('checked',false);
           $('#autocomplete-answers #'+currentID).prop('checked',false);
           $(e.currentTarget.parentElement.parentElement).remove();
-          var index=currentFilters.indexOf(currentID);
-          currentFilters.splice(index,1);
+            var index=currentFilters.indexOf(currentID);
+            if (index!=-1){      currentFilters.splice(index,1); } //if it's in the list, get rid of it
           refreshPins();
       }
 
@@ -152,7 +152,7 @@
               $('#filters #'+currentID).prop('checked',true);
             }else{
                 var index=currentFilters.indexOf(currentID);
-                if (index!=-1){      currentFilters.splice(index,1); }
+                if (index!=-1){      currentFilters.splice(index,1); } //if it's in the list, get rid of it
               refreshPins();
               $('#'+currentID).prop('checked',false);
               $('#entire-list #'+currentID).prop('checked',false);
