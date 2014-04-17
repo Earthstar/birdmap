@@ -79,7 +79,7 @@
         tags = combinedList.sort(function (a, b) {
             return a.toLowerCase().localeCompare(b.toLowerCase());
         });
-  
+
     });
 
     $( "#input_bar" ).focus(function() {
@@ -112,16 +112,25 @@
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
-	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
 	    response( $.grep( combinedList, function( item ){
-                var matches = matcher.test( item );
-                if (matches) {
-                    fillAutoComplete(item);
-                }
-		return false;
-	    }) );
-	}
+        var matches = matcher.test( item );
+        if (matches) {
+          fillAutoComplete(item);
+        }
+		  return false;
+	    })
+      );
+  	 }
     });
+
+    // If hit enter in search bar, clears search bar.
+    // Maybe not desired behavior?
+    // $("#input_bar").keydown(function(e) {
+    //   if (e.which === 13) {
+    //     $("#input_bar").val("");
+    //   }
+    // })
     /*$( "#input_bar" ).autocomplete( "option", "minLength", 1 );
     $( "#input-bar" ).autocomplete({
         source: birdsOnMap,
