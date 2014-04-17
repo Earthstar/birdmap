@@ -107,7 +107,7 @@
           clearMarkers();
           Display.birdSightings(currentBirdSightings);
       }
-      
+
       //removes element when user presses the x
       function removeFilter(e){
           var currentID=$(e.currentTarget).attr('id');
@@ -184,7 +184,7 @@
             $('.filter-list-check input').on('change',filterBirdListener);
             $('.filter-list-x button').on('click',removeFilter);
       }
-      
+
       //puts birds onto the autocomplete list and adds listeners
       function fillAutoComplete(item){
           $('#autocomplete-answers').append(autocompListTemplate(item));
@@ -196,7 +196,7 @@
       function filterListTemplate(name){
           return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
-      
+
       //hi everyone...SORRY THIS CODE IS SO UGLY...
       //has the class 'autocomplete-removable' on first div
       function autocompListTemplate(name){
@@ -336,7 +336,7 @@
       <!--map-->
       <div class="row" style="z-index:0;" id="map">
         <!-- Nest some columns -->
-        <div id="map-canvas" style="height: 94vh;"></div>
+        <div id="map-canvas"></div>
       </div>
   </div>
 

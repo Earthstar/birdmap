@@ -1,5 +1,6 @@
 body{
     font-family: verdana;
+    overflow: hidden;
 }
 
 a{
@@ -123,4 +124,8 @@ a{
 .bird-info dd{
     margin-left:105px;
     width:200px;
+}
+
+#map-canvas {
+  height: 91vh;
 }
