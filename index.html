@@ -13,10 +13,12 @@
   <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
   <script type="text/javascript" src="js/jquery.tools.min.js"></script>
   <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
+  <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
   <script type="application/json" src="birdnames.json"></script>
   <script type="text/javascript" src="js/utilities.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
@@ -51,6 +53,11 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 
 
+    //Hide autocomplete and filtered windows if empty
+    $( "#autocomplete-div" ).hide();
+    //$( "#filtered-div" ).hide();
+
+
     //AUTOCOMPLETE
 
     var combinedList = [];
@@ -62,11 +69,27 @@
 
     $( "#input_bar" ).keyup(function(){
         //$(this).val();
+        if (document.getElementById('input_bar').value=='') {
+            $( "#autocomplete-div" ).hide();
+        } else {
+            $( "#autocomplete-div" ).show();
+        }
         $( ".autocomplete-removable" ).remove();
         combinedList = userList.concat(birdsOnMap);
         tags = combinedList.sort(function (a, b) {
             return a.toLowerCase().localeCompare(b.toLowerCase());
         });
+  
+    });
+
+    $( "#input_bar" ).focus(function() {
+       //$( "#autocomplete-div" ).show();
+    });
+
+    $( "#input_bar" ).focusout(function() {
+       $( "#autocomplete-div" ).hide();
+       $( ".autocomplete-removable" ).remove();
+       document.getElementById('input_bar').value='';
     });
 
     $( "#input_bar" ).autocomplete({
@@ -105,7 +128,7 @@
           clearMarkers();
           Display.birdSightings(currentBirdSightings);
       }
-      
+
       //removes element when user presses the x
       function removeFilter(e){
           var currentID=$(e.currentTarget).attr('id');
@@ -182,7 +205,7 @@
             $('.filter-list-check input').on('change',filterBirdListener);
             $('.filter-list-x button').on('click',removeFilter);
       }
-      
+
       //puts birds onto the autocomplete list and adds listeners
       function fillAutoComplete(item){
           $('#autocomplete-answers').append(autocompListTemplate(item));
@@ -194,7 +217,7 @@
       function filterListTemplate(name){
           return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
-      
+
       //hi everyone...SORRY THIS CODE IS SO UGLY...
       //has the class 'autocomplete-removable' on first div
       function autocompListTemplate(name){
@@ -255,6 +278,18 @@
       }, 500);
       return false;
     })
+
+    // Add a date picker to add bird form
+    $("#sighting-date").datepicker({
+      maxDate: new Date(),
+    });
+
+    //Add a time picker to add bird form
+    $("#sighting-time").timepicker({
+      minuteStep: 30,
+      showInputs: false,
+      disableFocus: true,
+    })
   });
   </script>
   <script id="bird-info-popup-template" type="text/x-handlebars-template">
@@ -312,8 +347,8 @@
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list" style="z-index:1">
               <div id="autocomplete-answers"></div>
-              <div class="row">&nbsp; Filtered:<div id="filters"></div></div>
-              
+
+              <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
               <div class="row">&nbsp; All Birds:<div id="entire-list"></div>
               </div>
         </div>
@@ -322,7 +357,7 @@
       <!--map-->
       <div class="row" style="z-index:0;" id="map">
         <!-- Nest some columns -->
-        <div id="map-canvas" style="height: 94vh;"></div>
+        <div id="map-canvas"></div>
       </div>
   </div>
 
@@ -353,13 +388,13 @@
           <div class="form-group">
             <label class="col-md-3" for="sighting-date">Date</label>
             <div class="col-md-9">
-              <input type="date" class="form-control" id="sighting-date">
+              <input type="text" class="form-control" id="sighting-date">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3" for="sighting-time">Time</label>
             <div class="col-md-9">
-              <input type="time" id="sighting-time" class="form-control">
+              <input type="text" id="sighting-time" class="input-small form-control">
             </div>
           </div>
           <div class="form-group">

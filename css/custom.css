@@ -1,5 +1,6 @@
 body{
     font-family: verdana;
+    overflow: hidden;
 }
 
 a{
@@ -37,20 +38,37 @@ a{
   
 }
 
-#add-bird-form .form-group{
-  padding: 0 5%;
+.close {
+  padding:1%;
 }
 
-.simple_overlay .close {
-  background-color: #FFFFFF;
-  /*position:absolute;
-  right:-15px;
-  top:-15px;
-  cursor:pointer;
-  height:35px;
-  width:35px;*/
-  height: 35px;
-  width:35px;
+#add-bird-submit {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid black;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: button;
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+  margin-bottom: 2%;
+}
+
+.bootstrap-timepicker-widget {
+  z-index: 10000
 }
 
 .filter-list-check{
@@ -116,4 +134,8 @@ a{
 .bird-info dd{
     margin-left:105px;
     width:200px;
+}
+
+#map-canvas {
+  height: 91vh;
 }
