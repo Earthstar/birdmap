@@ -34,6 +34,7 @@ a{
   background: white;
   border-radius: 5px;
   display:none;
+  
 }
 
 #add-bird-form .form-group{
@@ -77,10 +78,6 @@ a{
     padding:.5%;
 }
 
-#autocomplete-answers{
-  border-radius:5px;
-}
-
 #filter-list-row{
   max-height:80vh;
 
@@ -89,7 +86,7 @@ a{
 #filter-list #filters{
 
     max-height:30vh;
-
+    background-color:rgba(255,255,255,.75);
     overflow-y:scroll;
 }
 
@@ -100,8 +97,9 @@ a{
 }
 
 #autocomplete-answers{
-    max-height:20vh;
+    max-height:30vh;
     overflow-y:scroll;
+    border-radius:5px;
 }
 
 .bird-image{
