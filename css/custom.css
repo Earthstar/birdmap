@@ -65,6 +65,10 @@ a{
   margin-bottom: 2%;
 }
 
+.bootstrap-timepicker-widget {
+  z-index: 10000
+}
+
 /*#add-bird-form >  {
   margin: 3% 0;
 }*/
