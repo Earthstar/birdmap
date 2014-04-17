@@ -69,26 +69,6 @@ a{
   z-index: 10000
 }
 
-/*#add-bird-form >  {
-  margin: 3% 0;
-}*/
-
-/*#add-bird-form .form-group{
-  padding: 0 5%;
-}*/
-
-.simple_overlay .close {
-  background-color: #FFFFFF;
-  /*position:absolute;
-  right:-15px;
-  top:-15px;
-  cursor:pointer;
-  height:35px;
-  width:35px;*/
-  height: 35px;
-  width:35px;
-}
-
 .filter-list-check{
     padding:0;
     width:15%;
@@ -115,12 +95,17 @@ a{
 }
 
 #filter-list #filters{
-    height:25vh;
+    height:20vh;
     overflow-y:scroll;
 }
 
 #entire-list{
-    height:60vh;
+    height:40vh;
+    overflow-y:scroll;
+}
+
+#autocomplete-answers{
+    height:20vh;
     overflow-y:scroll;
 }
 

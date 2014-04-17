@@ -25,7 +25,8 @@
   // Global variables to access anywhere
   var map;
   var birdSightings;
-  var currentBirdSightings=[]; //current filter
+  var currentBirdSightings=[]; //all current birds
+  var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var markers=[];
   var birdsOnMap=[];
   var newSighting = {
@@ -76,7 +77,7 @@
 	    response( $.grep( combinedList, function( item ){
                 var matches = matcher.test( item );
                 if (matches) {
-                    addBirdsToFilterDisplay(item,'');
+                    fillAutoComplete(item);
                 }
 		return false;
 	    }) );
@@ -91,15 +92,32 @@
         }
     });*/
 
-      //MAINTAINING FILTER LIST
-
+      function refreshPins(){
+          if (currentFilters.length<1){
+              //no filters, show all birds
+              clearFilters();
+              return;
+          }
+          currentBirdSightings=[];
+          for(var i=0;i<currentFilters.length; i++){ //add up all the filters
+              currentBirdSightings=Filter.or(currentBirdSightings,
+                                             Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
+          }
+          console.log(currentBirdSightings);
+          clearMarkers();
+          Display.birdSightings(currentBirdSightings);
+      }
+      
       //removes element when user presses the x
       function removeFilter(e){
           var currentID=$(e.currentTarget).attr('id');
           console.log($('#'+currentID)[0]);
           $('#entire-list #'+currentID).prop('checked',false);
+          $('#autocomplete-answers #'+currentID).prop('checked',false);
           $(e.currentTarget.parentElement.parentElement).remove();
-          clearFilters();
+            var index=currentFilters.indexOf(currentID);
+            if (index!=-1){      currentFilters.splice(index,1); } //if it's in the list, get rid of it
+          refreshPins();
       }
 
    //TIME FILTER
@@ -121,22 +139,27 @@
           var currentID=$(e.currentTarget).attr('id');
           var isChecked=$(e.currentTarget).prop('checked');
           if(isChecked){
+              if (currentFilters.indexOf(currentID)==-1) {currentFilters.push(currentID);}
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentBird));
               Display.birdSightings(currentBirdSightings);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
-              if (list.attr('id')=='entire-list' && $('#filter-list #filters #'+currentID).length==0){
+              if (list.attr('id')!='filters' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
               }
-              console.log("checked all");
               $('#'+currentID).prop('checked',true);
               $('#entire-list #'+currentID).prop('checked',true);
+              $('#autocomplete-answers #'+currentID).prop('checked',true);
+              $('#filters #'+currentID).prop('checked',true);
             }else{
-                console.log("hey");
-                clearFilters();
+                var index=currentFilters.indexOf(currentID);
+                if (index!=-1){      currentFilters.splice(index,1); } //if it's in the list, get rid of it
+              refreshPins();
               $('#'+currentID).prop('checked',false);
               $('#entire-list #'+currentID).prop('checked',false);
+              $('#autocomplete-answers #'+currentID).prop('checked',false);
+              $('#filters #'+currentID).prop('checked',false);
             }
       }
 
@@ -161,10 +184,23 @@
             $('.filter-list-check input').on('change',filterBirdListener);
             $('.filter-list-x button').on('click',removeFilter);
       }
+      
+      //puts birds onto the autocomplete list and adds listeners
+      function fillAutoComplete(item){
+          $('#autocomplete-answers').append(autocompListTemplate(item));
+            $('.filter-list-check input').on('change',filterBirdListener);
+      }
 
       //the html that shows up in the list of filters
+      //has the x to close the filter
       function filterListTemplate(name){
-          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
+          return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
+      }
+      
+      //hi everyone...SORRY THIS CODE IS SO UGLY...
+      //has the class 'autocomplete-removable' on first div
+      function autocompListTemplate(name){
+          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
       }
 
       //returns a version of the name with '-' intsead of ' '.
@@ -174,6 +210,7 @@
       }
 
       //html that shows up in list of birds
+      //no x to close the filter, doesn't respond to any autocomplete stuff
       function birdListTemplate(name){
           var temp= "<div class='input-group'>"+
                 "    <span class='input-group-addon filter-list-check'>"+
@@ -198,7 +235,6 @@
             $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
             birdsOnMap.push(listOfAllBirds[i].commonName);
         }
-
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
@@ -289,6 +325,7 @@
           <div class="col-md-4"></div>
           <div class="col-md-4"></div>
           <div class="col-md-4" id="filter-list" style="z-index:1">
+              <div class="row">&nbsp; Autocomplete:<div id="autocomplete-answers"></div></div>
               <div class="row">&nbsp; Filtered:<div id="filters"></div></div>
 
               <div class="row">&nbsp; All Birds:<div id="entire-list"></div>
@@ -356,10 +393,5 @@
       </form>
     </div>
   </div>
-  <script>
-  $(function() {
-
-  })
-  </script>
 </body>
 </html>
