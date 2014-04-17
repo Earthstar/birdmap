@@ -102,6 +102,14 @@
         }
     });
 
+    $( "html" ).click(function() {
+       if ((!($("#input_bar").is(":hover")))&&(!($("#autocomplete_answers").is(":hover")))) {
+           $( "#autocomplete-answers" ).hide();
+           $( ".autocomplete-removable" ).remove();
+           document.getElementById('input_bar').value='';
+        }
+    });
+
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
 	    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
