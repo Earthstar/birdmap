@@ -54,7 +54,7 @@
 
 
     //Hide autocomplete and filtered windows if empty
-    //$( "#autocomplete-div" ).hide();
+    //$( "#autocomplete-answers" ).hide();
     //$( "#filtered-div" ).hide();
 
 
@@ -70,9 +70,9 @@
     $( "#input_bar" ).keyup(function(){
         //$(this).val();
         if (document.getElementById('input_bar').value=='') {
-            $( "#autocomplete-div" ).hide();
+            //$( "#autocomplete-answers" ).hide();
         } else {
-            $( "#autocomplete-div" ).show();
+            $( "#autocomplete-answers" ).show();
         }
         $( ".autocomplete-removable" ).remove();
         combinedList = userList.concat(birdsOnMap);
@@ -83,13 +83,23 @@
     });
 
     $( "#input_bar" ).focus(function() {
-       //$( "#autocomplete-div" ).show();
+       //$( "#autocomplete-answers" ).show();
     });
 
     $( "#input_bar" ).focusout(function() {
-       //$( "#autocomplete-div" ).hide();
-       //$( ".autocomplete-removable" ).remove();
-       document.getElementById('input_bar').value='';
+       if (!($("#autocomplete-answers").is(":hover"))) {
+           $( "#autocomplete-answers" ).hide();
+           $( ".autocomplete-removable" ).remove();
+           document.getElementById('input_bar').value='';
+        }
+    });
+
+    $( "#autocomplete-answers" ).focusout(function() {
+       if (!($("#input_bar").is(":hover"))) {
+          // $( "#autocomplete-answers" ).hide();
+           //$( ".autocomplete-removable" ).remove();
+           //document.getElementById('input_bar').value='';
+        }
     });
 
     $( "#input_bar" ).autocomplete({
