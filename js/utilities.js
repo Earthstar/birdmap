@@ -168,27 +168,41 @@ var Display = {
   // options - object of options to pass into marker
   birdSighting: function(sighting, options) {
     var html = this.popupTemplate(sighting)
+    var thisPosition = sighting.position;
+
     var infoWindow = new google.maps.InfoWindow({
-      content: html
-    })
-    var position = sighting.position;
+      content: html,
+      // position: thisPosition,
+    });
     if (!options) {
       options = {}
     }
-    options.position = position;
+    options.strokeColor = '#FF0000';
+    options.strokeOpacity = 0.8;
+    options.strokeWeight = 1;
+    options.fillColor = '#FF0000';
+    options.fillOpacity = 0.35;
     options.map = map;
-    options.title = sighting.commonName;
-    var marker = new google.maps.Marker(options)
-    google.maps.event.addListener(marker, "click", function() {
-      infoWindow.open(map, marker)
+    options.center = thisPosition;
+    options.radius = 1000;
+    options.clickable = true;
+    options.infoWindowContent = html;
+    options.infoWindow = infoWindow;
+
+    circle = new google.maps.Circle(options);
+
+    google.maps.event.addListener(circle, "click", function(event) {
+      // infoWindow.setPosition(position);
+      console.log(this.infoWindow.getContent())
+      this.infoWindow.setPosition(this.getCenter())
+      this.infoWindow.open(map)
     })
-    markers.push(marker);
   },
 
   // Given a list of sighting objects, displays them on map
-  birdSightings: function(sightings) {
+  birdSightings: function(sightings, options) {
     for (var i = sightings.length - 1; i >= 0; i--) {
-      Display.birdSighting(sightings[i]);
+      Display.birdSighting(sightings[i], options);
     };
   }
 }

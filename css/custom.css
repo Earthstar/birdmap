@@ -141,3 +141,10 @@ a{
 #map-canvas {
   height: 91vh;
 }
+
+/*Hack to fix width of divs so that close appears*/
+#map-canvas > .gm-style > div > div > div > div {
+  max-width: 444px !important;
+}
+
+/*Display.birdSighting(birdSightings[0])*/

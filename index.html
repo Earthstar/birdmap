@@ -20,6 +20,12 @@
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <style type="text/css">
+  /** FIX for Bootstrap and Google Maps Info window styles problem **/
+  img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
+    max-width: none;
+  }
+  </style>
   <title>birdOcular: What birds are around you?</title>
   <script type="text/javascript">
   // Global variables to access anywhere
@@ -102,13 +108,15 @@
         }
     });
 
-    $( "html" ).click(function() {
-       if ((!($("#input_bar").is(":hover")))&&(!($("#autocomplete_answers").is(":hover")))) {
-           $( "#autocomplete-answers" ).hide();
-           $( ".autocomplete-removable" ).remove();
-           document.getElementById('input_bar').value='';
-        }
-    });
+    // This causes a bug
+
+    // $( "html" ).click(function() {
+    //    if ((!($("#input_bar").is(":hover")))&&(!($("#autocomplete_answers").is(":hover")))) {
+    //        $( "#autocomplete-answers" ).hide();
+    //        $( ".autocomplete-removable" ).remove();
+    //        document.getElementById('input_bar').value='';
+    //     }
+    // });
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
@@ -278,11 +286,11 @@
       // display sightings
       Display.init();
       Display.birdSightings(birdSightings);
-        var listOfAllBirds=Birdmap.getBirdSpecies(birdSightings);
-        for(var i=0; i<listOfAllBirds.length; i++){
-            $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
-            birdsOnMap.push(listOfAllBirds[i].commonName);
-        }
+      var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
+      for(var i = 0; i < listOfAllBirds.length; i++){
+          $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
+          birdsOnMap.push(listOfAllBirds[i].commonName);
+      }
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
