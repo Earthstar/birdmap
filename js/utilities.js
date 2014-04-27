@@ -162,6 +162,7 @@ var Display = {
   init: function() {
     var source = $("#bird-info-popup-template").html();
     this.popupTemplate = Handlebars.compile(source);
+    infoWindow = new google.maps.InfoWindow();
   },
 
   // Given a sighting object, displays on map
@@ -169,33 +170,35 @@ var Display = {
   birdSighting: function(sighting, options) {
     var html = this.popupTemplate(sighting)
     var thisPosition = sighting.position;
-
-    var infoWindow = new google.maps.InfoWindow({
-      content: html,
-      // position: thisPosition,
-    });
-    if (!options) {
-      options = {}
+    // Set default options that can be overridden
+    var defaultOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 1,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: thisPosition,
+      radius: 1000,
+      clickable: true,
+      infoWindowContent: html,
+      infoWindow: infoWindow,
     }
-    options.strokeColor = '#FF0000';
-    options.strokeOpacity = 0.8;
-    options.strokeWeight = 1;
-    options.fillColor = '#FF0000';
-    options.fillOpacity = 0.35;
-    options.map = map;
-    options.center = thisPosition;
-    options.radius = 1000;
-    options.clickable = true;
-    options.infoWindowContent = html;
-    options.infoWindow = infoWindow;
+    if (typeof options == 'object') {
+      options = $.extend(defaultOptions, options);
+    } else {
+      options = defaultOptions
+    }
 
     circle = new google.maps.Circle(options);
 
     google.maps.event.addListener(circle, "click", function(event) {
+      infoWindow.close()
+      infoWindow.setContent(this.infoWindowContent)
       // infoWindow.setPosition(position);
       console.log(this.infoWindow.getContent())
-      this.infoWindow.setPosition(this.getCenter())
-      this.infoWindow.open(map)
+      infoWindow.setPosition(this.getCenter())
+      infoWindow.open(map)
     })
   },
 
