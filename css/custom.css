@@ -1,6 +1,6 @@
 body{
     font-family: verdana;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 a{
@@ -30,19 +30,18 @@ a{
     width:100%;
 }
 
-#add-bird-form {
+#add-bird-form, #login-form {
   /*Reset opacity for form*/
   background: white;
   border-radius: 5px;
   display:none;
-
 }
 
 .close {
   padding:1%;
 }
 
-#add-bird-submit {
+#add-bird-submit, #login-submit {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
@@ -147,4 +146,8 @@ a{
   max-width: 444px !important;
 }
 
-/*Display.birdSighting(birdSightings[0])*/
+form h3 {
+  display: inline;
+  margin: 10px;
+  text-align: center;
+}

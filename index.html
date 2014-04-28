@@ -37,6 +37,7 @@
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var markers=[];
   var birdsOnMap=[];
+  var username = "foobar";
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -308,6 +309,48 @@
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
+    $("#login-logout").overlay({
+      closeOnClick: true,
+      mask: {
+        color: '#555555',
+        loadSpeed: 100,
+        opacity: 0.5
+      },
+    });
+
+    //Create an overlay that must be programatically opened and closed
+    // $("#add-bird-form").overlay({
+    //   top: "10%",
+    //   closeOnClick: true,
+    //   mask: {
+    //     color: '#555555',
+    //     loadSpeed: 100,
+    //     opacity: 0.5
+    //   },
+    //   load: false,
+    // })
+
+    // When you click the add-bird button, first check if user
+    // is logged in, then make overlay
+    // Problem: can only open overlay once?
+    // What if you remove the overlay?
+
+    // Desired behavior: when click button, check for username
+    // if no username, open login
+    // If yes username, open overlay
+    // $("#add-bird").click(function() {
+    //   if (!username) {
+    //     // prompt for username
+    //   } else {
+    //     // open overlay
+    //     $("#add-bird-form").data("overlay").open();
+    //   }
+    // })
+
+    // function closeOverlay() {
+    //   $("#add-bird-form").data("overlay").close();
+    // }
+
     // Make overlay
     $("#add-bird").overlay({
       top: "10%",
@@ -371,7 +414,8 @@
           </div>
           <div class="col-md-4">
               <big><big><big><a href="index.html">birdOcular</a> <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
-                &nbsp; Username - logout</div>
+                &nbsp; <span id="username"></span>
+                <a id="login-logout" rel="#login-form">Login</a></div>
           <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
               <option value="all">All</option>
@@ -415,6 +459,7 @@
     <div id="add-bird-form-bg">
       <form id="add-bird-form" class="form-horizontal col-md-offset-1 col-md-9" role="form" action="">
       <div class="row">
+        <h3>Add new bird</h3>
         <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
       </div>
         <div class="form-group col-md-5">
@@ -460,6 +505,25 @@
           </div>
           <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12 close">Add bird</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="login-form-bg">
+      <form id="login-form" class="form-horizontal col-md-offset-1 col-md-6" role="form" action="">
+      <div class="row">
+        <h3>Login to add birds</h3>
+        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+      </div>
+        <div class="form-group">
+          <label class="col-md-3" for="username-entry">Username</label>
+          <div class="col-md-9">
+            <input class="form-control" id="username-entry" type="text" placeholder="Username">
+          </div>
+
+        </div>
+        <button id="login-submit" class="btn btn-default col-md-12 close" type="submit">Login</button>
       </form>
     </div>
   </div>
