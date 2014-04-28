@@ -310,14 +310,39 @@
     })
 
     // Make login overlay
-    $("#login-logout").overlay({
+    // $("#login-logout").overlay({
+    //   closeOnClick: true,
+    //   mask: {
+    //     color: '#555555',
+    //     loadSpeed: 100,
+    //     opacity: 0.5
+    //   },
+    // });
+    $("#login-form").overlay({
       closeOnClick: true,
       mask: {
         color: '#555555',
         loadSpeed: 100,
         opacity: 0.5
       },
-    });
+      load: false,
+    })
+
+    $("#login-logout").click(function() {
+      $("#login-form").data("overlay").load();
+    })
+
+    // upon submitting a login, set username
+    // Oh boy, form validation!
+    $("#login-form").submit(function(e) {
+      e.preventDefault();
+      if ($("username-entry").val() === "") {
+        $("#login-form .error-message").text("Missing username");
+      } else {
+        username = $("username-entry").val();
+        $("#login-form").data("overlay").close();
+      }
+    })
 
     // For now, you can't log out
     // When log in with text
@@ -521,9 +546,8 @@
           <div class="col-md-9">
             <input class="form-control" id="username-entry" type="text" placeholder="Ex. BirdWatcherPerson" required>
           </div>
-
         </div>
-        <button id="login-submit" class="btn btn-default col-md-12 close" type="submit">Login</button>
+        <button id="login-submit" class="btn btn-default col-md-12" type="submit">Login</button>
       </form>
     </div>
   </div>
