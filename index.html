@@ -309,6 +309,7 @@
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
+    // Make login overlay
     $("#login-logout").overlay({
       closeOnClick: true,
       mask: {
@@ -317,6 +318,9 @@
         opacity: 0.5
       },
     });
+
+    // For now, you can't log out
+    // When log in with text
 
     //Create an overlay that must be programatically opened and closed
     // $("#add-bird-form").overlay({
@@ -362,13 +366,9 @@
       },
     });
 
-    // When you click the add bird button, put a canned pin on the map
-    $("#add-bird-form").submit(function(e) {
+    // Prevent clicking forms from refreshing page
+    $("form").submit(function(e) {
       e.preventDefault();
-      setTimeout(function() {
-        Display.birdSighting(newSighting, {animation: google.maps.Animation.DROP});
-      }, 500);
-      return false;
     })
 
     // Add a date picker to add bird form
@@ -470,19 +470,19 @@
           <div class="form-group">
             <label class="col-md-3" for="common-name">Common name</label>
             <div class="col-md-9">
-              <input type="text" placeholder="Ex. Northern Cardinal" class="form-control" id="common-name">
+              <input type="text" placeholder="Ex. Northern Cardinal" class="form-control" id="common-name" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3" for="species-name">Species name</label>
             <div class="col-md-9">
-              <input type="text" placeholder="Species name" class="form-control" id="species-name">
+              <input type="text" placeholder="Ex. Cardinalis cardinalis" class="form-control" id="species-name">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3" for="sighting-date">Date</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" id="sighting-date">
+              <input type="text" class="form-control" id="sighting-date" required>
             </div>
           </div>
           <div class="form-group">
@@ -494,13 +494,13 @@
           <div class="form-group">
             <label class="col-md-3" for="sighting-location">Location</label>
             <div class="col-md-9">
-              <input type="text" id="sighting-location" class="form-control" placeholder="Location of sighting">
+              <input type="text" id="sighting-location" class="form-control" placeholder="Ex. 77 Massachusetts Ave, Cambridge MA" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3" for="sighting-comments">Comments</label>
             <div class="col-md-9">
-              <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Describe sighting"></textarea>
+              <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
           </div>
           <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12 close">Add bird</button>
@@ -519,7 +519,7 @@
         <div class="form-group">
           <label class="col-md-3" for="username-entry">Username</label>
           <div class="col-md-9">
-            <input class="form-control" id="username-entry" type="text" placeholder="Username">
+            <input class="form-control" id="username-entry" type="text" placeholder="Ex. BirdWatcherPerson" required>
           </div>
 
         </div>
