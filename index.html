@@ -180,11 +180,23 @@
 
    //TIME FILTER
       $('#time-select').on('change',function(e){
-          console.log($(e.currentTarget).val());
-          //i put in some bogus dates but the code should be right
+          //pretend "today" is 2/28/2014 (last date we have data for)
+          var startDate=new Date(2014,2,1,0,0,0);
+          var endDate=new Date(2014,2,1,0,0,0);
+          var interval=$(e.currentTarget).val();
+          if (interval=="today"){
+              startDate.setDate(startDate.getDate()-1);
+          }else if (interval=="week"){
+              startDate.setDate(startDate.getDate()-7);
+          }else if (interval=="month"){
+              startDate.setDate(startDate.getDate()-30);
+          }else { //show all
+              startDate=new Date(0,0,0,0,0,0);
+              endDate=new Date();
+          }
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
-                                             Filter.byDate(birdSightings,new Date("October 13, 2014 11:13:00"),new Date("November 13, 2014 11:13:00")));
+                                             Filter.byDate(birdSightings,startDate,endDate));
           Display.birdSightings(currentBirdSightings);
       });
 
@@ -362,10 +374,10 @@
                 &nbsp; Username - logout</div>
           <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
+              <option value="all">All</option>
               <option value="today">Today</option>
               <option value="week">This week</option>
               <option value="month">This month</option>
-              <option value="all">All</option>
             </select>
           </div>
           <div class="col-md-4">
@@ -386,7 +398,7 @@
               <div id="autocomplete-answers"></div>
 
               <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
-              <div class="row">&nbsp; All Birds:<div id="entire-list"></div>
+              <div class="row">&nbsp; All Birds on Map:<div id="entire-list"></div>
               </div>
         </div>
       </div>
