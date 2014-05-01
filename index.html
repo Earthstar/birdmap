@@ -380,7 +380,12 @@
       }
     })
 
-    $("#add-bird-form").submit(function() {
+    $("#add-bird-form").submit(function(e) {
+      // Prevent submit
+      e.preventDefault();
+      // Close overlay
+      $("#add-bird-form").data("overlay").close();
+
       // Do some preprocessing of the data
       // date and time are string values
       var date = new Date(Date.parse($("#sighting-date").val()))
@@ -552,7 +557,7 @@
               <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
           </div>
-          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12 close">Add bird</button>
+          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12">Add bird</button>
         </div>
       </form>
     </div>
