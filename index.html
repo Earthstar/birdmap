@@ -336,14 +336,17 @@
     // Oh boy, form validation!
     $("#login-form").submit(function(e) {
       e.preventDefault();
-      if ($("username-entry").val() === "") {
-      } else {
-        username = $("#username-entry").val();
-        $("#username-entry").val("");
-        $("#login-form").data("overlay").close();
-        // Lol unvalidated text
-        $("#login-logout").text(username);
+
+      username = $("#username-entry").val();
+      $("#username-entry").val("");
+      $("#login-form").data("overlay").close();
+      $("#login-logout").text(username);
+
+      if ($(this).data("overlay")["openAddBird"]) {
+        $("#add-bird-form").data("overlay").load();
+        $(this).data("overlay")["openAddBird"] = false;
       }
+
     })
 
 
@@ -364,14 +367,12 @@
     // Problem: can only open overlay once?
     // What if you remove the overlay?
 
-    // Add a tooltip
-    // $("#add-bird").tooltip();
-
     // Desired behavior: when click button, check for username
     // if no username, prompt tooltip
     // If yes username, open overlay
     $("#add-bird").click(function() {
       if (!username) {
+        $("#login-form").data("overlay")["openAddBird"] = true;
         $("#login-form").data("overlay").load();
       } else {
         // open overlay
