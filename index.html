@@ -37,7 +37,7 @@
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var markers=[];
   var birdsOnMap=[];
-  var username = "foobar";
+  var username = "";
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -337,51 +337,18 @@
     $("#login-form").submit(function(e) {
       e.preventDefault();
       if ($("username-entry").val() === "") {
-        $("#login-form .error-message").text("Missing username");
       } else {
         username = $("#username-entry").val();
         $("#username-entry").val("");
         $("#login-form").data("overlay").close();
         // Lol unvalidated text
-        $("#login-logout").text("Welcome " + username);
+        $("#login-logout").text(username);
       }
     })
 
+
     //Create an overlay that must be programatically opened and closed
-    // $("#add-bird-form").overlay({
-    //   top: "10%",
-    //   closeOnClick: true,
-    //   mask: {
-    //     color: '#555555',
-    //     loadSpeed: 100,
-    //     opacity: 0.5
-    //   },
-    //   load: false,
-    // })
-
-    // When you click the add-bird button, first check if user
-    // is logged in, then make overlay
-    // Problem: can only open overlay once?
-    // What if you remove the overlay?
-
-    // Desired behavior: when click button, check for username
-    // if no username, open login
-    // If yes username, open overlay
-    // $("#add-bird").click(function() {
-    //   if (!username) {
-    //     // prompt for username
-    //   } else {
-    //     // open overlay
-    //     $("#add-bird-form").data("overlay").open();
-    //   }
-    // })
-
-    // function closeOverlay() {
-    //   $("#add-bird-form").data("overlay").close();
-    // }
-
-    // Make overlay
-    $("#add-bird").overlay({
+    $("#add-bird-form").overlay({
       top: "10%",
       closeOnClick: true,
       mask: {
@@ -389,7 +356,57 @@
         loadSpeed: 100,
         opacity: 0.5
       },
-    });
+      load: false,
+    })
+
+    // When you click the add-bird button, first check if user
+    // is logged in, then make overlay
+    // Problem: can only open overlay once?
+    // What if you remove the overlay?
+
+    // Add a tooltip
+    // $("#add-bird").tooltip();
+
+    // Desired behavior: when click button, check for username
+    // if no username, prompt tooltip
+    // If yes username, open overlay
+    $("#add-bird").click(function() {
+      if (!username) {
+        $("#login-form").data("overlay").load();
+      } else {
+        // open overlay
+        $("#add-bird-form").data("overlay").load();
+      }
+    })
+
+    $("#add-bird-form").submit(function() {
+      // Do some preprocessing of the data
+      // date and time are string values
+      var date = new Date(Date.parse($("#sighting-date").val()))
+      var time = $("#sighting-time").val()
+      // Parse the string, should have format 12:00 PM
+      // Wow, this is annoying
+      time = time.split(/[\s:]/)
+      var hour = parseInt(time[0])
+      var min = parseInt(time[1])
+      if (time[2] == "PM") {
+        hour += 12
+      }
+      date.setHours(hour)
+      date.setMinutes(min)
+      console.log(date)
+      console.log(time)
+      // Get the form values
+      var newSighting = {
+        commonName: $("#common-name").val(),
+        speciesName: $("#species-name").val(),
+        comment: $("#sighting-comments").val(),
+      }
+    })
+
+    // function closeOverlay() {
+    //   $("#add-bird-form").data("overlay").close();
+    // }
 
     // Prevent clicking forms from refreshing page
     $("form").submit(function(e) {
@@ -399,6 +416,7 @@
     // Add a date picker to add bird form
     $("#sighting-date").datepicker({
       maxDate: new Date(),
+      dateFormat: "MM d, yy",
     });
 
     //Add a time picker to add bird form
@@ -438,9 +456,14 @@
             <button id="add-bird" rel="#add-bird-form" type="button" class="btn btn-default">Add bird</button>
           </div>
           <div class="col-md-4">
-              <big><big><big><a href="index.html">birdOcular</a> <span class="glyphicon glyphicon-eye-open"></span></big></big></big>
-                &nbsp; <span id="username"></span>
-                <a id="login-logout" rel="#login-form">Login</a></div>
+            <big><big><big>
+              <a href="index.html">birdOcular</a>
+              <span class="glyphicon glyphicon-eye-open"></span>
+                &nbsp;
+              <span id="username"></span>
+              <a id="login-logout" rel="#login-form">Login</a>
+            </big></big></big>
+          </div>
           <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
               <option value="all">All</option>
@@ -513,7 +536,7 @@
           <div class="form-group">
             <label class="col-md-3" for="sighting-time">Time</label>
             <div class="col-md-9">
-              <input type="text" id="sighting-time" class="input-small form-control">
+              <input type="text" id="sighting-time" class="input-small form-control" required>
             </div>
           </div>
           <div class="form-group">
@@ -538,7 +561,7 @@
     <div id="login-form-bg">
       <form id="login-form" class="form-horizontal col-md-offset-1 col-md-6" role="form" action="">
       <div class="row">
-        <h3>Login to add birds</h3>
+        <h3>Sign up to add birds</h3>
         <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
       </div>
         <div class="form-group">
@@ -547,7 +570,7 @@
             <input class="form-control" id="username-entry" type="text" placeholder="Ex. BirdWatcherPerson" required>
           </div>
         </div>
-        <button id="login-submit" class="btn btn-default col-md-12" type="submit">Login</button>
+        <button id="login-submit" class="btn btn-default col-md-12" type="submit">Sign up</button>
       </form>
     </div>
   </div>
