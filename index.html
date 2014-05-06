@@ -204,6 +204,7 @@
       //BIRD FILTER
       $('.filter-list-check input').on('change',filterBirdListener);
 
+      // Filter birds based on checked button
       function filterBirdListener(e){
           console.log("click");
           var currentBird=$(e.currentTarget).data('name');
@@ -236,6 +237,7 @@
 
       //used for google maps api, necessary to clear map pins
       function clearMarkers(){
+        console.log(markers)
           for(var i=0;i<markers.length;i++){
               markers[i].setMap(null);
           }

@@ -191,12 +191,12 @@ var Display = {
     }
 
     circle = new google.maps.Circle(options);
+    markers.push(circle);
 
     google.maps.event.addListener(circle, "click", function(event) {
       infoWindow.close()
       infoWindow.setContent(this.infoWindowContent)
       // infoWindow.setPosition(position);
-      console.log(this.infoWindow.getContent())
       infoWindow.setPosition(this.getCenter())
       infoWindow.open(map)
     })
