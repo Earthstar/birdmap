@@ -35,7 +35,6 @@
   var infoWindow;
   var currentBirdSightings=[]; //all current birds
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
-  var markers=[];
   var birdsOnMap=[];
   var username = "";
   var newSighting = {
@@ -54,7 +53,8 @@
       var center = new google.maps.LatLng(42.0, -70.5);
       var mapOptions = {
         center: center,
-        zoom: 8
+        zoom: 8,
+        streetViewControl:false
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
@@ -162,9 +162,8 @@
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
           }
-          console.log(currentBirdSightings);
           clearMarkers();
-          Display.birdSightings(currentBirdSightings);
+          Display.displayBirdSightings(currentBirdSightings);
       }
 
       //removes element when user presses the x
@@ -198,14 +197,14 @@
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.byDate(birdSightings,startDate,endDate));
-          Display.birdSightings(currentBirdSightings);
+          Display.createAndDisplayBirdSightings(currentBirdSightings);
       });
 
       //BIRD FILTER
       $('.filter-list-check input').on('change',filterBirdListener);
 
+      // Filter birds based on checked button
       function filterBirdListener(e){
-          console.log("click");
           var currentBird=$(e.currentTarget).data('name');
           var currentID=$(e.currentTarget).attr('id');
           var isChecked=$(e.currentTarget).prop('checked');
@@ -214,7 +213,7 @@
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentBird));
-              Display.birdSightings(currentBirdSightings);
+              Display.displayBirdSightings(currentBirdSightings);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
               if (list.attr('id')!='filters' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
@@ -235,18 +234,18 @@
       }
 
       //used for google maps api, necessary to clear map pins
+      // Instead of deleting markers, we want to toggle visiblity
       function clearMarkers(){
-          for(var i=0;i<markers.length;i++){
-              markers[i].setMap(null);
-          }
-        markers=[];
+        for (var i = birdSightings.length - 1; i >= 0; i--) {
+          birdSightings[i].marker.setVisible(false);
+        };
       }
 
       //shows all birds on map again
       function clearFilters(){
           clearMarkers();
           currentBirdSightings=[];
-          Display.birdSightings(birdSightings);
+          Display.displayBirdSightings(birdSightings);
       }
 
       //just adds html to filter list and adds listeners
@@ -300,7 +299,13 @@
       // Find all birds that are on the screen
       // display sightings
       Display.init();
-      Display.birdSightings(birdSightings);
+      // For each birdSighting, create a marker and store it
+      // within the birdSighting
+      for (var i = birdSightings.length - 1; i >= 0; i--) {
+        var circle = Display.createAndDisplayBirdSighting(birdSightings[i]);
+        birdSightings[i].marker = circle;
+      };
+      // TODO redo so alphabetical
       var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
       for(var i = 0; i < listOfAllBirds.length; i++){
           $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
