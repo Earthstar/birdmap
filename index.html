@@ -388,26 +388,40 @@
 
       // Do some preprocessing of the data
       // date and time are string values
-      var date = new Date(Date.parse($("#sighting-date").val()))
-      var time = $("#sighting-time").val()
+      var newDate = new Date(Date.parse($("#sighting-date").val()))
+      var newTime = $("#sighting-time").val()
       // Parse the string, should have format 12:00 PM
       // Wow, this is annoying
-      time = time.split(/[\s:]/)
-      var hour = parseInt(time[0])
-      var min = parseInt(time[1])
-      if (time[2] == "PM") {
+      newTime = newTime.split(/[\s:]/)
+      var hour = parseInt(newTime[0])
+      var min = parseInt(newTime[1])
+      if (newTime[2] == "PM") {
         hour += 12
       }
-      date.setHours(hour)
-      date.setMinutes(min)
-      console.log(date)
-      console.log(time)
+      newDate.setHours(hour)
+      newDate.setMinutes(min)
+      console.log(newDate)
+      console.log(newTime)
+      var newPosition = new google.maps.LatLng($("#sighting-location").val());//42.33, -71.05);
       // Get the form values
       var newSighting = {
         commonName: $("#common-name").val(),
         speciesName: $("#species-name").val(),
+        userSpotted: username,
+        position: newPosition,
+        date: newDate,
         comment: $("#sighting-comments").val(),
+        image: $("#bird-pic").val(),
       }
+      birdSightings.push(newSighting);
+      Display.init();
+      Display.birdSightings(birdSightings);
+      var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
+      for(var i = 0; i < listOfAllBirds.length; i++){
+          $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
+          birdsOnMap.push(listOfAllBirds[i].commonName);
+      }
+      $('.filter-list-check input').on('change',filterBirdListener);
     })
 
     // function closeOverlay() {
