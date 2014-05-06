@@ -136,7 +136,7 @@ var Filter = {
   },
 
   // Merges a list of filters
-  // How to make an or-filter
+  // How to make an ormarkers-filter
   // Filter.or(Filter.byLocation, Filter.byUser)
   or: function(sightings1, sightings2) {
     var toReturn = sightings1;
@@ -165,9 +165,10 @@ var Display = {
     infoWindow = new google.maps.InfoWindow();
   },
 
-  // Given a sighting object, displays on map
+  // Given a sighting object, creates and displays circles
+  // This should only be called once upon every bird sighting
   // options - object of options to pass into marker
-  birdSighting: function(sighting, options) {
+  createAndDisplayBirdSighting: function(sighting, options) {
     var html = this.popupTemplate(sighting)
     var thisPosition = sighting.position;
     // Set default options that can be overridden
@@ -191,7 +192,6 @@ var Display = {
     }
 
     circle = new google.maps.Circle(options);
-    markers.push(circle);
 
     google.maps.event.addListener(circle, "click", function(event) {
       infoWindow.close()
@@ -200,12 +200,24 @@ var Display = {
       infoWindow.setPosition(this.getCenter())
       infoWindow.open(map)
     })
+    return circle;
   },
 
   // Given a list of sighting objects, displays them on map
-  birdSightings: function(sightings, options) {
+  createAndDisplayBirdSightings: function(sightings, options) {
     for (var i = sightings.length - 1; i >= 0; i--) {
-      Display.birdSighting(sightings[i], options);
+      Display.createAndDisplayBirdSighting(sightings[i], options);
     };
-  }
+  },
+
+  // Only displays a bird sighting
+  displayBirdSighting: function(sighting) {
+    sighting.marker.setVisible(true);
+  },
+
+  displayBirdSightings: function(sightings) {
+    for (var i = sightings.length - 1; i >= 0; i--) {
+      Display.displayBirdSighting(sightings[i]);
+    };
+  },
 }
