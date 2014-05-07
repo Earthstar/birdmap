@@ -255,22 +255,22 @@
       }
 
       //just adds html to filter list and adds listeners
-      function addBirdsToFilterDisplay(item){
-            $( "#filter-list #filters" ).append(filterListTemplate(item));
-            $('.filter-list-check input').on('change',filterBirdListener);
-            $('.filter-list-x button').on('click',removeFilter);
+      function addBirdsToFilterDisplay(commonName){
+        var context = {
+          name: {
+            id: nameToID(commonName),
+            string: commonName,
+          }
+        }
+        $( "#filter-list #filters" ).append(Display.filterListTemplate(context));
+        $('.filter-list-check input').on('change',filterBirdListener);
+        $('.filter-list-x button').on('click',removeFilter);
       }
 
       //puts birds onto the autocomplete list and adds listeners
       function fillAutoComplete(item){
           $('#autocomplete-answers').append(autocompListTemplate(item));
             $('.filter-list-check input').on('change',filterBirdListener);
-      }
-
-      //the html that shows up in the list of filters
-      //has the x to close the filter
-      function filterListTemplate(name){
-          return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
 
       //hi everyone...SORRY THIS CODE IS SO UGLY...
@@ -317,7 +317,7 @@
           },
         }
         // Create the filter checkboxes
-        $('#entire-list').append(Display.filterListSpeciesTemplate(context));
+        $('#entire-list').append(Display.allBirdsListTemplate(context));
         birdsOnMap.push(birdSpecies[i].commonName);
       }
       // Attach listeners to checkboxes
@@ -474,8 +474,8 @@
   </div>
   </script>
 
-  <script id="filter-list-species-template" type="text/x-handlebars-template">
-  <div class='input-group' id="{{name.id}}-container">
+  <script id="all-birds-list-template" type="text/x-handlebars-template">
+  <div class='input-group' class="{{name.id}}-container">
     <span class='input-group-addon filter-list-check'>
       <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
     </span>
@@ -484,6 +484,19 @@
       <span class='glyphicon glyphicon-remove'></span>
     </span>
   </div>
+  </script>
+
+  <script id='filter-list-template' type="text/x-handlebars-template">
+    <div class='input-group' class="{{name.id}}-container">
+      <span class='input-group-addon filter-list-check'>
+        <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+      </span>
+      <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+      <span class='input-group-btn filter-list-x'>
+        <button class='btn btn-default' id='{{name.id}}' type='button'><span class='glyphicon glyphicon-remove'></span>
+        </button>
+      </span>
+    </div>
   </script>
 
 

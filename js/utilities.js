@@ -133,15 +133,19 @@ var Filter = {
 
 var Display = {
   popupTemplate: null,
-  filterListSpeciesTemplate: null,
+  allBirdsListTemplate: null,
+  filterListTemplate: null,
   // compiles handlebars template
   init: function() {
     var source = $("#bird-info-popup-template").html();
     this.popupTemplate = Handlebars.compile(source);
     infoWindow = new google.maps.InfoWindow();
 
-    source = $('#filter-list-species-template').html();
-    this.filterListSpeciesTemplate = Handlebars.compile(source);
+    source = $('#all-birds-list-template').html();
+    this.allBirdsListTemplate = Handlebars.compile(source);
+
+    source = $('#filter-list-template').html();
+    this.filterListTemplate = Handlebars.compile(source);
   },
 
   // Given a sighting object, creates and displays circles
