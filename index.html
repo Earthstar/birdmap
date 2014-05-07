@@ -14,7 +14,6 @@
   <script type="text/javascript" src="js/jquery.tools.min.js"></script>
   <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
   <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
-  <script type="application/json" src="birdnames.json"></script>
   <script type="text/javascript" src="js/utilities.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
@@ -33,6 +32,16 @@
   var birdSightings;
   // There is one global infowindow, initialized in Display.init
   var infoWindow;
+  // All bird species
+  // format:
+    /*
+    {
+    commonName: string,
+    speciesName: string,
+    color: string of random hex code
+    }
+  */
+  var birdSpecies;
   var currentBirdSightings=[]; //all current birds
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var birdsOnMap=[];
@@ -72,9 +81,6 @@
     var combinedList = [];
     var tags = [];
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantis78","richard","peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
-
-
-
 
     $( "#input_bar" ).keyup(function(){
         //$(this).val();
@@ -276,53 +282,66 @@
       //returns a version of the name with '-' intsead of ' '.
       //ex: Northern Cardinal --> Northern-Cardinal
       function nameToID(name){
-          return name.replace(' ','-');
+          return name.replace(new RegExp(' ', 'g'),'-');
       }
 
-      //html that shows up in list of birds
-      //no x to close the filter, doesn't respond to any autocomplete stuff
-      function birdListTemplate(name){
-          var temp= "<div class='input-group'>"+
-                "    <span class='input-group-addon filter-list-check'>"+
-                "      <input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'>"+
-                "    </span>"+
-                "    <span class='input-group-addon filter-list-species'>"+name+"</span>"+
-                "    <span class='input-group-addon filter-list-o'>"+
-                "        <span class='glyphicon glyphicon-remove'></span>"+
-                "    </span>"+
-                "  </div>";
-          return temp;
+    // This is a function that gets the hex color that corresponds
+    // to the commonName
+    // Default color is red
+    function getColor(commonName) {
+      if (!birdSpecies) {
+        console.log("birdSpecies not initialized");
       }
 
-    $.getJSON('smallbirds.json', function(json) {
-      birdSightings = Birdmap.processBirds(json);
-      // Find all birds that are on the screen
-      // display sightings
-      Display.init();
-      // For each birdSighting, create a marker and store it
-      // within the birdSighting
-      for (var i = birdSightings.length - 1; i >= 0; i--) {
-        var circle = Display.createAndDisplayBirdSighting(birdSightings[i]);
-        birdSightings[i].marker = circle;
-      };
-      // TODO redo so alphabetical
-      var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
-      for(var i = 0; i < listOfAllBirds.length; i++){
-          $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
-          birdsOnMap.push(listOfAllBirds[i].commonName);
+      // default is red
+      var color = '#FF0000';
+      // Search birdSpecies for name
+
+      $.each(birdSpecies, function(i, value) {
+        if (value.commonName === commonName) {
+          color = value.color;
+          return false;
+        }
+      })
+      return color;
+    }
+
+    // Loads all bird species into global variable birdSpecies
+    $.getJSON('json/bird_species.json', function(json) {
+      birdSpecies = json;
+      for(var i = 0; i < birdSpecies.length; i++){
+        var context = {
+          name: {
+            string: birdSpecies[i].commonName,
+            id: nameToID(birdSpecies[i].commonName),
+          },
+        }
+        // Create the filter checkboxes
+        $('#entire-list').append(Display.filterListSpeciesTemplate(context));
+        birdsOnMap.push(birdSpecies[i].commonName);
       }
+      // Attach listeners to checkboxes
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
-    // Make login overlay
-    // $("#login-logout").overlay({
-    //   closeOnClick: true,
-    //   mask: {
-    //     color: '#555555',
-    //     loadSpeed: 100,
-    //     opacity: 0.5
-    //   },
-    // });
+    // This compiles all handlebars templates
+    Display.init();
+    // Loads bird jsons, creates filters
+    $.getJSON('smallbirds.json', function(json) {
+
+      // At this time, birdSpecies should exist. Might be a race
+      // condition here
+      birdSightings = Birdmap.processBirds(json);
+      // For each birdSighting, create a marker and store it
+      // within the birdSighting
+      for (var i = birdSightings.length - 1; i >= 0; i--) {
+        // Figure out the color that corresponds to species
+        var color = getColor(birdSightings[i].commonName)
+        var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
+        birdSightings[i].marker = circle;
+      };
+    })
+
     $("#login-form").overlay({
       closeOnClick: true,
       mask: {
@@ -353,7 +372,6 @@
       }
 
     })
-
 
     //Create an overlay that must be programatically opened and closed
     $("#add-bird-form").overlay({
@@ -470,6 +488,19 @@
       </div>
   </div>
   </script>
+
+  <script id="filter-list-species-template" type="text/x-handlebars-template">
+  <div class='input-group' id="{{name.id}}-container">
+    <span class='input-group-addon filter-list-check'>
+      <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+    </span>
+    <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+    <span class='input-group-addon filter-list-o'>
+      <span class='glyphicon glyphicon-remove'></span>
+    </span>
+  </div>
+  </script>
+
 
 </head>
  <!-- Col should add up to 12 -->

@@ -1,7 +1,0 @@
-var birdDict = {
-      "commonName": "Northern Cardinal",
-      "speciesName": "Cardinalis cardinalis",
-      "userSpotted": "cool_bird01",
-      "commonName": "House Sparrow",
-      "speciesName": "Passer domesticus"
-}

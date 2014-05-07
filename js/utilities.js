@@ -1,31 +1,5 @@
 // Things I don't know where else to put.
 var Birdmap = {
-  // Returns a list of objects of all bird species in sightings
-  // Not in any particular order
-  // format:
-  /*
-  {
-  commonName: string,
-  speciesName: string
-  }
-  */
-  getBirdSpecies: function(sightings) {
-    var alreadyFound = [];
-    var toReturn = [];
-    for (var i = sightings.length - 1; i >= 0; i--) {
-      name = sightings[i].speciesName;
-      // if species not in list, add it to list
-      if (alreadyFound.indexOf(name) < 0) {
-        toReturn.push({
-          speciesName: name,
-          commonName: sightings[i].commonName
-        });
-        alreadyFound.push(name);
-      }
-    };
-    return toReturn;
-  },
-
 // Format of bird object
 /*
 {
@@ -37,6 +11,7 @@ var Birdmap = {
   comment: string,
   image: string of location of file,
   attribution: string of source, photographer
+  marker: a Google circle object
 }
 */
 
@@ -158,11 +133,15 @@ var Filter = {
 
 var Display = {
   popupTemplate: null,
+  filterListSpeciesTemplate: null,
   // compiles handlebars template
   init: function() {
     var source = $("#bird-info-popup-template").html();
     this.popupTemplate = Handlebars.compile(source);
     infoWindow = new google.maps.InfoWindow();
+
+    source = $('#filter-list-species-template').html();
+    this.filterListSpeciesTemplate = Handlebars.compile(source);
   },
 
   // Given a sighting object, creates and displays circles
@@ -174,10 +153,10 @@ var Display = {
     // Set default options that can be overridden
     var defaultOptions = {
       strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
+      strokeOpacity: 1,
       strokeWeight: 1,
       fillColor: '#FF0000',
-      fillOpacity: 0.35,
+      fillOpacity: 0.5,
       map: map,
       center: thisPosition,
       radius: 1000,
