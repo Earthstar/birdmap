@@ -52,7 +52,7 @@ def generate_css():
     f.close()
     f = open("css/colors.css", "w")
     for species in bird_species:
-        classname = species['commonName'].replace(" ", "-")
+        classname = species['commonName'].replace(" ", "-").replace("'", '')
         css = ".{0}-container * {{background-color: {1};}}\n".format(classname, species['color'])
         f.write(css)
     f.close()

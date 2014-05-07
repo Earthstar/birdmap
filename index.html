@@ -283,7 +283,9 @@
       //returns a version of the name with '-' intsead of ' '.
       //ex: Northern Cardinal --> Northern-Cardinal
       function nameToID(name){
-          return name.replace(new RegExp(' ', 'g'),'-');
+        // get rid of apostrophes because they mess up the classes
+        name = name.replace(new RegExp("'", 'g'), '')
+        return name.replace(new RegExp(' ', 'g'),'-');
       }
 
     // This is a function that gets the hex color that corresponds
