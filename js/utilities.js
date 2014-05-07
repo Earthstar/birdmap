@@ -6,7 +6,8 @@ var Birdmap = {
   /*
   {
   commonName: string,
-  speciesName: string
+  speciesName: string,
+  color: string of random hex code
   }
   */
   getBirdSpecies: function(sightings) {
@@ -37,6 +38,7 @@ var Birdmap = {
   comment: string,
   image: string of location of file,
   attribution: string of source, photographer
+  marker: a Google circle object
 }
 */
 
