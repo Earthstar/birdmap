@@ -158,9 +158,9 @@ var Display = {
     var defaultOptions = {
       strokeColor: '#FF0000',
       strokeOpacity: 1,
-      strokeWeight: 1,
+      strokeWeight: 3,
       fillColor: '#FF0000',
-      fillOpacity: 0.5,
+      fillOpacity: 0.8,
       map: map,
       center: thisPosition,
       radius: 1000,

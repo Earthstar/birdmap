@@ -25,7 +25,7 @@ def generate_colors():
         # Check if this species is already in bird_names
         if in_list(bird_names, bird):
             continue
-        random_color = '#%02X%02X%02X' % (r(),r(),r())
+        random_color = 'rgba({0}, {1}, {2}, 0.5)'.format(r(),r(),r())
         bird_names.append({
             'commonName': bird['commonName'],
             'speciesName': bird['speciesName'],
@@ -50,11 +50,12 @@ def generate_css():
     f = open('json/bird_species.json')
     bird_species = json.loads(f.read())
     f.close()
-    f = open("css/colors.css", "a")
+    f = open("css/colors.css", "w")
     for species in bird_species:
         classname = species['commonName'].replace(" ", "-")
         css = ".{0}-container * {{background-color: {1};}}\n".format(classname, species['color'])
         f.write(css)
     f.close()
 
+generate_colors()
 generate_css()
