@@ -407,7 +407,8 @@
       newDate.setMinutes(min)
       console.log(newDate)
       console.log(newTime)
-      var newPosition = new google.maps.LatLng($("#sighting-location").val());//42.33, -71.05);
+      var newPosition = new google.maps.LatLng(42.33, -71.05);//$("#sighting-location").val());
+      console.log(newPosition);
       // Get the form values
       var newSighting = {
         commonName: $("#common-name").val(),
