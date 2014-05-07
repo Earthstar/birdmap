@@ -34,6 +34,14 @@
   // There is one global infowindow, initialized in Display.init
   var infoWindow;
   // All bird species
+  // format:
+    /*
+    {
+    commonName: string,
+    speciesName: string,
+    color: string of random hex code
+    }
+  */
   var birdSpecies;
   var currentBirdSightings=[]; //all current birds
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
@@ -275,7 +283,7 @@
       //returns a version of the name with '-' intsead of ' '.
       //ex: Northern Cardinal --> Northern-Cardinal
       function nameToID(name){
-          return name.replace(' ','-');
+          return name.replace(new RegExp(' ', 'g'),'-');
       }
 
       //html that shows up in list of birds
@@ -293,11 +301,13 @@
           return temp;
       }
 
+    // This compiles all handlebars templates
+    Display.init();
     $.getJSON('smallbirds.json', function(json) {
       birdSightings = Birdmap.processBirds(json);
       // Find all birds that are on the screen
       // display sightings
-      Display.init();
+
       // For each birdSighting, create a marker and store it
       // within the birdSighting
       for (var i = birdSightings.length - 1; i >= 0; i--) {
@@ -310,7 +320,13 @@
     $.getJSON('json/bird_species.json', function(json) {
       birdSpecies = json;
       for(var i = 0; i < birdSpecies.length; i++){
-        $('#entire-list').append(birdListTemplate(birdSpecies[i].commonName));
+        var context = {
+          name: {
+            string: birdSpecies[i].commonName,
+            id: nameToID(birdSpecies[i].commonName),
+          },
+        }
+        $('#entire-list').append(Display.filterListSpeciesTemplate(context));
         birdsOnMap.push(birdSpecies[i].commonName);
       }
       $('.filter-list-check input').on('change',filterBirdListener);
@@ -448,6 +464,19 @@
       </div>
   </div>
   </script>
+
+  <script id="filter-list-species-template" type="text/x-handlebars-template">
+  <div class='input-group' id="{{name.id}}-bar">
+    <span class='input-group-addon filter-list-check'>
+      <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+    </span>
+    <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+    <span class='input-group-addon filter-list-o'>
+      <span class='glyphicon glyphicon-remove'></span>
+    </span>
+  </div>
+  </script>
+
 
 </head>
  <!-- Col should add up to 12 -->

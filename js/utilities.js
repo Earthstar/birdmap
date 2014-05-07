@@ -1,35 +1,5 @@
 // Things I don't know where else to put.
 var Birdmap = {
-  // Returns a list of objects of all bird species in sightings
-  // Not in any particular order
-  // format:
-  /*
-  {
-  commonName: string,
-  speciesName: string,
-  color: string of random hex code
-  }
-  */
-  getBirdSpecies: function() {
-    $.getJSON('json/bird_species.json', function(json) {
-      birdSpecies = json;
-    })
-    // var alreadyFound = [];
-    // var toReturn = [];
-    // for (var i = sightings.length - 1; i >= 0; i--) {
-    //   name = sightings[i].speciesName;
-    //   // if species not in list, add it to list
-    //   if (alreadyFound.indexOf(name) < 0) {
-    //     toReturn.push({
-    //       speciesName: name,
-    //       commonName: sightings[i].commonName
-    //     });
-    //     alreadyFound.push(name);
-    //   }
-    // };
-    // return toReturn;
-  },
-
 // Format of bird object
 /*
 {
@@ -163,11 +133,15 @@ var Filter = {
 
 var Display = {
   popupTemplate: null,
+  filterListSpeciesTemplate: null,
   // compiles handlebars template
   init: function() {
     var source = $("#bird-info-popup-template").html();
     this.popupTemplate = Handlebars.compile(source);
     infoWindow = new google.maps.InfoWindow();
+
+    source = $('#filter-list-species-template').html();
+    this.filterListSpeciesTemplate = Handlebars.compile(source);
   },
 
   // Given a sighting object, creates and displays circles
