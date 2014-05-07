@@ -153,10 +153,10 @@ var Display = {
     // Set default options that can be overridden
     var defaultOptions = {
       strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
+      strokeOpacity: 1,
       strokeWeight: 1,
       fillColor: '#FF0000',
-      fillOpacity: 0.35,
+      fillOpacity: 0.5,
       map: map,
       center: thisPosition,
       radius: 1000,

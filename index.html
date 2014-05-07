@@ -14,7 +14,6 @@
   <script type="text/javascript" src="js/jquery.tools.min.js"></script>
   <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
   <script type="text/javascript" src="js/bootstrap-timepicker.min.js"></script>
-  <script type="application/json" src="birdnames.json"></script>
   <script type="text/javascript" src="js/utilities.js"></script>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
@@ -286,37 +285,28 @@
           return name.replace(new RegExp(' ', 'g'),'-');
       }
 
-      //html that shows up in list of birds
-      //no x to close the filter, doesn't respond to any autocomplete stuff
-      function birdListTemplate(name){
-          var temp= "<div class='input-group'>"+
-                "    <span class='input-group-addon filter-list-check'>"+
-                "      <input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'>"+
-                "    </span>"+
-                "    <span class='input-group-addon filter-list-species'>"+name+"</span>"+
-                "    <span class='input-group-addon filter-list-o'>"+
-                "        <span class='glyphicon glyphicon-remove'></span>"+
-                "    </span>"+
-                "  </div>";
-          return temp;
+    // This is a function that gets the hex color that corresponds
+    // to the commonName
+    // Default color is red
+    function getColor(commonName) {
+      if (!birdSpecies) {
+        console.log("birdSpecies not initialized");
       }
 
-    // This compiles all handlebars templates
-    Display.init();
-    $.getJSON('smallbirds.json', function(json) {
-      birdSightings = Birdmap.processBirds(json);
-      // Find all birds that are on the screen
-      // display sightings
+      // default is red
+      var color = '#FF0000';
+      // Search birdSpecies for name
 
-      // For each birdSighting, create a marker and store it
-      // within the birdSighting
-      for (var i = birdSightings.length - 1; i >= 0; i--) {
-        var circle = Display.createAndDisplayBirdSighting(birdSightings[i]);
-        birdSightings[i].marker = circle;
-      };
-    })
+      $.each(birdSpecies, function(i, value) {
+        if (value.commonName === commonName) {
+          color = value.color;
+          return false;
+        }
+      })
+      return color;
+    }
 
-    // Loads all bird species into global birdSpecies
+    // Loads all bird species into global variable birdSpecies
     $.getJSON('json/bird_species.json', function(json) {
       birdSpecies = json;
       for(var i = 0; i < birdSpecies.length; i++){
@@ -326,10 +316,30 @@
             id: nameToID(birdSpecies[i].commonName),
           },
         }
+        // Create the filter checkboxes
         $('#entire-list').append(Display.filterListSpeciesTemplate(context));
         birdsOnMap.push(birdSpecies[i].commonName);
       }
+      // Attach listeners to checkboxes
       $('.filter-list-check input').on('change',filterBirdListener);
+    })
+
+    // This compiles all handlebars templates
+    Display.init();
+    // Loads bird jsons, creates filters
+    $.getJSON('smallbirds.json', function(json) {
+
+      // At this time, birdSpecies should exist. Might be a race
+      // condition here
+      birdSightings = Birdmap.processBirds(json);
+      // For each birdSighting, create a marker and store it
+      // within the birdSighting
+      for (var i = birdSightings.length - 1; i >= 0; i--) {
+        // Figure out the color that corresponds to species
+        var color = getColor(birdSightings[i].commonName)
+        var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
+        birdSightings[i].marker = circle;
+      };
     })
 
     $("#login-form").overlay({
@@ -362,7 +372,6 @@
       }
 
     })
-
 
     //Create an overlay that must be programatically opened and closed
     $("#add-bird-form").overlay({
@@ -466,7 +475,7 @@
   </script>
 
   <script id="filter-list-species-template" type="text/x-handlebars-template">
-  <div class='input-group' id="{{name.id}}-bar">
+  <div class='input-group' id="{{name.id}}-container">
     <span class='input-group-addon filter-list-check'>
       <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
     </span>
