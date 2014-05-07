@@ -10,21 +10,24 @@ var Birdmap = {
   color: string of random hex code
   }
   */
-  getBirdSpecies: function(sightings) {
-    var alreadyFound = [];
-    var toReturn = [];
-    for (var i = sightings.length - 1; i >= 0; i--) {
-      name = sightings[i].speciesName;
-      // if species not in list, add it to list
-      if (alreadyFound.indexOf(name) < 0) {
-        toReturn.push({
-          speciesName: name,
-          commonName: sightings[i].commonName
-        });
-        alreadyFound.push(name);
-      }
-    };
-    return toReturn;
+  getBirdSpecies: function() {
+    $.getJSON('json/bird_species.json', function(json) {
+      birdSpecies = json;
+    })
+    // var alreadyFound = [];
+    // var toReturn = [];
+    // for (var i = sightings.length - 1; i >= 0; i--) {
+    //   name = sightings[i].speciesName;
+    //   // if species not in list, add it to list
+    //   if (alreadyFound.indexOf(name) < 0) {
+    //     toReturn.push({
+    //       speciesName: name,
+    //       commonName: sightings[i].commonName
+    //     });
+    //     alreadyFound.push(name);
+    //   }
+    // };
+    // return toReturn;
   },
 
 // Format of bird object

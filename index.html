@@ -33,6 +33,8 @@
   var birdSightings;
   // There is one global infowindow, initialized in Display.init
   var infoWindow;
+  // All bird species
+  var birdSpecies;
   var currentBirdSightings=[]; //all current birds
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var birdsOnMap=[];
@@ -302,24 +304,18 @@
         var circle = Display.createAndDisplayBirdSighting(birdSightings[i]);
         birdSightings[i].marker = circle;
       };
-      // TODO redo so alphabetical
-      var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
-      for(var i = 0; i < listOfAllBirds.length; i++){
-          $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
-          birdsOnMap.push(listOfAllBirds[i].commonName);
+    })
+
+    // Loads all bird species into global birdSpecies
+    $.getJSON('json/bird_species.json', function(json) {
+      birdSpecies = json;
+      for(var i = 0; i < birdSpecies.length; i++){
+        $('#entire-list').append(birdListTemplate(birdSpecies[i].commonName));
+        birdsOnMap.push(birdSpecies[i].commonName);
       }
       $('.filter-list-check input').on('change',filterBirdListener);
     })
 
-    // Make login overlay
-    // $("#login-logout").overlay({
-    //   closeOnClick: true,
-    //   mask: {
-    //     color: '#555555',
-    //     loadSpeed: 100,
-    //     opacity: 0.5
-    //   },
-    // });
     $("#login-form").overlay({
       closeOnClick: true,
       mask: {
