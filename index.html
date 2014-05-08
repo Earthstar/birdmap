@@ -367,7 +367,8 @@
       username = $("#username-entry").val();
       $("#username-entry").val("");
       $("#login-form").data("overlay").close();
-      $("#login-logout").text(username);
+      $("#username").text("Welcome, "+username+".");
+      $("#login-logout").text("switch user");
 
       if ($(this).data("overlay")["openAddBird"]) {
         $("#add-bird-form").data("overlay").load();
@@ -510,12 +511,12 @@
     <div class="row">
     <!-- header -->
     <div class="row" id="filter-options">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <big><big><big>
-              <a href="index.html">birdOcular</a>
-              <span class="glyphicon glyphicon-eye-open"></span>
+              <a href="index.html"><span class="big">birdOcular</span>
+              <span class="glyphicon glyphicon-eye-open"></span></a>
                 &nbsp;
-              <span id="username"></span>
+              <span id="username">Welcome.</span>&nbsp;
               <a id="login-logout" rel="#login-form">Sign in</a>
             </big></big></big>
           </div>
@@ -530,7 +531,7 @@
               <option value="month">This month</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="input-group">
               <input id="input_bar" type="text" class="form-control" placeholder="Filter by species or location">
               <span class="input-group-btn">
@@ -540,25 +541,22 @@
           </div>
       </div>
 
-      <!--list of filters, overlayed on map (for now) -->
-      <div class="row" id="filter-list-row" style="position:absolute;">
-          <div class="col-md-4"></div>
-          <div class="col-md-4"></div>
-          <div class="col-md-4" id="filter-list" style="z-index:1">
+      <div class="row" id="filter-list-row">
+          <div class="col-md-9" id="map">
+            <!--map-->
+            <div id="map-canvas"></div>
+          </div>
+          <div class="col-md-3" id="filter-list" style="z-index:1">
               <div id="autocomplete-answers"></div>
-
+              <hr/>
               <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
+              <hr/>
               <div class="row">&nbsp; All Birds on Map:<div id="entire-list"></div>
               </div>
         </div>
-      </div>
 
-      <!--map-->
-      <div class="row" style="z-index:0;" id="map">
-        <!-- Nest some columns -->
-        <div id="map-canvas"></div>
-      </div>
-  </div>
+        </div>
+
 
   <!-- Separate container for add bird overlay -->
   <div class="container" >
