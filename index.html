@@ -82,8 +82,8 @@
       var autocomplete = new google.maps.places.Autocomplete(input);
       autocomplete.bindTo('bounds', map);
 
-      var autocomplete2 = new google.maps.places.Autocomplete(input2);
-      autocomplete2.bindTo('bounds', map);
+//      var autocomplete2 = new google.maps.places.Autocomplete(input2);
+//      autocomplete2.bindTo('bounds', map);
       
 
       mapService = new google.maps.places.AutocompleteService();
@@ -101,18 +101,18 @@
          }
       });
 
-      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-         var place = autocomplete2.getPlace();
-         if (!place.geometry) {
-             return;
-         }
-         if (place.geometry.viewport) {
-             map.fitBounds(place.geometry.viewport);
-         } else {
-             map.setCenter(place.geometry.location);
-             map.setZoom(17);  // Why 17? Because it looks good.
-         }
-      });
+//      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+//         var place = autocomplete2.getPlace();
+//         if (!place.geometry) {
+//             return;
+//         }
+//         if (place.geometry.viewport) {
+//             map.fitBounds(place.geometry.viewport);
+//         } else {
+//             map.setCenter(place.geometry.location);
+//             map.setZoom(17);  // Why 17? Because it looks good.
+//         }
+//      });
 
     }
 
