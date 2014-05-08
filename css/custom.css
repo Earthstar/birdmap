@@ -213,3 +213,7 @@ label{
 #autocomplete-focus{
     border:2px solid #0df;
 }
+
+.pac-container {
+  z-index: 10000;
+}
