@@ -7,7 +7,7 @@
   <!-- Adds deprecated functions so we can use overlay -->
   <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
   <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false&libraries=places">
     </script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -48,6 +48,7 @@
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var birdsOnMap=[];
   var username = "";
+  var autocompleteNumber = 0;
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -67,8 +68,18 @@
         zoom: 9,
         streetViewControl:false
       };
-      map = new google.maps.Map(document.getElementById('map-canvas'),
+      var map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
+
+      var input = /** @type {HTMLInputElement} */(document.getElementById('sighting-location'));
+
+      //var types = document.getElementById('type-selector');
+      //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo('bounds', map);
+
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -82,7 +93,7 @@
 
     var combinedList = [];
     var tags = [];
-    var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantis78","richard","peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
+    var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
     $( "#input_bar" ).keyup(function(){
         //$(this).val();
@@ -92,6 +103,7 @@
             $( "#autocomplete-answers" ).show();
         }
         $( ".autocomplete-removable" ).remove();
+        autocompleteNumber = 0;
         combinedList = userList.concat(birdsOnMap);
         tags = combinedList.sort(function (a, b) {
             return a.toLowerCase().localeCompare(b.toLowerCase());
@@ -106,6 +118,7 @@
     $( "#input_bar" ).focusout(function() {
        if (!($("#autocomplete-answers").is(":hover"))) {
            $( "#autocomplete-answers" ).hide();
+           autocompleteNumber = 0;
            $( ".autocomplete-removable" ).remove();
            document.getElementById('input_bar').value='';
         }
@@ -119,6 +132,8 @@
         }
     });
 
+//https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&types=geocode&sensor=false&key=AIzaSyD_Zbfis4bwIE_CnAv5IwimKkEF5pkuTZE
+
     // This causes a bug
 
     // $( "html" ).click(function() {
@@ -131,11 +146,14 @@
 
     $( "#input_bar" ).autocomplete({
 	source: function( request, response ) {
-    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+    var matcher = new RegExp( "\\b" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
 	    response( $.grep( combinedList, function( item ){
         var matches = matcher.test( item );
-        if (matches) {
-          fillAutoComplete(item);
+        if (matches && autocompleteNumber == 0) {
+          fillAutoCompleteWithFocus(item);
+          autocompleteNumber = 1;
+        } else if (matches) {
+          fillAutoComplete(item);    
         }
 		  return false;
 	    })
@@ -275,10 +293,20 @@
             $('.filter-list-check input').on('change',filterBirdListener);
       }
 
+      function fillAutoCompleteWithFocus(item){
+          $('#autocomplete-answers').append(autocompListTemplateWithFocus(item));
+          $('#autocomplete-focus').focus();
+            $('.filter-list-check input').on('change',filterBirdListener);
+      }
+
       //hi everyone...SORRY THIS CODE IS SO UGLY...
       //has the class 'autocomplete-removable' on first div
       function autocompListTemplate(name){
           return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
+      }
+
+      function autocompListTemplateWithFocus(name){
+          return "<div class='input-group autocomplete-removable' id='autocomplete-focus'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
       }
 
       //returns a version of the name with '-' intsead of ' '.
@@ -322,6 +350,7 @@
         }
         // Create the filter checkboxes
         $('#entire-list').append(Display.allBirdsListTemplate(context));
+        //sort the commonNames before TODO
         birdsOnMap.push(birdSpecies[i].commonName);
       }
       // Attach listeners to checkboxes
@@ -358,6 +387,7 @@
 
     $("#login-logout").click(function() {
       $("#login-form").data("overlay").load();
+        $('#username-entry').focus();
     })
 
     // upon submitting a login, set username
@@ -405,6 +435,7 @@
       } else {
         // open overlay
         $("#add-bird-form").data("overlay").load();
+          $('#common-name').focus();
       }
     })
 
@@ -576,7 +607,7 @@
             <!--map-->
             <div id="map-canvas"></div>
           </div>
-          <div class="col-md-3" id="filter-list" style="z-index:1">
+          <div class="col-md-3" id="filter-list">
               <div id="autocomplete-answers"></div>
               <hr/>
               <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
@@ -642,7 +673,7 @@
               <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
           </div>
-          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12">Add bird</button>
+          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-offset-6 col-md-6">Add bird</button>
         </div>
       </form>
     </div>
@@ -650,10 +681,10 @@
 
   <div class="container">
     <div id="login-form-bg">
-      <form id="login-form" class="form-horizontal col-md-offset-1 col-md-6" role="form" action="">
+      <form id="login-form" class="form-horizontal col-md-offset-1 col-md-5" role="form" action="">
       <div class="row">
         <h3>Sign in to add birds</h3>
-        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div><br><br>
       </div>
         <div class="form-group">
           <label class="col-md-3" for="username-entry">Username</label>
@@ -661,7 +692,7 @@
             <input class="form-control" id="username-entry" type="text" placeholder="Ex. BirdWatcherPerson" required>
           </div>
         </div>
-        <button id="login-submit" class="btn btn-default col-md-12" type="submit">Sign in</button>
+        <button id="login-submit" class="btn btn-default col-md-offset-6 col-md-6" type="submit">Sign in</button>
       </form>
     </div>
   </div>
