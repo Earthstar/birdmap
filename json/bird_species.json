@@ -943,55 +943,5 @@
     "color": "rgba(165, 7, 133, 0.5)",
     "speciesName": "Setophaga coronata",
     "commonName": "Yellow-rumped Warbler"
-  },
-  {
-    "color": "rgba(135, 37, 15, 0.5)",
-    "speciesName": "Icteridae sp.",
-    "commonName": "blackbird sp."
-  },
-  {
-    "color": "rgba(135, 198, 59, 0.5)",
-    "speciesName": "Larinae sp.",
-    "commonName": "gull sp."
-  },
-  {
-    "color": "rgba(98, 14, 146, 0.5)",
-    "speciesName": "Stercorarius sp. (jaeger sp.)",
-    "commonName": "jaeger sp."
-  },
-  {
-    "color": "rgba(179, 118, 116, 0.5)",
-    "speciesName": "Passeriformes sp.",
-    "commonName": "passerine sp."
-  },
-  {
-    "color": "rgba(115, 84, 50, 0.5)",
-    "speciesName": "Calidris sp. (peep sp.)",
-    "commonName": "peep sp."
-  },
-  {
-    "color": "rgba(50, 119, 168, 0.5)",
-    "speciesName": "Melanitta sp.",
-    "commonName": "scoter sp."
-  },
-  {
-    "color": "rgba(29, 188, 84, 0.5)",
-    "speciesName": "Charadriiformes sp.",
-    "commonName": "shorebird sp."
-  },
-  {
-    "color": "rgba(85, 197, 37, 0.5)",
-    "speciesName": "Emberizidae sp. (sparrow sp.)",
-    "commonName": "sparrow sp."
-  },
-  {
-    "color": "rgba(4, 41, 109, 0.5)",
-    "speciesName": "Vireo sp.",
-    "commonName": "vireo sp."
-  },
-  {
-    "color": "rgba(155, 120, 119, 0.5)",
-    "speciesName": "Parulinae sp.",
-    "commonName": "warbler sp."
   }
 ]
