@@ -122,7 +122,7 @@ a{
 #autocomplete-answers{
     height:15vh;
     overflow-y:scroll;
-    border-radius:5px;
+    border-radius:6px;
 }
 
 .bird-image{
@@ -174,8 +174,13 @@ hr{
     overflow-x: hidden;
 }
 
-.input-group-addon .autocomplete-removable {
-    background-color:#999;
+.input-group{
+    border:2px solid transparent;
+    border-radius:5px;
+}
+.autocomplete-removable .input-group-addon{
+    background-color:#eee;
+    color:#000;
 }
 .input-group-addon{
     color:#fff;
@@ -197,14 +202,10 @@ hr{
     background-color:inherit;
 }
 
-textarea {
-    resize: none;
-}
-
 label{
     text-align:right;
 }
 
-#autocomplete-focus span{
-    background-color:#8bf;
+#autocomplete-focus{
+    border:2px solid #0df;
 }

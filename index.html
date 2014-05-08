@@ -174,7 +174,7 @@
 
     $( "#input_bar" ).focusout(function() {
        if (!($("#autocomplete-answers").is(":hover"))) {
-           $( "#autocomplete-answers" ).hide();
+           //$( "#autocomplete-answers" ).hide();
            autocompleteNumber = 0;
            $( ".autocomplete-removable" ).remove();
            document.getElementById('input_bar').value='';
