@@ -443,13 +443,22 @@
             position: newPosition,
             date: newDate,
             comment: $("#sighting-comments").val(),
-            image: $("#bird-pic").val(),
+            image: $("#bird-pic-url").val(),
           }
           birdSightings.push(newSighting);
-          var color = getColor(birdSightings[birdSightings.length-1].commonName)
-          var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color});
+          var htmlpic= '<div class="bird-popup"><div class="row"><div class="col-md-3"><img src='+newSighting.image+' class="bird-image"><br></div><div class="col-md-9"><dl class="dl-horizontal bird-info"><dt>Common Name:</dt> <dd>'+newSighting.commonName+'</dd><dt>Species Name:</dt> <dd>'+newSighting.speciesName+'</dd><dt>Date:</dt> <dd>'+newSighting.date+'</dd><dt>User:</dt> <dd>'+newSighting.userSpotted+'</dd><dt>Comment:</dt> <dd>'+newSighting.comment+'</dd></dl></div></div></div>';
+          var color = getColor(birdSightings[birdSightings.length-1].commonName);
+          console.log(color);
+          var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color, infoWindowContent: htmlpic});
           birdSightings[birdSightings.length-1].marker = circle;
         } 
+      $("#sighting-date").val("");
+      $("#sighting-time").val("");
+      $("#common-name").val("");
+      $("#species-name").val("");
+      $("#bird-pic-url").val("");
+      $("#sighting-comments").val("");
+      $("#sighting-location").val("");
       }); 
        
 
@@ -588,8 +597,13 @@
         <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
       </div>
         <div class="form-group col-md-5">
-          <label for="bird-pic">Insert picture</label>
+          <label for="bird-pic">Upload picture (optional)</label>
           <input type="file" id="bird-pic" class="form-control">
+          <label for="bird-pic-url">or enter a url (optional)</label>
+          <input type="text" id="bird-pic-url" class="form-control" placeholder="Ex. i.imgur.com/KWl6pqT.jpg">
+        </div>
+        <div class="form-group col-md-5">
+
         </div>
         <div class="col-md-7">
           <div class="form-group">
@@ -623,7 +637,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3" for="sighting-comments">Comments</label>
+            <label class="col-md-3" for="sighting-comments">Comments (optional)</label>
             <div class="col-md-9">
               <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
