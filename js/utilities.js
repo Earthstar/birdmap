@@ -203,4 +203,15 @@ var Display = {
       Display.displayBirdSighting(sightings[i]);
     };
   },
+  //random rgba a=0.5
+  getRandomColor: function() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = 'rgba(';
+    for (var i = 0; i < 3; i++ ) {
+        color += Math.floor(Math.random() * 256).toString();
+        color +=',';
+    }
+    color+='0.5)'
+    return color;
+  }
 }

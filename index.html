@@ -497,6 +497,10 @@
       }
     })
 
+
+// Adds sighting to birdSightings, if new species, creates a random color and adds
+// to birdSpecies. Creates a circle and adds it to map (createAndDisplayBirdSighting).
+// Does not add to filters list yet, not sure how to do that. Only uses image url, not files.
     $("#add-bird-form").submit(function(e) {
       // Prevent submit
       e.preventDefault();
@@ -519,7 +523,6 @@
       newDate.setMinutes(min)
       var newPosition;
       geocoder.geocode({'address':$("#sighting-location").val()}, function(results, status) {
-
         if (status == google.maps.GeocoderStatus.OK) {
           var latitude = results[0].geometry.location.lat();
           var longitude = results[0].geometry.location.lng();
@@ -535,24 +538,47 @@
             image: $("#bird-pic-url").val(),
           }
           birdSightings.push(newSighting);
+
+          //uses image url value only, not file
           var htmlpic= '<div class="bird-popup"><div class="row"><div class="col-md-3"><img src='+newSighting.image+' class="bird-image"><br></div><div class="col-md-9"><dl class="dl-horizontal bird-info"><dt>Common Name:</dt> <dd>'+newSighting.commonName+'</dd><dt>Species Name:</dt> <dd>'+newSighting.speciesName+'</dd><dt>Date:</dt> <dd>'+newSighting.date+'</dd><dt>User:</dt> <dd>'+newSighting.userSpotted+'</dd><dt>Comment:</dt> <dd>'+newSighting.comment+'</dd></dl></div></div></div>';
-          var color = getColor(birdSightings[birdSightings.length-1].commonName);
-          console.log(color);
+          if (getColor(birdSightings[birdSightings.length-1].commonName)!='#FF0000') {
+            var color = getColor(birdSightings[birdSightings.length-1].commonName);
+          }
+          else{
+            var color = Display.getRandomColor();
+            var newSpecies={
+              "color": color,
+              "speciesName": $("#species-name").val(),
+              "commonName": $("#common-name").val()
+            }
+            birdSpecies.push(newSpecies);
+            var context = {
+              name: {
+                string: newSpecies.commonName,
+                id: nameToID(newSpecies.commonName),
+              },
+            }
+
+            // Create the filter checkboxes
+            $('#entire-list').append(Display.allBirdsListTemplate(context));
+            //sort the commonNames before TODO
+            birdsOnMap.push(newSpecies.commonName);
+            $('.filter-list-check input').on('change',filterBirdListener);
+          }
           var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color, infoWindowContent: htmlpic});
           birdSightings[birdSightings.length-1].marker = circle;
         } 
-      $("#sighting-date").val("");
-      $("#sighting-time").val("");
-      $("#common-name").val("");
-      $("#species-name").val("");
-      $("#bird-pic-url").val("");
-      $("#sighting-comments").val("");
-      $("#sighting-location").val("");
-      }); 
-       
 
+        
+        $("#sighting-date").val("");
+        $("#sighting-time").val("");
+        $("#common-name").val("");
+        $("#species-name").val("");
+        $("#bird-pic-url").val("");
+        $("#sighting-comments").val("");
+        //$("#sighting-location").val("");
+      }); 
       
-      // Get the form values
       
     })
 
