@@ -20,12 +20,12 @@ def generate_colors():
     bird_names = []
     # Generates random numbers for hex code
     # Don't generate colors that are too close to white
-    r = lambda: random.randint(0,200)
+    r = lambda: random.randint(50,200)
     for bird in bird_json:
         # Check if this species is already in bird_names
         if in_list(bird_names, bird):
             continue
-        random_color = 'rgba({0}, {1}, {2}, 0.5)'.format(r(),r(),r())
+        random_color = 'rgba({0}, {1}, {2}, 1.0)'.format(r(),r(),r())
         bird_names.append({
             'commonName': bird['commonName'],
             'speciesName': bird['speciesName'],
