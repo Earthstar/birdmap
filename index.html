@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
   <link rel="stylesheet" type="text/css" href="css/colors.css">
+  <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700' rel='stylesheet' type='text/css'>
   <style type="text/css"><
   /** FIX for Bootstrap and Google Maps Info window styles problem **/
   img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
@@ -47,6 +48,8 @@
   var currentBirdSightings=[]; //all current birds
   var currentFilters=[]; //list of current filters, as objects containing all necessary parameters
   var birdsOnMap=[];
+  var currentStartDate=new Date(0,0,0,0,0,0);
+  var currentEndDate=new Date();;
   var username = "";
   var autocompleteNumber = 0;
   var mapService;
@@ -333,8 +336,10 @@
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
           }
+          var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
+                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
           clearMarkers();
-          Display.displayBirdSightings(currentBirdSightings);
+          Display.displayBirdSightings(tempBirdSightingsWithDate);
       }
 
       //removes element when user presses the x
@@ -352,23 +357,25 @@
    //TIME FILTER
       $('#time-select').on('change',function(e){
           //pretend "today" is 2/28/2014 (last date we have data for)
-          var startDate=new Date(2014,2,1,0,0,0);
-          var endDate=new Date(2014,2,1,0,0,0);
+          currentStartDate=new Date(2014,2,1,0,0,0);
+          currentEndDate=new Date(2014,2,1,0,0,0);
           var interval=$(e.currentTarget).val();
           if (interval=="today"){
-              startDate.setDate(startDate.getDate()-1);
+              currentStartDate.setDate(currentStartDate.getDate()-1);
           }else if (interval=="week"){
-              startDate.setDate(startDate.getDate()-7);
+              currentStartDate.setDate(currentStartDate.getDate()-7);
           }else if (interval=="month"){
-              startDate.setDate(startDate.getDate()-30);
+              currentStartDate.setDate(currentStartDate.getDate()-30);
           }else { //show all
-              startDate=new Date(0,0,0,0,0,0);
-              endDate=new Date();
+              currentStartDate=new Date(0,0,0,0,0,0);
+              currentEndDate=new Date();
           }
+          console.log(currentStartDate, currentEndDate);
               clearMarkers();
-              currentBirdSightings=Filter.or(currentBirdSightings,
-                                             Filter.byDate(birdSightings,startDate,endDate));
-          Display.displayBirdSightings(currentBirdSightings);
+          console.log(currentBirdSightings);
+              var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
+                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
+          Display.displayBirdSightings(tempBirdSightingsWithDate);
       });
 
       //BIRD FILTER
@@ -384,7 +391,9 @@
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentBird));
-              Display.displayBirdSightings(currentBirdSightings);
+              var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
+                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
+          Display.displayBirdSightings(tempBirdSightingsWithDate);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
               if (list.attr('id')!='filters' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
@@ -595,7 +604,7 @@
 
           var image;
           if ($("#bird-pic-url").val()==""){
-            image='images/northern_cardinal_stephen_a_wolfe.jpg'
+            image='images/northern_cardinal_stephen_a_wolfe.jpg';
           }
           else{
             image=newSighting.image;
@@ -629,9 +638,9 @@
           }
           var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color, infoWindowContent: htmlpic});
           birdSightings[birdSightings.length-1].marker = circle;
-        } 
+        }
 
-        
+
         $("#sighting-date").val("");
         $("#sighting-time").val("");
         $("#common-name").val("");
@@ -639,8 +648,8 @@
         $("#bird-pic-url").val("");
         $("#sighting-comments").val("");
         $("#sighting-location").val("");
-      }); 
-      
+      });
+
     })
 
     // function closeOverlay() {
@@ -740,8 +749,8 @@
     <div class="row" id="filter-options">
           <div class="col-md-5">
             <big><big><big>
-              <a href="index.html"><span class="big">birdOcular</span>
-              <span class="glyphicon glyphicon-eye-open"></span></a>
+              <a href="index.html"><span class="big birdocular-logo">bird<img src="images/icon_9766.png" width='20'>cular</span>
+              </a>
                 &nbsp;
               <span id="username">Welcome.</span>&nbsp;
               <a id="login-logout" rel="#login-form">Sign in</a>
