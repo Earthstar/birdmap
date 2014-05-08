@@ -531,8 +531,16 @@
           }
           birdSightings.push(newSighting);
 
+          var image;
+          if ($("#bird-pic-url").val()==""){
+            image='images/northern_cardinal_stephen_a_wolfe.jpg'
+          }
+          else{
+            image=newSighting.image;
+          }
+
           //uses image url value only, not file
-          var htmlpic= '<div class="bird-popup"><div class="row"><div class="col-md-3"><img src='+newSighting.image+' class="bird-image"><br></div><div class="col-md-9"><dl class="dl-horizontal bird-info"><dt>Common Name:</dt> <dd>'+newSighting.commonName+'</dd><dt>Species Name:</dt> <dd>'+newSighting.speciesName+'</dd><dt>Date:</dt> <dd>'+newSighting.date+'</dd><dt>User:</dt> <dd>'+newSighting.userSpotted+'</dd><dt>Comment:</dt> <dd>'+newSighting.comment+'</dd></dl></div></div></div>';
+          var htmlpic= '<div class="bird-popup"><div class="row"><div class="col-md-3"><img src='+image+' class="bird-image"><br></div><div class="col-md-9"><dl class="dl-horizontal bird-info"><dt>Common Name:</dt> <dd>'+newSighting.commonName+'</dd><dt>Species Name:</dt> <dd>'+newSighting.speciesName+'</dd><dt>Date:</dt> <dd>'+newSighting.date+'</dd><dt>User:</dt> <dd>'+newSighting.userSpotted+'</dd><dt>Comment:</dt> <dd>'+newSighting.comment+'</dd></dl></div></div></div>';
           if (getColor(birdSightings[birdSightings.length-1].commonName)!='#FF0000') {
             var color = getColor(birdSightings[birdSightings.length-1].commonName);
           }
