@@ -155,6 +155,8 @@
     var combinedList = [];
     var predictedPlaces = [];
     var tags = [];
+    var autocompleteItems = [];
+    var autocompleteSelection = 0;
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
     $( "#input_bar" ).keyup(function(event){
@@ -166,17 +168,39 @@
         }
         //alert('event.key ' + event.keyCode + ' ' + keyCode.UP + ' ' + keyCode.DOWN);
         if ( event.keyCode == 13 ) { //ENTER KEY
-         
-        } else if ( event.keyCode == 38 ) { //UP ARROW
+            document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
 
-        } else if ( event.keyCode == 40 ) { //DOWN ARROW  
-      
+             $('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
+
+        } else if ( event.keyCode == 38 ) { //UP ARROW
+            if (autocompleteNumber == 2) {
+                if (autocompleteSelection > 0) {
+                    autocompleteSelection--;
+                } else {
+                    autocompleteSelection = autocompleteItems.length - 1;
+                }
+            }
+            autocompleteNumber = 2;
+            document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
+        } else if ( event.keyCode == 40 ) { //DOWN ARROW
+            if (autocompleteNumber == 2) {
+                if (autocompleteSelection < autocompleteItems.length - 1) {
+                    autocompleteSelection++;
+                } else {
+                    autocompleteSelection = 0;
+                }
+            }
+            autocompleteNumber = 2;
+            document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
         } else if (event.keyCode > 47 && event.keyCode < 91) {
-            $( ".autocomplete-removable" ).remove();
-            autocompleteNumber = 0;
-            mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
+            autocompleteSelection = 0;
+        $( ".autocomplete-removable" ).remove();
+        autocompleteNumber = 0;
+        autocompleteItems = [];
+        mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
             //alert('length ' + predictedPlaces[0]);
         }
+
 
     });
 
@@ -214,6 +238,8 @@
        if (!($("#autocomplete-answers").is(":hover"))) {
            //$( "#autocomplete-answers" ).hide();
            autocompleteNumber = 0;
+           autocompleteSelection = 0;
+           autocompleteItems = [];
            $( ".autocomplete-removable" ).remove();
            document.getElementById('input_bar').value='';
         }
@@ -245,10 +271,16 @@
 	    response( $.grep( tags, function( item ){
         var matches = matcher.test( item );
         if (matches && autocompleteNumber == 0) {
-          fillAutoCompleteWithFocus(item);
-          autocompleteNumber = 1;
+          if ($.inArray(item, autocompleteItems) == -1) {
+              fillAutoCompleteWithFocus(item);
+              autocompleteItems.push(item);
+              autocompleteNumber = 1;
+          }
         } else if (matches) {
-          fillAutoComplete(item);
+          if ($.inArray(item, autocompleteItems) == -1) {
+              fillAutoComplete(item);
+              autocompleteItems.push(item);
+          } 
         }
 		  return false;
 	    })
