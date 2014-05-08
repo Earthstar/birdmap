@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
   <link rel="stylesheet" type="text/css" href="css/colors.css">
+  <link href='http://fonts.googleapis.com/css?family=Comfortaa:400,700' rel='stylesheet' type='text/css'>
   <style type="text/css"><
   /** FIX for Bootstrap and Google Maps Info window styles problem **/
   img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
@@ -168,11 +169,11 @@
         }
         //alert('event.key ' + event.keyCode + ' ' + keyCode.UP + ' ' + keyCode.DOWN);
         if ( event.keyCode == 13 ) { //ENTER KEY
-         
+
         } else if ( event.keyCode == 38 ) { //UP ARROW
 
-        } else if ( event.keyCode == 40 ) { //DOWN ARROW  
-      
+        } else if ( event.keyCode == 40 ) { //DOWN ARROW
+
         } else if (event.keyCode > 47 && event.keyCode < 91) {
             $( ".autocomplete-removable" ).remove();
             autocompleteNumber = 0;
@@ -587,9 +588,9 @@
           }
           var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color, infoWindowContent: htmlpic});
           birdSightings[birdSightings.length-1].marker = circle;
-        } 
+        }
 
-        
+
         $("#sighting-date").val("");
         $("#sighting-time").val("");
         $("#common-name").val("");
@@ -597,8 +598,8 @@
         $("#bird-pic-url").val("");
         $("#sighting-comments").val("");
         $("#sighting-location").val("");
-      }); 
-      
+      });
+
     })
 
     // function closeOverlay() {
@@ -698,8 +699,8 @@
     <div class="row" id="filter-options">
           <div class="col-md-5">
             <big><big><big>
-              <a href="index.html"><span class="big">birdOcular</span>
-              <span class="glyphicon glyphicon-eye-open"></span></a>
+              <a href="index.html"><span class="big birdocular-logo">bird<img src="images/icon_9766.png" width='20'>cular</span>
+              </a>
                 &nbsp;
               <span id="username">Welcome.</span>&nbsp;
               <a id="login-logout" rel="#login-form">Sign in</a>
