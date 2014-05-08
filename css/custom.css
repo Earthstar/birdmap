@@ -87,6 +87,7 @@ a{
     padding:0;
     padding-left:3%;
     border-right:0;
+    color: black;
 }
 
 .filter-list-o span{
@@ -100,11 +101,6 @@ a{
 #filter-list .row{
     border-radius:5px;
     padding:.5%;
-}
-
-#filter-list-row{
-  max-height:80vh;
-
 }
 
 #filter-list #filters{
