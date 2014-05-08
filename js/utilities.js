@@ -136,6 +136,7 @@ var Display = {
   allBirdsListTemplate: null,
   filterListTemplate: null,
   autocompListTemplate: null,
+  autocompFocusTemplate: null,
   // compiles handlebars template
   init: function() {
     var source = $("#bird-info-popup-template").html();
@@ -150,6 +151,9 @@ var Display = {
 
     source = $('#autocomplete-list-template').html();
     this.autocompListTemplate = Handlebars.compile(source);
+
+    source = $('#autocomplete-focus-template').html();
+    this.autocompFocusTemplate = Handlebars.compile(source);
   },
 
   // Given a sighting object, creates and displays circles

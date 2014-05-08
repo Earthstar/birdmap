@@ -356,14 +356,17 @@
         $('.filter-list-check input').on('change',filterBirdListener);
       }
 
-      function fillAutoCompleteWithFocus(item){
-          $('#autocomplete-answers').append(autocompListTemplateWithFocus(item));
-          $('#autocomplete-focus').focus();
-            $('.filter-list-check input').on('change',filterBirdListener);
-      }
-
-      function autocompListTemplateWithFocus(name){
-          return "<div class='input-group autocomplete-removable' id='autocomplete-focus'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
+      // name can be a bird name or name of a location
+      function fillAutoCompleteWithFocus(name){
+        var context = {
+          name: {
+            id: nameToID(name),
+            string: name,
+          }
+        }
+        $('#autocomplete-answers').append(Display.autocompFocusTemplate(context));
+        $('#autocomplete-focus').focus();
+        $('.filter-list-check input').on('change',filterBirdListener);
       }
 
       //returns a version of the name with '-' intsead of ' '.
@@ -629,6 +632,17 @@
         </span>
         <span class='input-group-addon filter-list-species'>{{name.string}}</span>
         <span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span>
+      </span>
+    </div>
+  </script>
+
+  <script id="autocomplete-focus-template" type="text/x-handlebars-template">
+    <div class='input-group autocomplete-removable {{name.id}}-container' id='autocomplete-focus'>
+      <span class='input-group-addon filter-list-check'>
+        <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+      </span>
+      <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+      <span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'</span>
       </span>
     </div>
   </script>
