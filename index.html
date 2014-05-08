@@ -122,7 +122,10 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
         // Attach listeners to checkboxes
         $('.filter-list-check input').on('change',filterBirdListener);
         // Attach click listeners to checkboxes
-        $('.filter-container').click(function() {
+        $('input[type="checkbox"]').click(function(e) {
+          e.stopPropagation()
+        })
+        $('.filter-container').click(function(e) {
           var checkbox = $(this).find('input[type="checkbox"]')
           checkbox.click()
           // checkbox.prop('checked', !checkbox.prop('checked'))
@@ -197,6 +200,8 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
             }
             autocompleteNumber = 2;
             document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
+            $('.autocomplete-removable').attr('id','');
+            $('.autocomplete-removable.'+nameToID(autocompleteItems[autocompleteSelection])+'-container').attr('id','autocomplete-focus');
         } else if ( event.keyCode == 40 ) { //DOWN ARROW
             if (autocompleteNumber == 2) {
                 if (autocompleteSelection < autocompleteItems.length - 1) {
@@ -207,6 +212,8 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
             }
             autocompleteNumber = 2;
             document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
+            $('.autocomplete-removable').attr('id','');
+            $('.autocomplete-removable.'+nameToID(autocompleteItems[autocompleteSelection])+'-container').attr('id','autocomplete-focus');
         } else if (event.keyCode > 47 && event.keyCode < 91) {
             autocompleteSelection = 0;
         $( ".autocomplete-removable" ).remove();
@@ -340,8 +347,8 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
             currentBirdSightings=Filter.or(currentBirdSightings,
              Filter.bySpecies(birdSightings,currentFilters[i].replace('-',' ')));
           }
-          var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
-                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
+              var tempBirdSightingsWithDate=Filter.byDate(currentBirdSightings,
+                                                         currentStartDate,currentEndDate);
           clearMarkers();
           Display.displayBirdSightings(tempBirdSightingsWithDate);
       }
@@ -375,9 +382,13 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
           }
           console.log(currentStartDate, currentEndDate);
               clearMarkers();
-          console.log(currentBirdSightings);
-              var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
-                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
+          if (currentBirdSightings.length<1){
+              var tempBirdSightingsWithDate=Filter.byDate(birdSightings,
+                                                         currentStartDate,currentEndDate);
+          }else{
+              var tempBirdSightingsWithDate=Filter.byDate(currentBirdSightings,
+                                                         currentStartDate,currentEndDate);
+          }
           Display.displayBirdSightings(tempBirdSightingsWithDate);
       });
 
@@ -394,9 +405,10 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.bySpecies(birdSightings,currentBird));
-              var tempBirdSightingsWithDate=Filter.or(currentBirdSightings,
-                                             Filter.byDate(birdSightings,currentStartDate,currentEndDate));
-          Display.displayBirdSightings(tempBirdSightingsWithDate);
+              var tempBirdSightingsWithDate=Filter.byDate(currentBirdSightings,
+                                                         currentStartDate,currentEndDate);
+            Display.displayBirdSightings(tempBirdSightingsWithDate);
+              //Display.displayBirdSightings(currentBirdSightings);
               var list=$(e.currentTarget.parentElement.parentElement.parentElement);
               if (list.attr('id')!='filters' && $('#filter-list #filters #'+currentID).length==0){
                   addBirdsToFilterDisplay(currentBird);
@@ -676,15 +688,6 @@ $("#add-bird-form").submit(function(e) {
       disableFocus: true,
     })
 
-  // setTimeout(function() {
-  //     // Add a listener to the entire filter container to check checkbox
-  //     $('.filter-container').click(function() {
-  //       console.log("check div")
-  //       var checkbox = $(this).find('input[type="checkbox"]')
-  //       checkbox.prop('checked', !checkbox.prop('checked'))
-  //     })
-  //   }, 1000)
-
 });
 
 $(function() {
@@ -764,33 +767,34 @@ $(function() {
   <div class="row">
     <!-- header -->
     <div class="row" id="filter-options">
-      <div class="col-md-5">
-        <big><big><big>
-          <a href="index.html"><span class="big birdocular-logo">bird<img src="images/icon_9766.png" width='20'>cular</span>
-          </a>
-          &nbsp;
-          <span id="username">Welcome.</span>&nbsp;
-          <a id="login-logout" rel="#login-form">Sign in</a>
-        </big></big></big>
-      </div>
-      <div class="col-md-2">
-        <button id="add-bird" rel="#add-bird-form" type="button" class="btn btn-default">Add bird</button>
-      </div>
-      <div class="col-md-2">
-        <select name="" id="time-select" class="form-control">
-          <option value="all">All</option>
-          <option value="today">Today</option>
-          <option value="week">This week</option>
-          <option value="month">This month</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <input id="input_bar" type="text" class="form-control" placeholder="Filter by species or location">
-          <span class="input-group-btn">
-            <button class="btn btn-default " type="button">Filter</button>
-          </span>
-        </div><!-- /input-group -->
+          <div class="col-md-5">
+            <big><big><big><big><big>
+              <a href="index.html"><span class="big birdocular-logo">bird<img src="images/icon_9766.png" width='20'>cular</span>
+              </a></big></big>
+                &nbsp;
+              <span id="username">Welcome.</span>&nbsp;
+              <a id="login-logout" rel="#login-form">Sign in</a>
+            </big></big></big>
+          </div>
+          <div class="col-md-2">
+            <button id="add-bird" rel="#add-bird-form" type="button" class="btn btn-default">Add bird</button>
+          </div>
+          <div class="col-md-2">
+            <select name="" id="time-select" class="form-control">
+              <option value="all">All</option>
+              <option value="today">Today</option>
+              <option value="week">This week</option>
+              <option value="month">This month</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <div class="input-group">
+              <input id="input_bar" type="text" class="form-control" placeholder="Filter by species or location">
+              <span class="input-group-btn">
+                <button class="btn btn-default " type="button">Filter</button>
+              </span>
+            </div><!-- /input-group -->
+          </div>
       </div>
     </div>
 
