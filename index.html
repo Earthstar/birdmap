@@ -53,6 +53,7 @@
   var username = "";
   var autocompleteNumber = 0;
   var mapService;
+  var placesService;
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -74,6 +75,7 @@
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
+      placesService = new google.maps.places.PlacesService(map);
 
       var input = /** @type {HTMLInputElement} */(document.getElementById('sighting-location'));
       var input2 = /** @type {HTMLInputElement} */(document.getElementById('input_bar'));
@@ -89,7 +91,7 @@
 //      autocomplete2.bindTo('bounds', map);
 
 
-      mapService = new google.maps.places.AutocompleteService();
+      mapService = new google.maps.places.AutocompleteService(null, {types: ['geocode']});
 
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
          var place = autocomplete.getPlace();
@@ -100,7 +102,7 @@
              map.fitBounds(place.geometry.viewport);
          } else {
              map.setCenter(place.geometry.location);
-             map.setZoom(17);  // Why 17? Because it looks good.
+             map.setZoom(12);  // Why 17? Because it looks good.
          }
       });
 
@@ -160,6 +162,8 @@
     var tags = [];
     var autocompleteItems = [];
     var autocompleteSelection = 0;
+    var latitudes = [];
+    var longitudes = [];
     var places = [];
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
@@ -178,8 +182,14 @@
                 $('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
             } else {
                 //it's a place
+                //$('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
                 var index = autocompleteSelection - autocompleteItems.length + 5;
-                goToPlace(places[index]);
+                //alert(places[index].location.toString());
+                goToPlace(index);
+                autocompleteSelection = 0;
+                $( ".autocomplete-removable" ).remove();
+                autocompleteNumber = 0;
+                autocompleteItems = [];
             }
         } else if ( event.keyCode == 38 ) { //UP ARROW
             if (autocompleteNumber == 2) {
@@ -201,12 +211,12 @@
             }
             autocompleteNumber = 2;
             document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
-        } else if (event.keyCode > 47 && event.keyCode < 91) {
+        } else if (event.keyCode > 45 && event.keyCode < 91) {
             autocompleteSelection = 0;
-        $( ".autocomplete-removable" ).remove();
-        autocompleteNumber = 0;
-        autocompleteItems = [];
-        mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
+            $( ".autocomplete-removable" ).remove();
+            autocompleteNumber = 0;
+            autocompleteItems = [];
+            mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
             //alert('length ' + predictedPlaces[0]);
         }
 
@@ -218,15 +228,18 @@
            alert(status);
            return;
        }
-
+       places = predictions;
        //var results = document.getElementById('results');
        var prePredictedPlaces = [];
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
-           places[i] = prediction;
+           //places[i] = prediction;
+           
            prePredictedPlaces[i] = prediction.description;
        }
+       //alert(latitudes[0]);
       // alert('length ' + predictedPlaces[1]);
+      // alert(places[0].location.toString());
 
        var preCombinedList = userList.concat(birdsOnMap);
        combinedList = preCombinedList.sort(function (a, b) {
@@ -238,17 +251,29 @@
        tags = combinedList.concat(predictedPlaces);
     }
 
-    function goToPlace(place) {
+    function goToPlace(index) {
          //var place = autocomplete.getPlace();
-         if (!place.geometry) {
-             return;
-         }
-         if (place.geometry.viewport) {
-             map.fitBounds(place.geometry.viewport);
-         } else {
-             map.setCenter(place.geometry.location);
-             map.setZoom(17);  // Why 17? Because it looks good.
-         }
+        // alert("going to place");
+         //if (!place.geometry) {
+         //    alert("not going to place");
+         //    return;
+         //}
+         //alert("going to place");
+         //if (place.viewport) {
+         //    map.fitBounds(place.viewport);
+         //} else {
+         //alert("lat " + lat + " " + lng);
+         placesService.getDetails({reference:places[index].reference},
+                          function(details,status){
+                              //latitudes[i] = details.geometry.location.lat();
+                              //alert( details.geometry.location.lat());
+                              //longitudes[i] = details.geometry.location.lng();
+                              map.setCenter(details.geometry.location);
+
+                              map.setZoom(10);  // Why 17? Because it looks good.
+                          });
+
+         //}
     }
 
     $( "#input_bar" ).focus(function() {
