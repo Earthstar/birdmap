@@ -204,7 +204,7 @@
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.byDate(birdSightings,startDate,endDate));
-          Display.createAndDisplayBirdSightings(currentBirdSightings);
+          Display.displayBirdSightings(currentBirdSightings);
       });
 
       //BIRD FILTER
