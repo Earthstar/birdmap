@@ -357,6 +357,7 @@
 
     $("#login-logout").click(function() {
       $("#login-form").data("overlay").load();
+        $('#username-entry').focus();
     })
 
     // upon submitting a login, set username
@@ -404,6 +405,7 @@
       } else {
         // open overlay
         $("#add-bird-form").data("overlay").load();
+          $('#common-name').focus();
       }
     })
 
@@ -544,9 +546,9 @@
       <div class="row" id="filter-list-row">
           <div class="col-md-9" id="map">
             <!--map-->
-            <div id="map-canvas"></div>
+            <!--<div id="map-canvas"></div>-->
           </div>
-          <div class="col-md-3" id="filter-list" style="z-index:1">
+          <div class="col-md-3" id="filter-list">
               <div id="autocomplete-answers"></div>
               <hr/>
               <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
@@ -607,7 +609,7 @@
               <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
           </div>
-          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-12">Add bird</button>
+          <button id="add-bird-submit" type="submit" class="btn btn-default col-md-offset-6 col-md-6">Add bird</button>
         </div>
       </form>
     </div>
@@ -615,10 +617,10 @@
 
   <div class="container">
     <div id="login-form-bg">
-      <form id="login-form" class="form-horizontal col-md-offset-1 col-md-6" role="form" action="">
+      <form id="login-form" class="form-horizontal col-md-offset-1 col-md-5" role="form" action="">
       <div class="row">
         <h3>Sign in to add birds</h3>
-        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
+        <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div><br><br>
       </div>
         <div class="form-group">
           <label class="col-md-3" for="username-entry">Username</label>
@@ -626,7 +628,7 @@
             <input class="form-control" id="username-entry" type="text" placeholder="Ex. BirdWatcherPerson" required>
           </div>
         </div>
-        <button id="login-submit" class="btn btn-default col-md-12" type="submit">Sign in</button>
+        <button id="login-submit" class="btn btn-default col-md-offset-6 col-md-6" type="submit">Sign in</button>
       </form>
     </div>
   </div>
