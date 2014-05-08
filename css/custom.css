@@ -23,6 +23,7 @@ a{
 }
 
 #filter-list{
+    text-align:left;
     padding:0;
     padding-right:3%;
 }
@@ -77,14 +78,14 @@ a{
 }
 
 .filter-list-check{
+    text-align:left;
     padding:0;
-    width:15%;
+    padding-left:4%;
 }
 .filter-list-species{
     text-align:left;
     padding:0;
     padding-left:3%;
-    width:80%;
     border-right:0;
 }
 
@@ -118,12 +119,9 @@ a{
     height:40vh;
     overflow-y:scroll;
 }
-#entire-list div{
-    opacity:50%;
-}
 
 #autocomplete-answers{
-    max-height:15vh;
+    height:15vh;
     overflow-y:scroll;
     border-radius:5px;
 }
@@ -175,4 +173,24 @@ hr{
 
 #entire-list{
     overflow-x: hidden;
+}
+
+.input-group-addon{
+    color:#fff;
+    background-color:#aaa;
+    border:0;
+}
+
+.filter-list-x{
+    text-align:right;
+}
+
+.filter-list-x .btn.btn-default{
+    border:0;
+    border-radius:0;
+    color:#fff;
+}
+.filter-list-x .btn.btn-default:hover{
+    color:#000;
+    background-color:inherit;
 }
