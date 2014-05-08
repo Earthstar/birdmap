@@ -4,16 +4,22 @@ body{
 }
 
 a{
-    color:white;
+    color:#6782AF;
 }a:hover{
-    color:#666;
+    color:#ccc;
     text-decoration:none;
+    cursor:pointer;
 }
 
 #filter-options{
-    background-color:#aaa;
-    color:#fff;
+    background-color:#eee;
+    color:#555;
     padding:1%;
+    font-size:10px;
+}
+
+.big{
+    font-size:22px;
 }
 
 #filter-list{
@@ -27,7 +33,7 @@ a{
 }
 
 #add-bird{
-    width:100%;
+    width:60%;
 }
 
 #add-bird-form, #login-form {
@@ -102,19 +108,22 @@ a{
 
 #filter-list #filters{
 
-    max-height:30vh;
+    height:15vh;
     background-color:rgba(255,255,255,.75);
     overflow-y:scroll;
 }
 
 #entire-list{
 
-    height:30vh;
+    height:40vh;
     overflow-y:scroll;
+}
+#entire-list div{
+    opacity:50%;
 }
 
 #autocomplete-answers{
-    max-height:30vh;
+    max-height:15vh;
     overflow-y:scroll;
     border-radius:5px;
 }
@@ -154,4 +163,16 @@ form h3 {
 
 .error-message {
   color: red;
+}
+
+hr{
+    border-top-color:#999;
+}
+
+#login-logout{
+    font-size:15px;
+}
+
+#entire-list{
+    overflow-x: hidden;
 }
