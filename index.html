@@ -49,6 +49,7 @@
   var birdsOnMap=[];
   var username = "";
   var autocompleteNumber = 0;
+  var mapService;
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -72,6 +73,7 @@
           mapOptions);
 
       var input = /** @type {HTMLInputElement} */(document.getElementById('sighting-location'));
+      var input2 = /** @type {HTMLInputElement} */(document.getElementById('input_bar'));
 
       //var types = document.getElementById('type-selector');
       //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -80,7 +82,40 @@
       var autocomplete = new google.maps.places.Autocomplete(input);
       autocomplete.bindTo('bounds', map);
 
+     // var autocomplete2 = new google.maps.places.Autocomplete(input2);
+     // autocomplete2.bindTo('bounds', map);
+      
+
+      mapService = new google.maps.places.AutocompleteService();
+
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+         var place = autocomplete.getPlace();
+         if (!place.geometry) {
+             return;
+         }
+         if (place.geometry.viewport) {
+             map.fitBounds(place.geometry.viewport);
+         } else {
+             map.setCenter(place.geometry.location);
+             map.setZoom(17);  // Why 17? Because it looks good.
+         }
+      });
+
+      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+         var place = autocomplete2.getPlace();
+         if (!place.geometry) {
+             return;
+         }
+         if (place.geometry.viewport) {
+             map.fitBounds(place.geometry.viewport);
+         } else {
+             map.setCenter(place.geometry.location);
+             map.setZoom(17);  // Why 17? Because it looks good.
+         }
+      });
+
     }
+
     google.maps.event.addDomListener(window, 'load', initialize);
 
 
@@ -92,6 +127,7 @@
     //AUTOCOMPLETE
 
     var combinedList = [];
+    var predictedPlaces = [];
     var tags = [];
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
@@ -104,12 +140,33 @@
         }
         $( ".autocomplete-removable" ).remove();
         autocompleteNumber = 0;
-        combinedList = userList.concat(birdsOnMap);
-        tags = combinedList.sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        });
+        mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
+        //alert('length ' + predictedPlaces[0]);
 
     });
+
+    function mapCallback(predictions, status) {
+       if (status != google.maps.places.PlacesServiceStatus.OK) {
+           alert(status);
+           return;
+       }
+
+       //var results = document.getElementById('results');
+       predictedPlaces = [];
+
+       for (var i = 0, prediction; prediction = predictions[i]; i++) {
+           predictedPlaces[i] = prediction.description;
+       }
+      // alert('length ' + predictedPlaces[1]);
+    
+       var preCombinedList = userList.concat(birdsOnMap);
+       combinedList = preCombinedList.concat(predictedPlaces);
+       tags = combinedList.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+    }
+
+
 
     $( "#input_bar" ).focus(function() {
        //$( "#autocomplete-answers" ).show();
