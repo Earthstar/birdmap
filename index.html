@@ -382,7 +382,6 @@ google.maps.event.addListener(autocomplete, 'place_changed', function() {
               currentStartDate=new Date(0,0,0,0,0,0);
               currentEndDate=new Date();
           }
-          console.log(currentStartDate, currentEndDate);
               clearMarkers();
           if (currentBirdSightings.length<1){
               var tempBirdSightingsWithDate=Filter.byDate(birdSightings,
