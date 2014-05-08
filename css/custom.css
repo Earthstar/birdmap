@@ -197,6 +197,10 @@ hr{
     background-color:inherit;
 }
 
+textarea {
+    resize: none;
+}
+
 label{
     text-align:right;
 }

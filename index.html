@@ -7,7 +7,7 @@
   <!-- Adds deprecated functions so we can use overlay -->
   <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
   <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChibrTeOY3gx8Kg4xQgpj1PnCWFmw10W8&sensor=false&libraries=places">
     </script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -30,6 +30,7 @@
   <script type="text/javascript">
   // Global variables to access anywhere
   var map;
+  var geocoder = new google.maps.Geocoder();
   var birdSightings;
   // There is one global infowindow, initialized in Display.init
   var infoWindow;
@@ -48,6 +49,7 @@
   var birdsOnMap=[];
   var username = "";
   var autocompleteNumber = 0;
+  var mapService;
   var newSighting = {
     commonName: "Northern Cardinal",
     speciesName: "Cardinalis cardinalis",
@@ -67,9 +69,53 @@
         zoom: 9,
         streetViewControl:false
       };
-      map = new google.maps.Map(document.getElementById('map-canvas'),
+      var map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
+
+      var input = /** @type {HTMLInputElement} */(document.getElementById('sighting-location'));
+      var input2 = /** @type {HTMLInputElement} */(document.getElementById('input_bar'));
+
+      //var types = document.getElementById('type-selector');
+      //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo('bounds', map);
+
+     // var autocomplete2 = new google.maps.places.Autocomplete(input2);
+     // autocomplete2.bindTo('bounds', map);
+      
+
+      mapService = new google.maps.places.AutocompleteService();
+
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+         var place = autocomplete.getPlace();
+         if (!place.geometry) {
+             return;
+         }
+         if (place.geometry.viewport) {
+             map.fitBounds(place.geometry.viewport);
+         } else {
+             map.setCenter(place.geometry.location);
+             map.setZoom(17);  // Why 17? Because it looks good.
+         }
+      });
+
+      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
+         var place = autocomplete2.getPlace();
+         if (!place.geometry) {
+             return;
+         }
+         if (place.geometry.viewport) {
+             map.fitBounds(place.geometry.viewport);
+         } else {
+             map.setCenter(place.geometry.location);
+             map.setZoom(17);  // Why 17? Because it looks good.
+         }
+      });
+
     }
+
     google.maps.event.addDomListener(window, 'load', initialize);
 
 
@@ -81,6 +127,7 @@
     //AUTOCOMPLETE
 
     var combinedList = [];
+    var predictedPlaces = [];
     var tags = [];
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
@@ -93,12 +140,33 @@
         }
         $( ".autocomplete-removable" ).remove();
         autocompleteNumber = 0;
-        combinedList = userList.concat(birdsOnMap);
-        tags = combinedList.sort(function (a, b) {
-            return a.toLowerCase().localeCompare(b.toLowerCase());
-        });
+        mapService.getPlacePredictions({ input: document.getElementById('input_bar').value }, mapCallback);
+        //alert('length ' + predictedPlaces[0]);
 
     });
+
+    function mapCallback(predictions, status) {
+       if (status != google.maps.places.PlacesServiceStatus.OK) {
+           alert(status);
+           return;
+       }
+
+       //var results = document.getElementById('results');
+       predictedPlaces = [];
+
+       for (var i = 0, prediction; prediction = predictions[i]; i++) {
+           predictedPlaces[i] = prediction.description;
+       }
+      // alert('length ' + predictedPlaces[1]);
+    
+       var preCombinedList = userList.concat(birdsOnMap);
+       combinedList = preCombinedList.concat(predictedPlaces);
+       tags = combinedList.sort(function (a, b) {
+            return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+    }
+
+
 
     $( "#input_bar" ).focus(function() {
        //$( "#autocomplete-answers" ).show();
@@ -120,6 +188,8 @@
            //document.getElementById('input_bar').value='';
         }
     });
+
+//https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&types=geocode&sensor=false&key=AIzaSyD_Zbfis4bwIE_CnAv5IwimKkEF5pkuTZE
 
     // This causes a bug
 
@@ -435,26 +505,55 @@
 
       // Do some preprocessing of the data
       // date and time are string values
-      var date = new Date(Date.parse($("#sighting-date").val()))
-      var time = $("#sighting-time").val()
+      var newDate = new Date(Date.parse($("#sighting-date").val()))
+      var newTime = $("#sighting-time").val()
       // Parse the string, should have format 12:00 PM
       // Wow, this is annoying
-      time = time.split(/[\s:]/)
-      var hour = parseInt(time[0])
-      var min = parseInt(time[1])
-      if (time[2] == "PM") {
+      newTime = newTime.split(/[\s:]/)
+      var hour = parseInt(newTime[0])
+      var min = parseInt(newTime[1])
+      if (newTime[2] == "PM") {
         hour += 12
       }
-      date.setHours(hour)
-      date.setMinutes(min)
-      console.log(date)
-      console.log(time)
+      newDate.setHours(hour)
+      newDate.setMinutes(min)
+      var newPosition;
+      geocoder.geocode({'address':$("#sighting-location").val()}, function(results, status) {
+
+        if (status == google.maps.GeocoderStatus.OK) {
+          var latitude = results[0].geometry.location.lat();
+          var longitude = results[0].geometry.location.lng();
+          newPosition = new google.maps.LatLng(latitude,longitude);
+          console.log(newPosition);
+          var newSighting = {
+            commonName: $("#common-name").val(),
+            speciesName: $("#species-name").val(),
+            userSpotted: username,
+            position: newPosition,
+            date: newDate,
+            comment: $("#sighting-comments").val(),
+            image: $("#bird-pic-url").val(),
+          }
+          birdSightings.push(newSighting);
+          var htmlpic= '<div class="bird-popup"><div class="row"><div class="col-md-3"><img src='+newSighting.image+' class="bird-image"><br></div><div class="col-md-9"><dl class="dl-horizontal bird-info"><dt>Common Name:</dt> <dd>'+newSighting.commonName+'</dd><dt>Species Name:</dt> <dd>'+newSighting.speciesName+'</dd><dt>Date:</dt> <dd>'+newSighting.date+'</dd><dt>User:</dt> <dd>'+newSighting.userSpotted+'</dd><dt>Comment:</dt> <dd>'+newSighting.comment+'</dd></dl></div></div></div>';
+          var color = getColor(birdSightings[birdSightings.length-1].commonName);
+          console.log(color);
+          var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color, infoWindowContent: htmlpic});
+          birdSightings[birdSightings.length-1].marker = circle;
+        } 
+      $("#sighting-date").val("");
+      $("#sighting-time").val("");
+      $("#common-name").val("");
+      $("#species-name").val("");
+      $("#bird-pic-url").val("");
+      $("#sighting-comments").val("");
+      $("#sighting-location").val("");
+      }); 
+       
+
+      
       // Get the form values
-      var newSighting = {
-        commonName: $("#common-name").val(),
-        speciesName: $("#species-name").val(),
-        comment: $("#sighting-comments").val(),
-      }
+      
     })
 
     // function closeOverlay() {
@@ -587,8 +686,13 @@
         <div id="close-add-bird" class="close glyphicon glyphicon-remove"></div>
       </div>
         <div class="form-group col-md-5">
-          <label for="bird-pic">Insert picture</label>
+          <label for="bird-pic">Upload picture (optional)</label>
           <input type="file" id="bird-pic" class="form-control">
+          <label for="bird-pic-url">or enter a url (optional)</label>
+          <input type="text" id="bird-pic-url" class="form-control" placeholder="Ex. i.imgur.com/KWl6pqT.jpg">
+        </div>
+        <div class="form-group col-md-5">
+
         </div>
         <div class="col-md-7">
           <div class="form-group">
@@ -622,7 +726,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3" for="sighting-comments">Comments</label>
+            <label class="col-md-3" for="sighting-comments">Comments (optional)</label>
             <div class="col-md-9">
               <textarea id="sighting-comments" class="form-control" rows="4" placeholder="Ex. This bird is really red!"></textarea>
             </div>
