@@ -4,19 +4,19 @@ body{
 }
 
 a{
-    color:#6782AF;
+    color:#4E8A37;
 }a:hover{
-    color:#ccc;
+    color:#fff;
     text-decoration:none;
     cursor:pointer;
 }
 
 #filter-options{
-    background-color:#eee;
+    background-color:#CBEC99;
     color:#555;
     padding:1%;
     font-size:10px;
-    border-bottom:2px #ccc solid;
+    border-bottom:2px #87c270 solid;
 }
 
 .big{
