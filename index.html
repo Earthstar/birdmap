@@ -101,19 +101,45 @@
          }
       });
 
-//      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-//         var place = autocomplete2.getPlace();
-//         if (!place.geometry) {
-//             return;
-//         }
-//         if (place.geometry.viewport) {
-//             map.fitBounds(place.geometry.viewport);
-//         } else {
-//             map.setCenter(place.geometry.location);
-//             map.setZoom(17);  // Why 17? Because it looks good.
-//         }
-//      });
+      // Loads all bird species into global variable birdSpecies
+      $.getJSON('json/bird_species.json', function(json) {
+        birdSpecies = json;
+        for(var i = 0; i < birdSpecies.length; i++){
+          var context = {
+            name: {
+              string: birdSpecies[i].commonName,
+              id: nameToID(birdSpecies[i].commonName),
+            },
+          }
+          // Create the filter checkboxes
+          $('#entire-list').append(Display.allBirdsListTemplate(context));
+          //sort the commonNames before TODO
+          birdsOnMap.push(birdSpecies[i].commonName);
+        }
+        // Attach listeners to checkboxes
+        $('.filter-list-check input').on('change',filterBirdListener);
+      })
 
+      // This compiles all handlebars templates
+      Display.init();
+      // Loads bird jsons, creates filters
+      $.getJSON('smallbirds.json', function(json) {
+
+        // At this time, birdSpecies should exist. Might be a race
+        // condition here
+        if (!birdSpecies) {
+          console.log("birdSpecies not loaded, race condition")
+        }
+        birdSightings = Birdmap.processBirds(json);
+        // For each birdSighting, create a marker and store it
+        // within the birdSighting
+        for (var i = birdSightings.length - 1; i >= 0; i--) {
+          // Figure out the color that corresponds to species
+          var color = getColor(birdSightings[i].commonName)
+          var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
+          birdSightings[i].marker = circle;
+        };
+      })
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
@@ -397,43 +423,6 @@
       })
       return color;
     }
-
-    // Loads all bird species into global variable birdSpecies
-    $.getJSON('json/bird_species.json', function(json) {
-      birdSpecies = json;
-      for(var i = 0; i < birdSpecies.length; i++){
-        var context = {
-          name: {
-            string: birdSpecies[i].commonName,
-            id: nameToID(birdSpecies[i].commonName),
-          },
-        }
-        // Create the filter checkboxes
-        $('#entire-list').append(Display.allBirdsListTemplate(context));
-        //sort the commonNames before TODO
-        birdsOnMap.push(birdSpecies[i].commonName);
-      }
-      // Attach listeners to checkboxes
-      $('.filter-list-check input').on('change',filterBirdListener);
-    })
-
-    // This compiles all handlebars templates
-    Display.init();
-    // Loads bird jsons, creates filters
-    $.getJSON('smallbirds.json', function(json) {
-
-      // At this time, birdSpecies should exist. Might be a race
-      // condition here
-      birdSightings = Birdmap.processBirds(json);
-      // For each birdSighting, create a marker and store it
-      // within the birdSighting
-      for (var i = birdSightings.length - 1; i >= 0; i--) {
-        // Figure out the color that corresponds to species
-        var color = getColor(birdSightings[i].commonName)
-        var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
-        birdSightings[i].marker = circle;
-      };
-    })
 
     $("#login-form").overlay({
       closeOnClick: true,
