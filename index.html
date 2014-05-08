@@ -84,7 +84,7 @@
 
 //      var autocomplete2 = new google.maps.places.Autocomplete(input2);
 //      autocomplete2.bindTo('bounds', map);
-      
+
 
       mapService = new google.maps.places.AutocompleteService();
 
@@ -101,19 +101,45 @@
          }
       });
 
-//      google.maps.event.addListener(autocomplete2, 'place_changed', function() {
-//         var place = autocomplete2.getPlace();
-//         if (!place.geometry) {
-//             return;
-//         }
-//         if (place.geometry.viewport) {
-//             map.fitBounds(place.geometry.viewport);
-//         } else {
-//             map.setCenter(place.geometry.location);
-//             map.setZoom(17);  // Why 17? Because it looks good.
-//         }
-//      });
+      // Loads all bird species into global variable birdSpecies
+      $.getJSON('json/bird_species.json', function(json) {
+        birdSpecies = json;
+        for(var i = 0; i < birdSpecies.length; i++){
+          var context = {
+            name: {
+              string: birdSpecies[i].commonName,
+              id: nameToID(birdSpecies[i].commonName),
+            },
+          }
+          // Create the filter checkboxes
+          $('#entire-list').append(Display.allBirdsListTemplate(context));
+          //sort the commonNames before TODO
+          birdsOnMap.push(birdSpecies[i].commonName);
+        }
+        // Attach listeners to checkboxes
+        $('.filter-list-check input').on('change',filterBirdListener);
+      })
 
+      // This compiles all handlebars templates
+      Display.init();
+      // Loads bird jsons, creates filters
+      $.getJSON('smallbirds.json', function(json) {
+
+        // At this time, birdSpecies should exist. Might be a race
+        // condition here
+        if (!birdSpecies) {
+          console.log("birdSpecies not loaded, race condition")
+        }
+        birdSightings = Birdmap.processBirds(json);
+        // For each birdSighting, create a marker and store it
+        // within the birdSighting
+        for (var i = birdSightings.length - 1; i >= 0; i--) {
+          // Figure out the color that corresponds to species
+          var color = getColor(birdSightings[i].commonName)
+          var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
+          birdSightings[i].marker = circle;
+        };
+      })
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
@@ -158,7 +184,7 @@
            predictedPlaces[i] = prediction.description;
        }
       // alert('length ' + predictedPlaces[1]);
-    
+
        var preCombinedList = userList.concat(birdsOnMap);
        combinedList = preCombinedList.concat(predictedPlaces);
        tags = combinedList.sort(function (a, b) {
@@ -210,7 +236,7 @@
           fillAutoCompleteWithFocus(item);
           autocompleteNumber = 1;
         } else if (matches) {
-          fillAutoComplete(item);    
+          fillAutoComplete(item);
         }
 		  return false;
 	    })
@@ -345,25 +371,28 @@
       }
 
       //puts birds onto the autocomplete list and adds listeners
-      function fillAutoComplete(item){
-          $('#autocomplete-answers').append(autocompListTemplate(item));
-            $('.filter-list-check input').on('change',filterBirdListener);
+      function fillAutoComplete(commonName){
+        var context = {
+          name: {
+            id: nameToID(commonName),
+            string: commonName,
+          }
+        }
+        $('#autocomplete-answers').append(Display.autocompListTemplate(context));
+        $('.filter-list-check input').on('change',filterBirdListener);
       }
 
-      function fillAutoCompleteWithFocus(item){
-          $('#autocomplete-answers').append(autocompListTemplateWithFocus(item));
-          $('#autocomplete-focus').focus();
-            $('.filter-list-check input').on('change',filterBirdListener);
-      }
-
-      //hi everyone...SORRY THIS CODE IS SO UGLY...
-      //has the class 'autocomplete-removable' on first div
-      function autocompListTemplate(name){
-          return "<div class='input-group autocomplete-removable'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
-      }
-
-      function autocompListTemplateWithFocus(name){
-          return "<div class='input-group autocomplete-removable' id='autocomplete-focus'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span></span></div>";
+      // name can be a bird name or name of a location
+      function fillAutoCompleteWithFocus(name){
+        var context = {
+          name: {
+            id: nameToID(name),
+            string: name,
+          }
+        }
+        $('#autocomplete-answers').append(Display.autocompFocusTemplate(context));
+        $('#autocomplete-focus').focus();
+        $('.filter-list-check input').on('change',filterBirdListener);
       }
 
       //returns a version of the name with '-' intsead of ' '.
@@ -394,43 +423,6 @@
       })
       return color;
     }
-
-    // Loads all bird species into global variable birdSpecies
-    $.getJSON('json/bird_species.json', function(json) {
-      birdSpecies = json;
-      for(var i = 0; i < birdSpecies.length; i++){
-        var context = {
-          name: {
-            string: birdSpecies[i].commonName,
-            id: nameToID(birdSpecies[i].commonName),
-          },
-        }
-        // Create the filter checkboxes
-        $('#entire-list').append(Display.allBirdsListTemplate(context));
-        //sort the commonNames before TODO
-        birdsOnMap.push(birdSpecies[i].commonName);
-      }
-      // Attach listeners to checkboxes
-      $('.filter-list-check input').on('change',filterBirdListener);
-    })
-
-    // This compiles all handlebars templates
-    Display.init();
-    // Loads bird jsons, creates filters
-    $.getJSON('smallbirds.json', function(json) {
-
-      // At this time, birdSpecies should exist. Might be a race
-      // condition here
-      birdSightings = Birdmap.processBirds(json);
-      // For each birdSighting, create a marker and store it
-      // within the birdSighting
-      for (var i = birdSightings.length - 1; i >= 0; i--) {
-        // Figure out the color that corresponds to species
-        var color = getColor(birdSightings[i].commonName)
-        var circle = Display.createAndDisplayBirdSighting(birdSightings[i], {strokeColor: color, fillColor: color});
-        birdSightings[i].marker = circle;
-      };
-    })
 
     $("#login-form").overlay({
       closeOnClick: true,
@@ -576,9 +568,8 @@
         $("#species-name").val("");
         $("#bird-pic-url").val("");
         $("#sighting-comments").val("");
-        //$("#sighting-location").val("");
+        $("#sighting-location").val("");
       }); 
-      
       
     })
 
@@ -648,6 +639,27 @@
     </div>
   </script>
 
+  <script id="autocomplete-list-template" type="text/x-handlebars-template">
+    <div class='input-group autocomplete-removable {{name.id}}-container'>
+      <span class='input-group-addon filter-list-check'>
+        <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+        </span>
+        <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+        <span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'></span>
+      </span>
+    </div>
+  </script>
+
+  <script id="autocomplete-focus-template" type="text/x-handlebars-template">
+    <div class='input-group autocomplete-removable {{name.id}}-container' id='autocomplete-focus'>
+      <span class='input-group-addon filter-list-check'>
+        <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+      </span>
+      <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+      <span class='input-group-addon filter-list-o'><span class='glyphicon glyphicon-remove'</span>
+      </span>
+    </div>
+  </script>
 
 </head>
  <!-- Col should add up to 12 -->
