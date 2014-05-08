@@ -157,6 +157,7 @@
     var tags = [];
     var autocompleteItems = [];
     var autocompleteSelection = 0;
+    var places = [];
     var userList = ["zee01","aaron97","fishy","marble","bebop","bay67","boxius_beer45","cardinalis_fan","cool_bird00","cool_bird01","diamond","encephalitis_bastard","eien","finnix","garr","garrrr","haymarket88","house_sparrow_freak","instagramboy","jay_fan","jungle_girl","lazy_dog","mama77","mary taylor","mama taylor","northern_explorer","northern_jay_fan37","oklahoma_lover","passer_ross","rabbit55","southern_grandma","taylor","tilly_taylor","uber_sucks","vietnam_war","wisconsin_rocks","woohoo49","x-ray76","yyyjay","zebra","atlantic zebra","atlantic eien","atlantis78","richard","peter","chris peter","christoph","daisy","dangitdang","elsevier","fax_machine","not_happy","betty69"];
 
     $( "#input_bar" ).keyup(function(event){
@@ -169,9 +170,14 @@
         //alert('event.key ' + event.keyCode + ' ' + keyCode.UP + ' ' + keyCode.DOWN);
         if ( event.keyCode == 13 ) { //ENTER KEY
             document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
-
-             $('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
-
+            if (autocompleteSelection < autocompleteItems.length - 5) {
+                //it's a bird or a user
+                $('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
+            } else {
+                //it's a place
+                var index = autocompleteSelection - autocompleteItems.length + 5;
+                goToPlace(places[index]);
+            }
         } else if ( event.keyCode == 38 ) { //UP ARROW
             if (autocompleteNumber == 2) {
                 if (autocompleteSelection > 0) {
@@ -214,6 +220,7 @@
        var prePredictedPlaces = [];
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
+           places[i] = prediction;
            prePredictedPlaces[i] = prediction.description;
        }
       // alert('length ' + predictedPlaces[1]);
@@ -228,7 +235,18 @@
        tags = combinedList.concat(predictedPlaces);
     }
 
-
+    function goToPlace(place) {
+         //var place = autocomplete.getPlace();
+         if (!place.geometry) {
+             return;
+         }
+         if (place.geometry.viewport) {
+             map.fitBounds(place.geometry.viewport);
+         } else {
+             map.setCenter(place.geometry.location);
+             map.setZoom(17);  // Why 17? Because it looks good.
+         }
+    }
 
     $( "#input_bar" ).focus(function() {
        //$( "#autocomplete-answers" ).show();
