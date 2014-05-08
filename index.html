@@ -69,7 +69,7 @@
         zoom: 9,
         streetViewControl:false
       };
-      var map = new google.maps.Map(document.getElementById('map-canvas'),
+      map = new google.maps.Map(document.getElementById('map-canvas'),
           mapOptions);
 
       var input = /** @type {HTMLInputElement} */(document.getElementById('sighting-location'));
@@ -82,8 +82,8 @@
       var autocomplete = new google.maps.places.Autocomplete(input);
       autocomplete.bindTo('bounds', map);
 
-     // var autocomplete2 = new google.maps.places.Autocomplete(input2);
-     // autocomplete2.bindTo('bounds', map);
+      var autocomplete2 = new google.maps.places.Autocomplete(input2);
+      autocomplete2.bindTo('bounds', map);
       
 
       mapService = new google.maps.places.AutocompleteService();
