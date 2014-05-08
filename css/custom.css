@@ -182,7 +182,7 @@ hr{
     width:96%;
 }
 .autocomplete-removable .input-group-addon{
-    background-color:#eee;
+    /*background-color:#eee;*/
     color:#000;
 }
 .input-group-addon{
