@@ -29,6 +29,7 @@
   <script type="text/javascript">
   // Global variables to access anywhere
   var map;
+  var geocoder = new google.maps.Geocoder();
   var birdSightings;
   // There is one global infowindow, initialized in Display.init
   var infoWindow;
@@ -423,29 +424,34 @@
       }
       newDate.setHours(hour)
       newDate.setMinutes(min)
-      console.log(newDate)
-      console.log(newTime)
-      var newPosition = new google.maps.LatLng(42.33, -71.05);//$("#sighting-location").val());
-      console.log(newPosition);
+      var newPosition;
+      geocoder.geocode({'address':$("#sighting-location").val()}, function(results, status) {
+
+        if (status == google.maps.GeocoderStatus.OK) {
+          var latitude = results[0].geometry.location.lat();
+          var longitude = results[0].geometry.location.lng();
+          newPosition = new google.maps.LatLng(latitude,longitude);
+          console.log(newPosition);
+          var newSighting = {
+            commonName: $("#common-name").val(),
+            speciesName: $("#species-name").val(),
+            userSpotted: username,
+            position: newPosition,
+            date: newDate,
+            comment: $("#sighting-comments").val(),
+            image: $("#bird-pic").val(),
+          }
+          birdSightings.push(newSighting);
+          var color = getColor(birdSightings[birdSightings.length-1].commonName)
+          var circle = Display.createAndDisplayBirdSighting(birdSightings[birdSightings.length-1], {strokeColor: color, fillColor: color});
+          birdSightings[birdSightings.length-1].marker = circle;
+        } 
+      }); 
+       
+
+      
       // Get the form values
-      var newSighting = {
-        commonName: $("#common-name").val(),
-        speciesName: $("#species-name").val(),
-        userSpotted: username,
-        position: newPosition,
-        date: newDate,
-        comment: $("#sighting-comments").val(),
-        image: $("#bird-pic").val(),
-      }
-      birdSightings.push(newSighting);
-      Display.init();
-      Display.birdSightings(birdSightings);
-      var listOfAllBirds = Birdmap.getBirdSpecies(birdSightings);
-      for(var i = 0; i < listOfAllBirds.length; i++){
-          $('#entire-list').append(birdListTemplate(listOfAllBirds[i].commonName));
-          birdsOnMap.push(listOfAllBirds[i].commonName);
-      }
-      $('.filter-list-check input').on('change',filterBirdListener);
+      
     })
 
     // function closeOverlay() {
