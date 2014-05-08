@@ -19,7 +19,8 @@
   <link type="text/css" href="css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/bootstrap-timepicker.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
-  <style type="text/css">
+  <link rel="stylesheet" type="text/css" href="css/colors.css">
+  <style type="text/css"><
   /** FIX for Bootstrap and Google Maps Info window styles problem **/
   img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
     max-width: none;
@@ -60,10 +61,10 @@
   $(function() {
     function initialize() {
       // Create a map
-      var center = new google.maps.LatLng(42.0, -70.5);
+      var center = new google.maps.LatLng(42.2, -71);
       var mapOptions = {
         center: center,
-        zoom: 8,
+        zoom: 9,
         streetViewControl:false
       };
       map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -204,7 +205,7 @@
               clearMarkers();
               currentBirdSightings=Filter.or(currentBirdSightings,
                                              Filter.byDate(birdSightings,startDate,endDate));
-          Display.createAndDisplayBirdSightings(currentBirdSightings);
+          Display.displayBirdSightings(currentBirdSightings);
       });
 
       //BIRD FILTER
@@ -256,22 +257,22 @@
       }
 
       //just adds html to filter list and adds listeners
-      function addBirdsToFilterDisplay(item){
-            $( "#filter-list #filters" ).append(filterListTemplate(item));
-            $('.filter-list-check input').on('change',filterBirdListener);
-            $('.filter-list-x button').on('click',removeFilter);
+      function addBirdsToFilterDisplay(commonName){
+        var context = {
+          name: {
+            id: nameToID(commonName),
+            string: commonName,
+          }
+        }
+        $( "#filter-list #filters" ).append(Display.filterListTemplate(context));
+        $('.filter-list-check input').on('change',filterBirdListener);
+        $('.filter-list-x button').on('click',removeFilter);
       }
 
       //puts birds onto the autocomplete list and adds listeners
       function fillAutoComplete(item){
           $('#autocomplete-answers').append(autocompListTemplate(item));
             $('.filter-list-check input').on('change',filterBirdListener);
-      }
-
-      //the html that shows up in the list of filters
-      //has the x to close the filter
-      function filterListTemplate(name){
-          return "<div class='input-group'><span class='input-group-addon filter-list-check'><input id='"+nameToID(name)+"' data-name='"+name+"' type='checkbox'></span><span class='input-group-addon filter-list-species'>"+name+"</span><span class='input-group-btn filter-list-x'><button class='btn btn-default' id='"+nameToID(name)+"' type='button'><span class='glyphicon glyphicon-remove'></span></button></span></div>";
       }
 
       //hi everyone...SORRY THIS CODE IS SO UGLY...
@@ -283,7 +284,9 @@
       //returns a version of the name with '-' intsead of ' '.
       //ex: Northern Cardinal --> Northern-Cardinal
       function nameToID(name){
-          return name.replace(new RegExp(' ', 'g'),'-');
+        // get rid of apostrophes because they mess up the classes
+        name = name.replace(new RegExp("'", 'g'), '')
+        return name.replace(new RegExp(' ', 'g'),'-');
       }
 
     // This is a function that gets the hex color that corresponds
@@ -318,7 +321,7 @@
           },
         }
         // Create the filter checkboxes
-        $('#entire-list').append(Display.filterListSpeciesTemplate(context));
+        $('#entire-list').append(Display.allBirdsListTemplate(context));
         birdsOnMap.push(birdSpecies[i].commonName);
       }
       // Attach listeners to checkboxes
@@ -365,7 +368,8 @@
       username = $("#username-entry").val();
       $("#username-entry").val("");
       $("#login-form").data("overlay").close();
-      $("#login-logout").text(username);
+      $("#username").text("Welcome, "+username+".");
+      $("#login-logout").text("switch user");
 
       if ($(this).data("overlay")["openAddBird"]) {
         $("#add-bird-form").data("overlay").load();
@@ -495,8 +499,8 @@
   </div>
   </script>
 
-  <script id="filter-list-species-template" type="text/x-handlebars-template">
-  <div class='input-group' id="{{name.id}}-container">
+  <script id="all-birds-list-template" type="text/x-handlebars-template">
+  <div class="input-group {{name.id}}-container filter-container">
     <span class='input-group-addon filter-list-check'>
       <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
     </span>
@@ -507,6 +511,19 @@
   </div>
   </script>
 
+  <script id='filter-list-template' type="text/x-handlebars-template">
+    <div class='input-group {{name.id}}-container filter-container'>
+      <span class='input-group-addon filter-list-check'>
+        <input id='{{name.id}}' data-name='{{name.string}}' type='checkbox'>
+      </span>
+      <span class='input-group-addon filter-list-species'>{{name.string}}</span>
+      <span class='input-group-btn filter-list-x'>
+        <button class='btn btn-default' id='{{name.id}}' type='button'><span class='glyphicon glyphicon-remove'></span>
+        </button>
+      </span>
+    </div>
+  </script>
+
 
 </head>
  <!-- Col should add up to 12 -->
@@ -515,12 +532,12 @@
     <div class="row">
     <!-- header -->
     <div class="row" id="filter-options">
-          <div class="col-md-4">
+          <div class="col-md-5">
             <big><big><big>
-              <a href="index.html">birdOcular</a>
-              <span class="glyphicon glyphicon-eye-open"></span>
+              <a href="index.html"><span class="big">birdOcular</span>
+              <span class="glyphicon glyphicon-eye-open"></span></a>
                 &nbsp;
-              <span id="username"></span>
+              <span id="username">Welcome.</span>&nbsp;
               <a id="login-logout" rel="#login-form">Sign in</a>
             </big></big></big>
           </div>
@@ -535,7 +552,7 @@
               <option value="month">This month</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="input-group">
               <input id="input_bar" type="text" class="form-control" placeholder="Filter by species or location">
               <span class="input-group-btn">
@@ -545,25 +562,22 @@
           </div>
       </div>
 
-      <!--list of filters, overlayed on map (for now) -->
-      <div class="row" id="filter-list-row" style="position:absolute;">
-          <div class="col-md-4"></div>
-          <div class="col-md-4"></div>
-          <div class="col-md-4" id="filter-list" style="z-index:1">
+      <div class="row" id="filter-list-row">
+          <div class="col-md-9" id="map">
+            <!--map-->
+            <div id="map-canvas"></div>
+          </div>
+          <div class="col-md-3" id="filter-list" style="z-index:1">
               <div id="autocomplete-answers"></div>
-
+              <hr/>
               <div id="filtered-div" class="row">&nbsp; Filtered:<div id="filters"></div></div>
+              <hr/>
               <div class="row">&nbsp; All Birds on Map:<div id="entire-list"></div>
               </div>
         </div>
-      </div>
 
-      <!--map-->
-      <div class="row" style="z-index:0;" id="map">
-        <!-- Nest some columns -->
-        <div id="map-canvas"></div>
-      </div>
-  </div>
+        </div>
+
 
   <!-- Separate container for add bird overlay -->
   <div class="container" >
