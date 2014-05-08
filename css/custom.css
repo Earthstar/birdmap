@@ -200,3 +200,7 @@ hr{
 label{
     text-align:right;
 }
+
+#autocomplete-focus span{
+    background-color:#8bf;
+}

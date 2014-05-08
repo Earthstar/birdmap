@@ -419,6 +419,7 @@
       if (!username) {
         $("#login-form").data("overlay")["openAddBird"] = true;
         $("#login-form").data("overlay").load();
+        $('#username-entry').focus();
       } else {
         // open overlay
         $("#add-bird-form").data("overlay").load();
