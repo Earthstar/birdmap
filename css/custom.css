@@ -44,6 +44,7 @@ a{
   border-radius: 5px;
   display:none;
     padding-top:.75%;
+  border:1px #ccc solid;
 }
 
 .close {
