@@ -124,14 +124,14 @@
         // Attach listeners to checkboxes
         $('.filter-list-check input').on('change',filterBirdListener);
         // Attach click listeners to checkboxes
-        $('input[type="checkbox"]').click(function(e) {
-          e.stopPropagation()
-        })
-        $('.filter-container').click(function(e) {
-          var checkbox = $(this).find('input[type="checkbox"]')
-          checkbox.click()
-          // checkbox.prop('checked', !checkbox.prop('checked'))
-        })
+        // $('input[type="checkbox"]').click(function(e) {
+        //   e.stopPropagation()
+        // })
+        // $('.filter-container').click(function(e) {
+        //   var checkbox = $(this).find('input[type="checkbox"]')
+        //   checkbox.click()
+        //   // checkbox.prop('checked', !checkbox.prop('checked'))
+        // })
       })
 
       // This compiles all handlebars templates
@@ -248,7 +248,7 @@
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
            //places[i] = prediction;
-           
+
            prePredictedPlaces[i] = prediction.description;
        }
        //alert(latitudes[0]);
