@@ -26,7 +26,6 @@ a{
 #filter-list{
     text-align:left;
     padding:0;
-    padding-right:3%;
 }
 
 #filter-list div{
@@ -177,6 +176,9 @@ hr{
 
 #entire-list{
     overflow-x: hidden;
+}
+#entire-list .input-group{
+    //cursor:pointer;
 }
 
 .input-group{
