@@ -244,12 +244,12 @@
        places = predictions;
 
        //var results = document.getElementById('results');
-       var prePredictedPlaces = [];
+       predictedPlaces = [];
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
            //places[i] = prediction;
            
-           prePredictedPlaces[i] = prediction.description;
+           predictedPlaces[i] = prediction.description;
        }
        //alert(latitudes[0]);
       // alert('length ' + predictedPlaces[1]);
@@ -259,9 +259,9 @@
       combinedList = preCombinedList.sort(function (a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       });
-      predictedPlaces = prePredictedPlaces.sort(function (a, b) {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      });
+      //predictedPlaces = prePredictedPlaces.sort(function (a, b) {
+      //  return a.toLowerCase().localeCompare(b.toLowerCase());
+      //});
       tags = combinedList.concat(predictedPlaces);
     }
 
