@@ -186,7 +186,10 @@
         //alert('event.key ' + event.keyCode + ' ' + keyCode.UP + ' ' + keyCode.DOWN);
         if ( event.keyCode == 13 ) { //ENTER KEY
             document.getElementById('input_bar').value = autocompleteItems[autocompleteSelection];
-            if (autocompleteSelection < autocompleteItems.length - 5) {
+            if(autocompleteItems[autocompleteSelection]==undefined){
+                //do nothing
+                document.getElementById('input_bar').value='';
+            }else if (autocompleteSelection < autocompleteItems.length - 5) {
                 //it's a bird or a user
                 $('#autocomplete-answers #'+nameToID(autocompleteItems[autocompleteSelection])).click();
             } else {
@@ -815,7 +818,7 @@ $(function() {
           </div>
           <div class="col-md-2">
             <select name="" id="time-select" class="form-control">
-              <option value="all">All</option>
+              <option value="all">All times</option>
               <option value="today">Today</option>
               <option value="week">This week</option>
               <option value="month">This month</option>
