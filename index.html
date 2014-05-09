@@ -124,14 +124,14 @@
         // Attach listeners to checkboxes
         $('.filter-list-check input').on('change',filterBirdListener);
         // Attach click listeners to checkboxes
-        $('input[type="checkbox"]').click(function(e) {
-          e.stopPropagation()
-        })
-        $('.filter-container').click(function(e) {
-          var checkbox = $(this).find('input[type="checkbox"]')
-          checkbox.click()
-          // checkbox.prop('checked', !checkbox.prop('checked'))
-        })
+        // $('input[type="checkbox"]').click(function(e) {
+        //   e.stopPropagation()
+        // })
+        // $('.filter-container').click(function(e) {
+        //   var checkbox = $(this).find('input[type="checkbox"]')
+        //   checkbox.click()
+        //   // checkbox.prop('checked', !checkbox.prop('checked'))
+        // })
       })
 
       // This compiles all handlebars templates
@@ -244,12 +244,12 @@
        places = predictions;
 
        //var results = document.getElementById('results');
-       var prePredictedPlaces = [];
+       predictedPlaces = [];
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
            //places[i] = prediction;
            
-           prePredictedPlaces[i] = prediction.description;
+           predictedPlaces[i] = prediction.description;
        }
        //alert(latitudes[0]);
       // alert('length ' + predictedPlaces[1]);
@@ -259,9 +259,9 @@
       combinedList = preCombinedList.sort(function (a, b) {
         return a.toLowerCase().localeCompare(b.toLowerCase());
       });
-      predictedPlaces = prePredictedPlaces.sort(function (a, b) {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-      });
+      //predictedPlaces = prePredictedPlaces.sort(function (a, b) {
+      //  return a.toLowerCase().localeCompare(b.toLowerCase());
+      //});
       tags = combinedList.concat(predictedPlaces);
     }
 
