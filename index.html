@@ -294,16 +294,16 @@
        //$( "#autocomplete-answers" ).show();
      });
 
-    $( "#input_bar" ).focusout(function() {
-     if (!($("#autocomplete-answers").is(":hover"))) {
-           //$( "#autocomplete-answers" ).hide();
-           autocompleteNumber = 0;
-           autocompleteSelection = 0;
-           autocompleteItems = [];
-           $( ".autocomplete-removable" ).remove();
-           document.getElementById('input_bar').value='';
-         }
-       });
+//    $( "#input_bar" ).focusout(function() {
+//     if (!($("#autocomplete-answers").is(":hover"))) {
+//           //$( "#autocomplete-answers" ).hide();
+//           autocompleteNumber = 0;
+//           autocompleteSelection = 0;
+//           autocompleteItems = [];
+//           $( ".autocomplete-removable" ).remove();
+//           document.getElementById('input_bar').value='';
+//         }
+//       });
 
     $( "#autocomplete-answers" ).focusout(function() {
      if (!($("#input_bar").is(":hover"))) {
@@ -408,7 +408,6 @@
               currentStartDate=new Date(0,0,0,0,0,0);
               currentEndDate=new Date();
           }
-          console.log(currentStartDate, currentEndDate);
               clearMarkers();
           if (currentBirdSightings.length<1){
               var tempBirdSightingsWithDate=Filter.byDate(birdSightings,
@@ -602,6 +601,13 @@
         $('#common-name').focus();
       }
     })
+    
+$('#filter-button').click(function(){
+    var press = jQuery.Event('keyup');
+    press.ctrlKey=false;
+    press.keyCode=13;
+    $("#input_bar").trigger(press);
+});
 
 
 // Adds sighting to birdSightings, if new species, creates a random color and adds
@@ -819,7 +825,7 @@ $(function() {
             <div class="input-group">
               <input id="input_bar" type="text" class="form-control" placeholder="Filter by species or location">
               <span class="input-group-btn">
-                <button class="btn btn-default " type="button">Filter</button>
+                <button class="btn btn-default " type="button" id="filter-button">Filter</button>
               </span>
             </div><!-- /input-group -->
           </div>
