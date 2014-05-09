@@ -238,7 +238,6 @@
 
     function mapCallback(predictions, status) {
        if (status != google.maps.places.PlacesServiceStatus.OK) {
-           alert(status);
            return;
        }
        places = predictions;
@@ -248,12 +247,9 @@
 
        for (var i = 0, prediction; prediction = predictions[i]; i++) {
            //places[i] = prediction;
-           
+
            predictedPlaces[i] = prediction.description;
        }
-       //alert(latitudes[0]);
-      // alert('length ' + predictedPlaces[1]);
-      // alert(places[0].location.toString());
 
       var preCombinedList = userList.concat(birdsOnMap);
       combinedList = preCombinedList.sort(function (a, b) {
@@ -601,7 +597,7 @@
         $('#common-name').focus();
       }
     })
-    
+
 $('#filter-button').click(function(){
     var press = jQuery.Event('keyup');
     press.ctrlKey=false;
