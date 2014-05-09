@@ -1,997 +1,947 @@
 [
   {
-    "color": "rgba(88, 13, 170, 0.5)",
+    "color": "rgba(195, 52, 180, 1.0)",
     "speciesName": "Anas rubripes",
     "commonName": "American Black Duck"
   },
   {
-    "color": "rgba(149, 141, 172, 0.5)",
+    "color": "rgba(121, 97, 83, 1.0)",
     "speciesName": "Fulica americana",
     "commonName": "American Coot"
   },
   {
-    "color": "rgba(132, 95, 26, 0.5)",
+    "color": "rgba(69, 79, 61, 1.0)",
     "speciesName": "Corvus brachyrhynchos",
     "commonName": "American Crow"
   },
   {
-    "color": "rgba(9, 196, 9, 0.5)",
+    "color": "rgba(70, 134, 162, 1.0)",
     "speciesName": "Pluvialis dominica",
     "commonName": "American Golden-Plover"
   },
   {
-    "color": "rgba(46, 174, 3, 0.5)",
+    "color": "rgba(164, 105, 132, 1.0)",
     "speciesName": "Spinus tristis",
     "commonName": "American Goldfinch"
   },
   {
-    "color": "rgba(165, 123, 159, 0.5)",
+    "color": "rgba(171, 181, 59, 1.0)",
     "speciesName": "Falco sparverius",
     "commonName": "American Kestrel"
   },
   {
-    "color": "rgba(17, 108, 55, 0.5)",
+    "color": "rgba(119, 67, 53, 1.0)",
     "speciesName": "Haematopus palliatus",
     "commonName": "American Oystercatcher"
   },
   {
-    "color": "rgba(101, 41, 14, 0.5)",
+    "color": "rgba(83, 171, 100, 1.0)",
     "speciesName": "Setophaga ruticilla",
     "commonName": "American Redstart"
   },
   {
-    "color": "rgba(115, 103, 59, 0.5)",
+    "color": "rgba(116, 150, 163, 1.0)",
     "speciesName": "Turdus migratorius",
     "commonName": "American Robin"
   },
   {
-    "color": "rgba(72, 91, 110, 0.5)",
+    "color": "rgba(167, 51, 55, 1.0)",
     "speciesName": "Spizella arborea",
     "commonName": "American Tree Sparrow"
   },
   {
-    "color": "rgba(187, 35, 124, 0.5)",
+    "color": "rgba(74, 69, 67, 1.0)",
     "speciesName": "Anas americana",
     "commonName": "American Wigeon"
   },
   {
-    "color": "rgba(131, 69, 122, 0.5)",
+    "color": "rgba(135, 130, 94, 1.0)",
     "speciesName": "Haliaeetus leucocephalus",
     "commonName": "Bald Eagle"
   },
   {
-    "color": "rgba(161, 175, 100, 0.5)",
+    "color": "rgba(126, 117, 136, 1.0)",
     "speciesName": "Icterus galbula",
     "commonName": "Baltimore Oriole"
   },
   {
-    "color": "rgba(114, 5, 39, 0.5)",
+    "color": "rgba(68, 186, 181, 1.0)",
     "speciesName": "Riparia riparia",
     "commonName": "Bank Swallow"
   },
   {
-    "color": "rgba(82, 17, 199, 0.5)",
+    "color": "rgba(171, 142, 191, 1.0)",
     "speciesName": "Hirundo rustica",
     "commonName": "Barn Swallow"
   },
   {
-    "color": "rgba(102, 31, 14, 0.5)",
+    "color": "rgba(142, 190, 184, 1.0)",
     "speciesName": "Strix varia",
     "commonName": "Barred Owl"
   },
   {
-    "color": "rgba(127, 106, 8, 0.5)",
+    "color": "rgba(133, 141, 171, 1.0)",
     "speciesName": "Setophaga castanea",
     "commonName": "Bay-breasted Warbler"
   },
   {
-    "color": "rgba(44, 192, 188, 0.5)",
+    "color": "rgba(146, 65, 188, 1.0)",
     "speciesName": "Megaceryle alcyon",
     "commonName": "Belted Kingfisher"
   },
   {
-    "color": "rgba(6, 142, 99, 0.5)",
+    "color": "rgba(62, 197, 129, 1.0)",
     "speciesName": "Cepphus grylle",
     "commonName": "Black Guillemot"
   },
   {
-    "color": "rgba(104, 178, 173, 0.5)",
+    "color": "rgba(168, 90, 147, 1.0)",
     "speciesName": "Melanitta americana",
     "commonName": "Black Scoter"
   },
   {
-    "color": "rgba(64, 92, 116, 0.5)",
+    "color": "rgba(153, 74, 126, 1.0)",
     "speciesName": "Mniotilta varia",
     "commonName": "Black-and-white Warbler"
   },
   {
-    "color": "rgba(81, 103, 78, 0.5)",
+    "color": "rgba(186, 143, 150, 1.0)",
     "speciesName": "Pluvialis squatarola",
     "commonName": "Black-bellied Plover"
   },
   {
-    "color": "rgba(172, 27, 148, 0.5)",
+    "color": "rgba(172, 51, 73, 1.0)",
     "speciesName": "Coccyzus erythropthalmus",
     "commonName": "Black-billed Cuckoo"
   },
   {
-    "color": "rgba(50, 51, 113, 0.5)",
+    "color": "rgba(196, 161, 195, 1.0)",
     "speciesName": "Poecile atricapillus",
     "commonName": "Black-capped Chickadee"
   },
   {
-    "color": "rgba(89, 116, 186, 0.5)",
+    "color": "rgba(118, 165, 142, 1.0)",
     "speciesName": "Nycticorax nycticorax",
     "commonName": "Black-crowned Night-Heron"
   },
   {
-    "color": "rgba(112, 187, 155, 0.5)",
+    "color": "rgba(56, 121, 102, 1.0)",
     "speciesName": "Setophaga caerulescens",
     "commonName": "Black-throated Blue Warbler"
   },
   {
-    "color": "rgba(107, 91, 193, 0.5)",
+    "color": "rgba(181, 115, 181, 1.0)",
     "speciesName": "Setophaga virens",
     "commonName": "Black-throated Green Warbler"
   },
   {
-    "color": "rgba(178, 174, 16, 0.5)",
+    "color": "rgba(143, 180, 63, 1.0)",
     "speciesName": "Setophaga striata",
     "commonName": "Blackpoll Warbler"
   },
   {
-    "color": "rgba(134, 0, 90, 0.5)",
+    "color": "rgba(137, 70, 84, 1.0)",
     "speciesName": "Passerina caerulea",
     "commonName": "Blue Grosbeak"
   },
   {
-    "color": "rgba(167, 142, 16, 0.5)",
+    "color": "rgba(98, 129, 97, 1.0)",
     "speciesName": "Cyanocitta cristata",
     "commonName": "Blue Jay"
   },
   {
-    "color": "rgba(21, 55, 37, 0.5)",
+    "color": "rgba(112, 178, 142, 1.0)",
     "speciesName": "Polioptila caerulea",
     "commonName": "Blue-gray Gnatcatcher"
   },
   {
-    "color": "rgba(153, 6, 21, 0.5)",
+    "color": "rgba(162, 94, 162, 1.0)",
     "speciesName": "Vireo solitarius",
     "commonName": "Blue-headed Vireo"
   },
   {
-    "color": "rgba(161, 200, 127, 0.5)",
+    "color": "rgba(177, 186, 145, 1.0)",
     "speciesName": "Anas discors",
     "commonName": "Blue-winged Teal"
   },
   {
-    "color": "rgba(110, 43, 187, 0.5)",
+    "color": "rgba(166, 183, 51, 1.0)",
     "speciesName": "Dolichonyx oryzivorus",
     "commonName": "Bobolink"
   },
   {
-    "color": "rgba(149, 106, 155, 0.5)",
+    "color": "rgba(56, 151, 101, 1.0)",
     "speciesName": "Chroicocephalus philadelphia",
     "commonName": "Bonaparte's Gull"
   },
   {
-    "color": "rgba(33, 157, 84, 0.5)",
+    "color": "rgba(56, 200, 143, 1.0)",
     "speciesName": "Branta bernicla",
     "commonName": "Brant"
   },
   {
-    "color": "rgba(104, 57, 130, 0.5)",
+    "color": "rgba(63, 192, 76, 1.0)",
     "speciesName": "Buteo platypterus",
     "commonName": "Broad-winged Hawk"
   },
   {
-    "color": "rgba(101, 12, 146, 0.5)",
+    "color": "rgba(115, 62, 162, 1.0)",
     "speciesName": "Certhia americana",
     "commonName": "Brown Creeper"
   },
   {
-    "color": "rgba(23, 82, 99, 0.5)",
+    "color": "rgba(200, 64, 68, 1.0)",
     "speciesName": "Molothrus ater",
     "commonName": "Brown-headed Cowbird"
   },
   {
-    "color": "rgba(6, 49, 78, 0.5)",
+    "color": "rgba(150, 176, 94, 1.0)",
     "speciesName": "Bucephala albeola",
     "commonName": "Bufflehead"
   },
   {
-    "color": "rgba(185, 149, 115, 0.5)",
+    "color": "rgba(151, 193, 122, 1.0)",
     "speciesName": "Branta canadensis",
     "commonName": "Canada Goose"
   },
   {
-    "color": "rgba(31, 30, 161, 0.5)",
+    "color": "rgba(168, 59, 88, 1.0)",
     "speciesName": "Thryothorus ludovicianus",
     "commonName": "Carolina Wren"
   },
   {
-    "color": "rgba(41, 77, 93, 0.5)",
+    "color": "rgba(177, 170, 57, 1.0)",
     "speciesName": "Bombycilla cedrorum",
     "commonName": "Cedar Waxwing"
   },
   {
-    "color": "rgba(90, 28, 175, 0.5)",
+    "color": "rgba(107, 117, 162, 1.0)",
     "speciesName": "Setophaga pensylvanica",
     "commonName": "Chestnut-sided Warbler"
   },
   {
-    "color": "rgba(153, 154, 3, 0.5)",
+    "color": "rgba(88, 186, 126, 1.0)",
     "speciesName": "Chaetura pelagica",
     "commonName": "Chimney Swift"
   },
   {
-    "color": "rgba(197, 24, 147, 0.5)",
+    "color": "rgba(153, 104, 72, 1.0)",
     "speciesName": "Spizella passerina",
     "commonName": "Chipping Sparrow"
   },
   {
-    "color": "rgba(106, 25, 175, 0.5)",
+    "color": "rgba(61, 123, 109, 1.0)",
     "speciesName": "Petrochelidon pyrrhonota",
     "commonName": "Cliff Swallow"
   },
   {
-    "color": "rgba(181, 176, 77, 0.5)",
+    "color": "rgba(120, 50, 109, 1.0)",
     "speciesName": "Somateria mollissima",
     "commonName": "Common Eider"
   },
   {
-    "color": "rgba(60, 93, 131, 0.5)",
+    "color": "rgba(124, 158, 59, 1.0)",
     "speciesName": "Bucephala clangula",
     "commonName": "Common Goldeneye"
   },
   {
-    "color": "rgba(70, 193, 101, 0.5)",
+    "color": "rgba(163, 196, 166, 1.0)",
     "speciesName": "Quiscalus quiscula",
     "commonName": "Common Grackle"
   },
   {
-    "color": "rgba(175, 149, 41, 0.5)",
+    "color": "rgba(130, 64, 176, 1.0)",
     "speciesName": "Gavia immer",
     "commonName": "Common Loon"
   },
   {
-    "color": "rgba(80, 9, 125, 0.5)",
+    "color": "rgba(167, 139, 188, 1.0)",
     "speciesName": "Mergus merganser",
     "commonName": "Common Merganser"
   },
   {
-    "color": "rgba(18, 173, 120, 0.5)",
+    "color": "rgba(60, 91, 128, 1.0)",
     "speciesName": "Corvus corax",
     "commonName": "Common Raven"
   },
   {
-    "color": "rgba(171, 150, 103, 0.5)",
+    "color": "rgba(126, 124, 124, 1.0)",
     "speciesName": "Sterna hirundo",
     "commonName": "Common Tern"
   },
   {
-    "color": "rgba(104, 155, 50, 0.5)",
+    "color": "rgba(56, 199, 63, 1.0)",
     "speciesName": "Geothlypis trichas",
     "commonName": "Common Yellowthroat"
   },
   {
-    "color": "rgba(100, 56, 190, 0.5)",
+    "color": "rgba(186, 135, 111, 1.0)",
     "speciesName": "Oporornis agilis",
     "commonName": "Connecticut Warbler"
   },
   {
-    "color": "rgba(3, 27, 1, 0.5)",
+    "color": "rgba(189, 173, 140, 1.0)",
     "speciesName": "Accipiter cooperii",
     "commonName": "Cooper's Hawk"
   },
   {
-    "color": "rgba(71, 71, 118, 0.5)",
+    "color": "rgba(191, 87, 62, 1.0)",
     "speciesName": "Calonectris diomedea",
     "commonName": "Cory's Shearwater"
   },
   {
-    "color": "rgba(9, 131, 69, 0.5)",
+    "color": "rgba(176, 129, 197, 1.0)",
     "speciesName": "Calonectris diomedea/Puffinus gravis",
     "commonName": "Cory's/Great Shearwater"
   },
   {
-    "color": "rgba(68, 137, 76, 0.5)",
+    "color": "rgba(173, 160, 139, 1.0)",
     "speciesName": "Junco hyemalis",
     "commonName": "Dark-eyed Junco"
   },
   {
-    "color": "rgba(8, 17, 130, 0.5)",
+    "color": "rgba(92, 86, 91, 1.0)",
     "speciesName": "Phalacrocorax auritus",
     "commonName": "Double-crested Cormorant"
   },
   {
-    "color": "rgba(134, 36, 176, 0.5)",
+    "color": "rgba(81, 109, 72, 1.0)",
     "speciesName": "Picoides pubescens",
     "commonName": "Downy Woodpecker"
   },
   {
-    "color": "rgba(116, 73, 21, 0.5)",
+    "color": "rgba(197, 91, 78, 1.0)",
     "speciesName": "Calidris alpina",
     "commonName": "Dunlin"
   },
   {
-    "color": "rgba(177, 187, 24, 0.5)",
+    "color": "rgba(100, 93, 78, 1.0)",
     "speciesName": "Sialia sialis",
     "commonName": "Eastern Bluebird"
   },
   {
-    "color": "rgba(125, 28, 129, 0.5)",
+    "color": "rgba(119, 81, 130, 1.0)",
     "speciesName": "Tyrannus tyrannus",
     "commonName": "Eastern Kingbird"
   },
   {
-    "color": "rgba(104, 180, 108, 0.5)",
+    "color": "rgba(95, 119, 173, 1.0)",
     "speciesName": "Sayornis phoebe",
     "commonName": "Eastern Phoebe"
   },
   {
-    "color": "rgba(63, 193, 45, 0.5)",
+    "color": "rgba(70, 143, 158, 1.0)",
     "speciesName": "Pipilo erythrophthalmus",
     "commonName": "Eastern Towhee"
   },
   {
-    "color": "rgba(107, 25, 72, 0.5)",
+    "color": "rgba(54, 172, 51, 1.0)",
     "speciesName": "Contopus virens",
     "commonName": "Eastern Wood-Pewee"
   },
   {
-    "color": "rgba(6, 31, 96, 0.5)",
+    "color": "rgba(77, 139, 66, 1.0)",
     "speciesName": "Sturnus vulgaris",
     "commonName": "European Starling"
   },
   {
-    "color": "rgba(184, 166, 52, 0.5)",
+    "color": "rgba(189, 109, 88, 1.0)",
     "speciesName": "Spizella pusilla",
     "commonName": "Field Sparrow"
   },
   {
-    "color": "rgba(62, 186, 92, 0.5)",
+    "color": "rgba(161, 71, 128, 1.0)",
     "speciesName": "Corvus ossifragus",
     "commonName": "Fish Crow"
   },
   {
-    "color": "rgba(41, 171, 14, 0.5)",
+    "color": "rgba(73, 175, 50, 1.0)",
     "speciesName": "Passerella iliaca",
     "commonName": "Fox Sparrow"
   },
   {
-    "color": "rgba(178, 138, 22, 0.5)",
+    "color": "rgba(108, 94, 112, 1.0)",
     "speciesName": "Anas strepera",
     "commonName": "Gadwall"
   },
   {
-    "color": "rgba(100, 111, 59, 0.5)",
+    "color": "rgba(68, 153, 179, 1.0)",
     "speciesName": "Plegadis falcinellus",
     "commonName": "Glossy Ibis"
   },
   {
-    "color": "rgba(17, 11, 110, 0.5)",
+    "color": "rgba(174, 80, 115, 1.0)",
     "speciesName": "Regulus satrapa",
     "commonName": "Golden-crowned Kinglet"
   },
   {
-    "color": "rgba(64, 134, 74, 0.5)",
+    "color": "rgba(194, 102, 77, 1.0)",
     "speciesName": "Dumetella carolinensis",
     "commonName": "Gray Catbird"
   },
   {
-    "color": "rgba(177, 198, 7, 0.5)",
+    "color": "rgba(91, 180, 110, 1.0)",
     "speciesName": "Larus marinus",
     "commonName": "Great Black-backed Gull"
   },
   {
-    "color": "rgba(144, 62, 137, 0.5)",
+    "color": "rgba(192, 161, 57, 1.0)",
     "speciesName": "Ardea herodias",
     "commonName": "Great Blue Heron"
   },
   {
-    "color": "rgba(192, 154, 64, 0.5)",
+    "color": "rgba(108, 155, 50, 1.0)",
     "speciesName": "Phalacrocorax carbo",
     "commonName": "Great Cormorant"
   },
   {
-    "color": "rgba(73, 119, 46, 0.5)",
+    "color": "rgba(90, 141, 170, 1.0)",
     "speciesName": "Myiarchus crinitus",
     "commonName": "Great Crested Flycatcher"
   },
   {
-    "color": "rgba(16, 88, 138, 0.5)",
+    "color": "rgba(124, 67, 109, 1.0)",
     "speciesName": "Ardea alba",
     "commonName": "Great Egret"
   },
   {
-    "color": "rgba(25, 154, 122, 0.5)",
+    "color": "rgba(127, 170, 121, 1.0)",
     "speciesName": "Bubo virginianus",
     "commonName": "Great Horned Owl"
   },
   {
-    "color": "rgba(179, 130, 54, 0.5)",
+    "color": "rgba(167, 112, 82, 1.0)",
     "speciesName": "Aythya marila",
     "commonName": "Greater Scaup"
   },
   {
-    "color": "rgba(107, 3, 153, 0.5)",
+    "color": "rgba(113, 99, 194, 1.0)",
     "speciesName": "Tringa melanoleuca",
     "commonName": "Greater Yellowlegs"
   },
   {
-    "color": "rgba(172, 48, 146, 0.5)",
+    "color": "rgba(52, 191, 99, 1.0)",
     "speciesName": "Butorides virescens",
     "commonName": "Green Heron"
   },
   {
-    "color": "rgba(176, 30, 71, 0.5)",
+    "color": "rgba(169, 176, 126, 1.0)",
     "speciesName": "Anas crecca",
     "commonName": "Green-winged Teal"
   },
   {
-    "color": "rgba(105, 164, 132, 0.5)",
+    "color": "rgba(177, 195, 75, 1.0)",
     "speciesName": "Picoides villosus",
     "commonName": "Hairy Woodpecker"
   },
   {
-    "color": "rgba(125, 21, 61, 0.5)",
+    "color": "rgba(181, 194, 96, 1.0)",
     "speciesName": "Histrionicus histrionicus",
     "commonName": "Harlequin Duck"
   },
   {
-    "color": "rgba(156, 138, 6, 0.5)",
+    "color": "rgba(95, 62, 105, 1.0)",
     "speciesName": "Catharus guttatus",
     "commonName": "Hermit Thrush"
   },
   {
-    "color": "rgba(60, 38, 8, 0.5)",
+    "color": "rgba(189, 173, 111, 1.0)",
     "speciesName": "Larus argentatus",
     "commonName": "Herring Gull"
   },
   {
-    "color": "rgba(200, 51, 74, 0.5)",
+    "color": "rgba(154, 91, 198, 1.0)",
     "speciesName": "Lophodytes cucullatus",
     "commonName": "Hooded Merganser"
   },
   {
-    "color": "rgba(137, 62, 190, 0.5)",
+    "color": "rgba(50, 93, 180, 1.0)",
     "speciesName": "Podiceps auritus",
     "commonName": "Horned Grebe"
   },
   {
-    "color": "rgba(71, 106, 191, 0.5)",
+    "color": "rgba(126, 112, 50, 1.0)",
     "speciesName": "Eremophila alpestris",
     "commonName": "Horned Lark"
   },
   {
-    "color": "rgba(90, 70, 52, 0.5)",
+    "color": "rgba(154, 151, 72, 1.0)",
     "speciesName": "Haemorhous mexicanus",
     "commonName": "House Finch"
   },
   {
-    "color": "rgba(110, 91, 28, 0.5)",
+    "color": "rgba(159, 96, 62, 1.0)",
     "speciesName": "Passer domesticus",
     "commonName": "House Sparrow"
   },
   {
-    "color": "rgba(74, 63, 82, 0.5)",
+    "color": "rgba(62, 52, 140, 1.0)",
     "speciesName": "Troglodytes aedon",
     "commonName": "House Wren"
   },
   {
-    "color": "rgba(142, 128, 28, 0.5)",
+    "color": "rgba(86, 125, 198, 1.0)",
     "speciesName": "Larus glaucoides",
     "commonName": "Iceland Gull"
   },
   {
-    "color": "rgba(118, 1, 94, 0.5)",
+    "color": "rgba(167, 66, 107, 1.0)",
     "speciesName": "Passerina cyanea",
     "commonName": "Indigo Bunting"
   },
   {
-    "color": "rgba(158, 90, 131, 0.5)",
+    "color": "rgba(151, 174, 61, 1.0)",
     "speciesName": "Charadrius vociferus",
     "commonName": "Killdeer"
   },
   {
-    "color": "rgba(97, 52, 168, 0.5)",
+    "color": "rgba(117, 135, 192, 1.0)",
     "speciesName": "Chondestes grammacus",
     "commonName": "Lark Sparrow"
   },
   {
-    "color": "rgba(182, 113, 72, 0.5)",
+    "color": "rgba(69, 119, 147, 1.0)",
     "speciesName": "Leucophaeus atricilla",
     "commonName": "Laughing Gull"
   },
   {
-    "color": "rgba(88, 35, 0, 0.5)",
+    "color": "rgba(132, 180, 50, 1.0)",
     "speciesName": "Empidonax minimus",
     "commonName": "Least Flycatcher"
   },
   {
-    "color": "rgba(21, 27, 24, 0.5)",
+    "color": "rgba(139, 51, 60, 1.0)",
     "speciesName": "Calidris minutilla",
     "commonName": "Least Sandpiper"
   },
   {
-    "color": "rgba(91, 128, 132, 0.5)",
+    "color": "rgba(162, 136, 131, 1.0)",
     "speciesName": "Tringa flavipes",
     "commonName": "Lesser Yellowlegs"
   },
   {
-    "color": "rgba(118, 142, 175, 0.5)",
+    "color": "rgba(117, 67, 114, 1.0)",
     "speciesName": "Melospiza lincolnii",
     "commonName": "Lincoln's Sparrow"
   },
   {
-    "color": "rgba(118, 158, 73, 0.5)",
+    "color": "rgba(108, 150, 174, 1.0)",
     "speciesName": "Clangula hyemalis",
     "commonName": "Long-tailed Duck"
   },
   {
-    "color": "rgba(102, 31, 87, 0.5)",
+    "color": "rgba(108, 58, 174, 1.0)",
     "speciesName": "Setophaga magnolia",
     "commonName": "Magnolia Warbler"
   },
   {
-    "color": "rgba(157, 106, 89, 0.5)",
+    "color": "rgba(194, 87, 170, 1.0)",
     "speciesName": "Anas platyrhynchos",
     "commonName": "Mallard"
   },
   {
-    "color": "rgba(126, 86, 16, 0.5)",
+    "color": "rgba(157, 165, 57, 1.0)",
     "speciesName": "Cistothorus palustris",
     "commonName": "Marsh Wren"
   },
   {
-    "color": "rgba(74, 101, 73, 0.5)",
+    "color": "rgba(185, 173, 89, 1.0)",
     "speciesName": "Falco columbarius",
     "commonName": "Merlin"
   },
   {
-    "color": "rgba(5, 63, 157, 0.5)",
+    "color": "rgba(154, 125, 67, 1.0)",
     "speciesName": "Zenaida macroura",
     "commonName": "Mourning Dove"
   },
   {
-    "color": "rgba(2, 101, 164, 0.5)",
+    "color": "rgba(67, 62, 101, 1.0)",
     "speciesName": "Cygnus olor",
     "commonName": "Mute Swan"
   },
   {
-    "color": "rgba(28, 123, 112, 0.5)",
+    "color": "rgba(80, 188, 195, 1.0)",
     "speciesName": "Oreothlypis ruficapilla",
     "commonName": "Nashville Warbler"
   },
   {
-    "color": "rgba(189, 60, 134, 0.5)",
+    "color": "rgba(146, 92, 106, 1.0)",
     "speciesName": "Colinus virginianus",
     "commonName": "Northern Bobwhite"
   },
   {
-    "color": "rgba(121, 91, 144, 0.5)",
+    "color": "rgba(96, 87, 131, 1.0)",
     "speciesName": "Cardinalis cardinalis",
     "commonName": "Northern Cardinal"
   },
   {
-    "color": "rgba(143, 76, 93, 0.5)",
+    "color": "rgba(93, 198, 116, 1.0)",
     "speciesName": "Colaptes auratus",
     "commonName": "Northern Flicker"
   },
   {
-    "color": "rgba(85, 109, 155, 0.5)",
+    "color": "rgba(68, 60, 100, 1.0)",
     "speciesName": "Morus bassanus",
     "commonName": "Northern Gannet"
   },
   {
-    "color": "rgba(77, 100, 108, 0.5)",
+    "color": "rgba(158, 51, 75, 1.0)",
     "speciesName": "Circus cyaneus",
     "commonName": "Northern Harrier"
   },
   {
-    "color": "rgba(39, 174, 131, 0.5)",
+    "color": "rgba(81, 62, 63, 1.0)",
     "speciesName": "Mimus polyglottos",
     "commonName": "Northern Mockingbird"
   },
   {
-    "color": "rgba(151, 125, 2, 0.5)",
+    "color": "rgba(107, 78, 132, 1.0)",
     "speciesName": "Setophaga americana",
     "commonName": "Northern Parula"
   },
   {
-    "color": "rgba(62, 169, 135, 0.5)",
+    "color": "rgba(129, 69, 114, 1.0)",
     "speciesName": "Anas acuta",
     "commonName": "Northern Pintail"
   },
   {
-    "color": "rgba(176, 60, 90, 0.5)",
+    "color": "rgba(75, 93, 121, 1.0)",
     "speciesName": "Anas clypeata",
     "commonName": "Northern Shoveler"
   },
   {
-    "color": "rgba(145, 22, 50, 0.5)",
+    "color": "rgba(57, 144, 132, 1.0)",
     "speciesName": "Lanius excubitor",
     "commonName": "Northern Shrike"
   },
   {
-    "color": "rgba(105, 187, 144, 0.5)",
+    "color": "rgba(182, 178, 93, 1.0)",
     "speciesName": "Icterus spurius",
     "commonName": "Orchard Oriole"
   },
   {
-    "color": "rgba(128, 129, 75, 0.5)",
+    "color": "rgba(70, 70, 82, 1.0)",
     "speciesName": "Pandion haliaetus",
     "commonName": "Osprey"
   },
   {
-    "color": "rgba(19, 84, 156, 0.5)",
+    "color": "rgba(156, 100, 155, 1.0)",
     "speciesName": "Seiurus aurocapilla",
     "commonName": "Ovenbird"
   },
   {
-    "color": "rgba(129, 166, 189, 0.5)",
+    "color": "rgba(139, 55, 94, 1.0)",
     "speciesName": "Setophaga palmarum",
     "commonName": "Palm Warbler"
   },
   {
-    "color": "rgba(149, 164, 152, 0.5)",
+    "color": "rgba(105, 116, 78, 1.0)",
     "speciesName": "Calidris melanotos",
     "commonName": "Pectoral Sandpiper"
   },
   {
-    "color": "rgba(39, 76, 35, 0.5)",
+    "color": "rgba(182, 124, 65, 1.0)",
     "speciesName": "Falco peregrinus",
     "commonName": "Peregrine Falcon"
   },
   {
-    "color": "rgba(41, 156, 51, 0.5)",
+    "color": "rgba(106, 145, 58, 1.0)",
     "speciesName": "Podilymbus podiceps",
     "commonName": "Pied-billed Grebe"
   },
   {
-    "color": "rgba(5, 105, 97, 0.5)",
+    "color": "rgba(142, 83, 189, 1.0)",
     "speciesName": "Dryocopus pileatus",
     "commonName": "Pileated Woodpecker"
   },
   {
-    "color": "rgba(91, 38, 128, 0.5)",
+    "color": "rgba(97, 120, 102, 1.0)",
     "speciesName": "Setophaga pinus",
     "commonName": "Pine Warbler"
   },
   {
-    "color": "rgba(92, 46, 103, 0.5)",
+    "color": "rgba(151, 52, 94, 1.0)",
     "speciesName": "Setophaga discolor",
     "commonName": "Prairie Warbler"
   },
   {
-    "color": "rgba(79, 72, 61, 0.5)",
+    "color": "rgba(114, 173, 60, 1.0)",
     "speciesName": "Haemorhous purpureus",
     "commonName": "Purple Finch"
   },
   {
-    "color": "rgba(117, 95, 140, 0.5)",
+    "color": "rgba(154, 94, 110, 1.0)",
     "speciesName": "Progne subis",
     "commonName": "Purple Martin"
   },
   {
-    "color": "rgba(18, 2, 24, 0.5)",
+    "color": "rgba(123, 106, 112, 1.0)",
     "speciesName": "Calidris maritima",
     "commonName": "Purple Sandpiper"
   },
   {
-    "color": "rgba(50, 86, 138, 0.5)",
+    "color": "rgba(162, 111, 94, 1.0)",
     "speciesName": "Calidris canutus",
     "commonName": "Red Knot"
   },
   {
-    "color": "rgba(32, 104, 104, 0.5)",
+    "color": "rgba(52, 83, 86, 1.0)",
     "speciesName": "Melanerpes carolinus",
     "commonName": "Red-bellied Woodpecker"
   },
   {
-    "color": "rgba(34, 71, 62, 0.5)",
+    "color": "rgba(88, 192, 195, 1.0)",
     "speciesName": "Mergus serrator",
     "commonName": "Red-breasted Merganser"
   },
   {
-    "color": "rgba(110, 135, 118, 0.5)",
+    "color": "rgba(157, 184, 153, 1.0)",
     "speciesName": "Sitta canadensis",
     "commonName": "Red-breasted Nuthatch"
   },
   {
-    "color": "rgba(113, 175, 151, 0.5)",
+    "color": "rgba(171, 200, 117, 1.0)",
     "speciesName": "Vireo olivaceus",
     "commonName": "Red-eyed Vireo"
   },
   {
-    "color": "rgba(8, 119, 132, 0.5)",
+    "color": "rgba(116, 127, 125, 1.0)",
     "speciesName": "Podiceps grisegena",
     "commonName": "Red-necked Grebe"
   },
   {
-    "color": "rgba(84, 55, 149, 0.5)",
+    "color": "rgba(98, 67, 128, 1.0)",
     "speciesName": "Buteo lineatus",
     "commonName": "Red-shouldered Hawk"
   },
   {
-    "color": "rgba(4, 193, 55, 0.5)",
+    "color": "rgba(130, 97, 93, 1.0)",
     "speciesName": "Buteo jamaicensis",
     "commonName": "Red-tailed Hawk"
   },
   {
-    "color": "rgba(128, 35, 10, 0.5)",
+    "color": "rgba(83, 190, 145, 1.0)",
     "speciesName": "Gavia stellata",
     "commonName": "Red-throated Loon"
   },
   {
-    "color": "rgba(78, 146, 154, 0.5)",
+    "color": "rgba(152, 96, 98, 1.0)",
     "speciesName": "Agelaius phoeniceus",
     "commonName": "Red-winged Blackbird"
   },
   {
-    "color": "rgba(50, 170, 52, 0.5)",
+    "color": "rgba(52, 167, 150, 1.0)",
     "speciesName": "Aythya americana",
     "commonName": "Redhead"
   },
   {
-    "color": "rgba(195, 177, 86, 0.5)",
+    "color": "rgba(106, 139, 197, 1.0)",
     "speciesName": "Larus delawarensis",
     "commonName": "Ring-billed Gull"
   },
   {
-    "color": "rgba(71, 185, 27, 0.5)",
+    "color": "rgba(168, 84, 129, 1.0)",
     "speciesName": "Aythya collaris",
     "commonName": "Ring-necked Duck"
   },
   {
-    "color": "rgba(124, 53, 175, 0.5)",
+    "color": "rgba(140, 133, 87, 1.0)",
     "speciesName": "Phasianus colchicus",
     "commonName": "Ring-necked Pheasant"
   },
   {
-    "color": "rgba(120, 70, 82, 0.5)",
+    "color": "rgba(160, 181, 132, 1.0)",
     "speciesName": "Columba livia",
     "commonName": "Rock Pigeon"
   },
   {
-    "color": "rgba(90, 5, 144, 0.5)",
+    "color": "rgba(77, 200, 52, 1.0)",
     "speciesName": "Pheucticus ludovicianus",
     "commonName": "Rose-breasted Grosbeak"
   },
   {
-    "color": "rgba(43, 71, 88, 0.5)",
+    "color": "rgba(120, 67, 51, 1.0)",
     "speciesName": "Regulus calendula",
     "commonName": "Ruby-crowned Kinglet"
   },
   {
-    "color": "rgba(149, 68, 185, 0.5)",
+    "color": "rgba(50, 110, 154, 1.0)",
     "speciesName": "Archilochus colubris",
     "commonName": "Ruby-throated Hummingbird"
   },
   {
-    "color": "rgba(192, 164, 8, 0.5)",
+    "color": "rgba(78, 194, 60, 1.0)",
     "speciesName": "Calidris alba",
     "commonName": "Sanderling"
   },
   {
-    "color": "rgba(190, 76, 103, 0.5)",
+    "color": "rgba(70, 64, 136, 1.0)",
     "speciesName": "Passerculus sandwichensis",
     "commonName": "Savannah Sparrow"
   },
   {
-    "color": "rgba(22, 106, 73, 0.5)",
+    "color": "rgba(52, 152, 74, 1.0)",
     "speciesName": "Piranga olivacea",
     "commonName": "Scarlet Tanager"
   },
   {
-    "color": "rgba(134, 44, 5, 0.5)",
+    "color": "rgba(192, 114, 137, 1.0)",
     "speciesName": "Charadrius semipalmatus",
     "commonName": "Semipalmated Plover"
   },
   {
-    "color": "rgba(41, 25, 117, 0.5)",
+    "color": "rgba(176, 172, 69, 1.0)",
     "speciesName": "Calidris pusilla",
     "commonName": "Semipalmated Sandpiper"
   },
   {
-    "color": "rgba(122, 181, 125, 0.5)",
+    "color": "rgba(60, 196, 56, 1.0)",
     "speciesName": "Accipiter striatus",
     "commonName": "Sharp-shinned Hawk"
   },
   {
-    "color": "rgba(15, 38, 119, 0.5)",
+    "color": "rgba(77, 118, 89, 1.0)",
     "speciesName": "Plectrophenax nivalis",
     "commonName": "Snow Bunting"
   },
   {
-    "color": "rgba(173, 121, 11, 0.5)",
+    "color": "rgba(113, 197, 133, 1.0)",
     "speciesName": "Egretta thula",
     "commonName": "Snowy Egret"
   },
   {
-    "color": "rgba(125, 177, 107, 0.5)",
+    "color": "rgba(65, 92, 179, 1.0)",
     "speciesName": "Bubo scandiacus",
     "commonName": "Snowy Owl"
   },
   {
-    "color": "rgba(60, 59, 148, 0.5)",
+    "color": "rgba(166, 87, 71, 1.0)",
     "speciesName": "Melospiza melodia",
     "commonName": "Song Sparrow"
   },
   {
-    "color": "rgba(140, 174, 167, 0.5)",
+    "color": "rgba(50, 152, 193, 1.0)",
     "speciesName": "Actitis macularius",
     "commonName": "Spotted Sandpiper"
   },
   {
-    "color": "rgba(199, 90, 50, 0.5)",
+    "color": "rgba(114, 143, 141, 1.0)",
     "speciesName": "Melanitta perspicillata",
     "commonName": "Surf Scoter"
   },
   {
-    "color": "rgba(169, 116, 23, 0.5)",
+    "color": "rgba(134, 155, 199, 1.0)",
     "speciesName": "Melospiza georgiana",
     "commonName": "Swamp Sparrow"
   },
   {
-    "color": "rgba(116, 74, 174, 0.5)",
+    "color": "rgba(197, 70, 196, 1.0)",
     "speciesName": "Tachycineta bicolor",
     "commonName": "Tree Swallow"
   },
   {
-    "color": "rgba(188, 73, 148, 0.5)",
+    "color": "rgba(106, 149, 156, 1.0)",
     "speciesName": "Baeolophus bicolor",
     "commonName": "Tufted Titmouse"
   },
   {
-    "color": "rgba(81, 49, 9, 0.5)",
+    "color": "rgba(141, 99, 181, 1.0)",
     "speciesName": "Cathartes aura",
     "commonName": "Turkey Vulture"
   },
   {
-    "color": "rgba(122, 9, 177, 0.5)",
+    "color": "rgba(86, 104, 114, 1.0)",
     "speciesName": "Catharus fuscescens",
     "commonName": "Veery"
   },
   {
-    "color": "rgba(102, 186, 147, 0.5)",
+    "color": "rgba(145, 63, 151, 1.0)",
     "speciesName": "Rallus limicola",
     "commonName": "Virginia Rail"
   },
   {
-    "color": "rgba(134, 110, 121, 0.5)",
+    "color": "rgba(159, 153, 110, 1.0)",
     "speciesName": "Vireo gilvus",
     "commonName": "Warbling Vireo"
   },
   {
-    "color": "rgba(38, 107, 150, 0.5)",
+    "color": "rgba(152, 87, 78, 1.0)",
     "speciesName": "Numenius phaeopus",
     "commonName": "Whimbrel"
   },
   {
-    "color": "rgba(82, 72, 168, 0.5)",
+    "color": "rgba(113, 180, 145, 1.0)",
     "speciesName": "Sitta carolinensis",
     "commonName": "White-breasted Nuthatch"
   },
   {
-    "color": "rgba(28, 59, 48, 0.5)",
+    "color": "rgba(164, 93, 107, 1.0)",
     "speciesName": "Calidris fuscicollis",
     "commonName": "White-rumped Sandpiper"
   },
   {
-    "color": "rgba(93, 75, 118, 0.5)",
+    "color": "rgba(154, 199, 178, 1.0)",
     "speciesName": "Zonotrichia albicollis",
     "commonName": "White-throated Sparrow"
   },
   {
-    "color": "rgba(119, 49, 129, 0.5)",
+    "color": "rgba(77, 63, 99, 1.0)",
     "speciesName": "Melanitta fusca",
     "commonName": "White-winged Scoter"
   },
   {
-    "color": "rgba(110, 155, 64, 0.5)",
+    "color": "rgba(169, 167, 158, 1.0)",
     "speciesName": "Meleagris gallopavo",
     "commonName": "Wild Turkey"
   },
   {
-    "color": "rgba(58, 200, 10, 0.5)",
+    "color": "rgba(59, 144, 144, 1.0)",
     "speciesName": "Tringa semipalmata",
     "commonName": "Willet"
   },
   {
-    "color": "rgba(85, 90, 43, 0.5)",
+    "color": "rgba(198, 97, 109, 1.0)",
     "speciesName": "Empidonax traillii",
     "commonName": "Willow Flycatcher"
   },
   {
-    "color": "rgba(146, 151, 186, 0.5)",
+    "color": "rgba(59, 123, 188, 1.0)",
     "speciesName": "Gallinago delicata",
     "commonName": "Wilson's Snipe"
   },
   {
-    "color": "rgba(65, 132, 12, 0.5)",
+    "color": "rgba(138, 174, 177, 1.0)",
     "speciesName": "Cardellina pusilla",
     "commonName": "Wilson's Warbler"
   },
   {
-    "color": "rgba(52, 59, 189, 0.5)",
+    "color": "rgba(127, 131, 174, 1.0)",
     "speciesName": "Troglodytes hiemalis",
     "commonName": "Winter Wren"
   },
   {
-    "color": "rgba(111, 24, 185, 0.5)",
+    "color": "rgba(110, 87, 87, 1.0)",
     "speciesName": "Aix sponsa",
     "commonName": "Wood Duck"
   },
   {
-    "color": "rgba(107, 149, 168, 0.5)",
+    "color": "rgba(120, 163, 174, 1.0)",
     "speciesName": "Hylocichla mustelina",
     "commonName": "Wood Thrush"
   },
   {
-    "color": "rgba(2, 61, 149, 0.5)",
+    "color": "rgba(97, 155, 142, 1.0)",
     "speciesName": "Setophaga petechia",
     "commonName": "Yellow Warbler"
   },
   {
-    "color": "rgba(175, 172, 33, 0.5)",
+    "color": "rgba(73, 52, 50, 1.0)",
     "speciesName": "Sphyrapicus varius",
     "commonName": "Yellow-bellied Sapsucker"
   },
   {
-    "color": "rgba(165, 7, 133, 0.5)",
+    "color": "rgba(90, 55, 172, 1.0)",
     "speciesName": "Setophaga coronata",
     "commonName": "Yellow-rumped Warbler"
-  },
-  {
-    "color": "rgba(135, 37, 15, 0.5)",
-    "speciesName": "Icteridae sp.",
-    "commonName": "blackbird sp."
-  },
-  {
-    "color": "rgba(135, 198, 59, 0.5)",
-    "speciesName": "Larinae sp.",
-    "commonName": "gull sp."
-  },
-  {
-    "color": "rgba(98, 14, 146, 0.5)",
-    "speciesName": "Stercorarius sp. (jaeger sp.)",
-    "commonName": "jaeger sp."
-  },
-  {
-    "color": "rgba(179, 118, 116, 0.5)",
-    "speciesName": "Passeriformes sp.",
-    "commonName": "passerine sp."
-  },
-  {
-    "color": "rgba(115, 84, 50, 0.5)",
-    "speciesName": "Calidris sp. (peep sp.)",
-    "commonName": "peep sp."
-  },
-  {
-    "color": "rgba(50, 119, 168, 0.5)",
-    "speciesName": "Melanitta sp.",
-    "commonName": "scoter sp."
-  },
-  {
-    "color": "rgba(29, 188, 84, 0.5)",
-    "speciesName": "Charadriiformes sp.",
-    "commonName": "shorebird sp."
-  },
-  {
-    "color": "rgba(85, 197, 37, 0.5)",
-    "speciesName": "Emberizidae sp. (sparrow sp.)",
-    "commonName": "sparrow sp."
-  },
-  {
-    "color": "rgba(4, 41, 109, 0.5)",
-    "speciesName": "Vireo sp.",
-    "commonName": "vireo sp."
-  },
-  {
-    "color": "rgba(155, 120, 119, 0.5)",
-    "speciesName": "Parulinae sp.",
-    "commonName": "warbler sp."
   }
 ]
